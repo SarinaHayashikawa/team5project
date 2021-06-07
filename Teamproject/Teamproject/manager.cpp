@@ -1,0 +1,344 @@
+//=============================================================================
+//
+// 管理処理 [manager.cpp]
+// Author : 林川紗梨夏
+//
+//=============================================================================
+
+//*****************************************************************************
+// ヘッダファイルのインクルード
+//*****************************************************************************
+#include "main.h"
+#include "manager.h"
+#include "renderer.h"
+#include "scene.h"
+#include "scene2d.h"
+#include "input.h"
+//#include "keyboard.h"
+//#include "mouse.h"
+#include "sound.h"
+#include "joystick.h"
+#include "title.h"
+#include "game.h"
+#include "camera.h"
+#include "light.h"
+//#include "player.h"
+#include "floor.h"
+//#include "number.h"
+//#include "gauge.h"
+//#include "select.h"
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
+
+//*****************************************************************************
+// 静的メンバ変数の初期化
+//*****************************************************************************
+CRenderer * CManager::m_pRenderer = nullptr;
+CKeyboard * CManager::m_pKeyboard = nullptr;
+CJoystick * CManager::m_pJoystick = nullptr;
+CMouse * CManager::m_pMouse = nullptr;
+CSound * CManager::m_pSound = nullptr;
+CGame * CManager::m_pGame = nullptr;
+CTitle * CManager::m_pTitle = nullptr;
+CSelect * CManager::m_pSelect = nullptr;
+CCamera *CManager::m_pCamera = nullptr;
+CLight *CManager::m_pLight = nullptr;
+CManager::MODE CManager::m_mode = MODE_NONE;
+CPlayer * CManager::m_pPlayer = nullptr;
+CMapManager * CManager::m_pMapManager = nullptr;
+HWND CManager::m_hWnd = nullptr;
+//=============================================================================
+// コンストラクタ
+//=============================================================================
+CManager::CManager()
+{
+	m_hWnd = nullptr;
+}
+
+//=============================================================================
+// デストラクタ
+//=============================================================================
+CManager::~CManager()
+{
+}
+
+//=============================================================================
+// 初期化処理関数
+//=============================================================================
+HRESULT CManager::Init(HINSTANCE hInsitance, HWND hWnd, bool bWindow)
+{
+	//レンダラーの生成
+	if (m_pRenderer == nullptr)
+	{
+		m_pRenderer = new CRenderer;
+	}
+	//レンダラーの初期化
+	m_pRenderer->Init(hWnd, TRUE);
+
+	////入力の生成
+	//if (m_pKeyboard == nullptr)
+	//{
+	//	m_pKeyboard = new CKeyboard;
+	//}
+	////キーボードの初期化
+	//m_pKeyboard->Init(hInsitance, hWnd);
+
+	////入力の生成
+	//if (m_pMouse == nullptr)
+	//{
+	//	m_pMouse = new CMouse;
+	//}
+	////マウスの初期化
+	//m_pMouse->Init(hInsitance, hWnd);
+
+	//ジョイスティックの生成
+	if (m_pJoystick == nullptr)
+	{
+		m_pJoystick = new CJoystick;
+	}
+	//ジョイスティックの初期化
+	m_pJoystick->Init(hInsitance, hWnd);
+
+	//サウンドの生成
+	if (m_pSound == nullptr)
+	{
+		m_pSound = new CSound;
+	}
+	//サウンドの初期化
+	m_pSound->Init(hWnd);
+
+	ShowCursor(FALSE);//カーソル見えなくする
+
+					  //全てのリソース読み込み
+	LoadAll();
+
+	SetMode(MODE_GAME);
+
+	m_hWnd = hWnd;
+	return S_OK;
+}
+
+//=============================================================================	
+// 終了処理関数
+//=============================================================================
+void CManager::Uninit(void)
+{
+	CScene::ReleaseAll();
+
+	//サウンドの停止
+	m_pSound->StopSound();
+
+	//サウンドの破棄
+	if (m_pSound != nullptr)
+	{
+		m_pSound->Uninit();
+		delete m_pSound;
+		m_pSound = NULL;
+	}
+
+	//ジョイスティックの破棄
+	if (m_pJoystick != nullptr)
+	{
+		m_pJoystick->Uninit();
+		delete m_pJoystick;
+		m_pJoystick = nullptr;
+	}
+
+	////マウスの破棄
+	//if (m_pMouse != nullptr)
+	//{
+	//	m_pMouse->Uninit();
+	//	delete m_pMouse;
+	//	m_pMouse = nullptr;
+	//}
+
+	////キーボードの破棄
+	//if (m_pKeyboard != nullptr)
+	//{
+	//	m_pKeyboard->Uninit();
+	//	delete m_pKeyboard;
+	//	m_pKeyboard = nullptr;
+	//}
+
+	//カメラの終了
+	if (m_pCamera != nullptr)
+	{
+		m_pCamera->Uninit();
+		delete m_pCamera;
+		m_pCamera = nullptr;
+	}
+
+	//レンダラーの破棄
+	if (m_pRenderer != nullptr)
+	{
+		m_pRenderer->Uninit();
+		delete m_pRenderer;
+		m_pRenderer = nullptr;
+	}
+
+	//全てのリソース破棄
+	UnloadAll();
+}
+
+//=============================================================================
+// 更新処理関数
+//=============================================================================
+void CManager::Update(void)
+{
+	////キーボードの更新
+	//if (m_pKeyboard != nullptr)
+	//{
+	//	m_pKeyboard->Update();
+	//}
+
+	////マウスの更新
+	//if (m_pMouse != nullptr)
+	//{
+	//	m_pMouse->Update();
+	//}
+
+	//ジョイスティックの更新
+	if (m_pJoystick != nullptr)
+	{
+		m_pJoystick->Update();
+	}
+	if (m_pCamera != nullptr)
+	{
+		//カメラのの更新処理
+		m_pCamera->Update();
+	}
+
+	//描画の更新
+	if (m_pRenderer != nullptr)
+	{
+		m_pRenderer->Update();
+	}
+
+}
+
+//=============================================================================
+// 描画処理関数
+//=============================================================================
+void CManager::Draw(void)
+{
+	if (m_pCamera != nullptr)
+	{
+		m_pCamera->SetCamera();
+	}
+	m_pRenderer->Draw();
+}
+
+//=============================================================================
+// 全リソース読み込み関数
+//=============================================================================
+void CManager::LoadAll(void)
+{
+	CFloor::Load();
+	//CNumber::Load();
+	//CGauge::Load();
+}
+
+//=============================================================================
+// 全リソース破棄関数
+//=============================================================================
+void CManager::UnloadAll(void)
+{
+	CFloor::Unload();
+	//CNumber::Unload();
+	//CGauge::Unload();
+}
+
+//=============================================================================
+// モード設定関数
+//=============================================================================
+void CManager::SetMode(MODE mode)
+{
+	m_pPlayer = nullptr;
+	//m_pMapManager = nullptr;
+	CScene::ReleaseAll();
+
+	//モードの割り当て
+	m_mode = mode;
+
+	//モードの切り替え
+	switch (mode)
+	{
+	case MODE_TITLE:
+		m_pTitle = CTitle::Create();
+		break;
+	case MODE_SELECT:
+		//m_pSelect = CSelect::Create();
+		break;
+	case MODE_GAME:
+		m_pGame = CGame::Create();
+		break;
+	}
+	////キーボードの更新
+	//m_pKeyboard->Update();
+	////マウスの更新
+	//m_pMouse->Update();
+	//ジョイスティックの更新
+	m_pJoystick->Update();
+}
+//=============================================================================
+//  カメラ生成
+//=============================================================================
+void CManager::CreateCamera(void)
+{
+	// m_pCameraがNULLの場合
+	if (m_pCamera == nullptr)
+	{
+		// メモリ確保
+		m_pCamera = new CCamera;
+
+		// m_pCameraがNULLでない場合
+		if (m_pCamera != nullptr)
+		{
+			// 初期化
+			m_pCamera->Init();
+		}
+	}
+}
+//=============================================================================
+//  ライト生成
+//=============================================================================
+void CManager::CreateLight(void)
+{
+	// m_pLightがNULLの場合
+	if (m_pLight == nullptr)
+	{
+		// メモリ確保
+		m_pLight = new CLight;
+
+		// m_pLightがNULLでない場合
+		if (m_pLight != nullptr)
+		{
+			// 初期化
+			m_pLight->Init();
+		}
+	}
+}
+//=============================================================================
+//  カメラ割り当て
+//=============================================================================
+void CManager::BindCamera(CCamera * pCamera)
+{
+	m_pCamera = pCamera;
+}
+//=============================================================================
+//  ウィンドウがアクティブかチェック
+//=============================================================================
+bool CManager::GetIsActiveWindow(void)
+{
+	bool bActive = false;
+	if (GetForegroundWindow() == m_hWnd)
+	{
+		bActive = true;
+	}
+	else
+	{
+		bActive = false;
+	}
+	return bActive;
+}
