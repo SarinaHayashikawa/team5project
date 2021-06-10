@@ -31,6 +31,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+
 	void BindTexture(LPDIRECT3DTEXTURE9 pTexture);
 	void SetTexture(D3DXVECTOR2 aTex[NUM_VERTEX]);
 	void SetColor(D3DXCOLOR Col);

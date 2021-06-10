@@ -33,6 +33,8 @@ class CMouse;
 class CMapManager;
 class CTitle;
 class CSelect;
+class CResource;
+
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
@@ -60,8 +62,6 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	static void LoadAll(void);
-	static void UnloadAll(void);
 
 	static void SetMode(MODE mode);
 	static MODE GetMode(void) { return m_mode; };
@@ -76,7 +76,7 @@ public:
 	static void CreateLight(void);
 	static void CManager::BindCamera(CCamera* pCamera);
 	static bool GetIsActiveWindow(void);
-
+	static CResource* GetResource(void) { return m_pResource; };			//リソースゲッター
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
@@ -92,6 +92,6 @@ private:
 	static CSelect * m_pSelect;
 	static CMapManager * m_pMapManager;
 	static HWND m_hWnd;
-
+	static CResource* m_pResource;		//リソースポインタ
 };
 #endif

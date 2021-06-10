@@ -208,6 +208,7 @@ void CPolygon3d::Draw(void)
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 	pDevice->SetTexture(0, m_pTexture);
+
 	//色セット
 	matDef.Ambient = m_Col;
 	pDevice->SetMaterial(&matDef);

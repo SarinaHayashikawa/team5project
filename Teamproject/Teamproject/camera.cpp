@@ -11,14 +11,23 @@
 //======================================================
 //インクルードファイル
 //======================================================
-#include <stdio.h>
-#include <stdlib.h>
 #include "camera.h"
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
+#include "mouse.h"
+#include "keyboard.h"
+
+//======================================================
+// マクロ定義
+//======================================================
 #define SCRIPT_PASS		"Data/TEXT/camera.txt"
 #define CAMERA_INTERPOLATION 0.2f //カメラ補間スピード
+
+#ifdef _DEBUG
+#define CAMERA_SENSITIVITY (5)	//マウス感度
+#define CAMERA_SPEED (10.0f)	//カメラスピード
+#endif
 
 //======================================================
 //コンストラクタ
@@ -36,6 +45,8 @@ CCamera::CCamera()
 	m_posVDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_posRDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_fInterpolation = 0.0f;
+	
+	m_fMoveRot = 0.0f;
 }
 //======================================================
 //デストラクタ
@@ -77,7 +88,12 @@ void CCamera::Uninit(void)
 //======================================================
 void CCamera::Update(void)
 {
-	CPlayer* pPlayer = CManager::GetPlayer();
+#ifdef _DEBUG
+	Move();
+
+#endif
+
+	//CPlayer* pPlayer = CManager::GetPlayer();
 
 	//カメラ距離の変化を補完
 	m_posV += (m_posVDest - m_posV) * m_fInterpolation;
@@ -85,6 +101,7 @@ void CCamera::Update(void)
 	m_posR += (m_posRDest - m_posR) * m_fInterpolation;
 
 }
+
 //======================================================
 //カメラによる描画
 //======================================================
@@ -125,6 +142,7 @@ void CCamera::SetCameraDistance(float fDistance)
 {
 	m_fDistanceFromPlayerDest = fDistance;
 }
+
 //======================================================
 //カメラ情報のセット
 //======================================================
@@ -141,3 +159,80 @@ void CCamera::SetCameraView(D3DXVECTOR3 posV, D3DXVECTOR3 posR, float fInterpola
 		m_fInterpolation = fInterpolation;
 	}
 }
+
+#ifdef _DEBUG
+//=============================================================================
+// 移動処理関数
+//=============================================================================
+void CCamera::Move(void)
+{
+
+	//キーボード入力の取得
+	CKeyboard* pInput = (CKeyboard*)CManager::GetInputKeyboard();
+
+	//マウス入力取得
+	CMouse *pInputMouse = (CMouse*)CManager::GetInputMouse();
+	//移動量
+	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	//視点を動かす
+	if (pInputMouse->GetClick(1))
+	{
+		//向き
+		m_rot.x += (pInputMouse->GetMousePos().lY * (float)(0.01f * CAMERA_SENSITIVITY));
+		m_rot.y -= (pInputMouse->GetMousePos().lX * (float)(0.01f * CAMERA_SENSITIVITY));
+
+		//移動
+		if (pInput->GetKeyPress(DIK_UP))
+		{
+			//単位ベクトルに取得
+			D3DXVec3Normalize(&move, &(m_posR - m_posV));
+		}
+		if (pInput->GetKeyPress(DIK_DOWN))
+		{
+			//単位ベクトルに取得
+			D3DXVec3Normalize(&move, &(m_posR - m_posV));
+			move *= -1;
+		}
+		if (pInput->GetKeyPress(DIK_LEFT))
+		{
+			//移動方向指定
+			m_fMoveRot = 0.0f;
+			//移動時の向き設定
+			m_fMoveRot += m_rot.y;
+			//移動量処理
+			move += D3DXVECTOR3(cosf(D3DXToRadian(m_fMoveRot)), 0, sinf(D3DXToRadian(m_fMoveRot)));
+		}
+		if (pInput->GetKeyPress(DIK_RIGHT))
+		{
+			//移動方向指定
+			m_fMoveRot = 180.0f;
+			//移動時の向き設定
+			m_fMoveRot += m_rot.y;
+			//移動量処理
+			move += D3DXVECTOR3(cosf(D3DXToRadian(m_fMoveRot)), 0, sinf(D3DXToRadian(m_fMoveRot)));
+		}
+		//速度処理
+		move *= CAMERA_SPEED;
+		//移動処理
+		m_posV += move;
+	}
+
+
+	//向きの限界値処理
+	if ((m_rot.x) >= 89
+		|| (m_rot.x) <= -89)
+	{
+		m_rot.x -= (pInputMouse->GetMousePos().lY * (float)(0.01f * CAMERA_SENSITIVITY));
+	}
+	if (m_rot.y<0)
+	{
+		m_rot.y += 360;
+	}
+	if (m_rot.y > 360)
+	{
+		m_rot.y -= 360;
+	}
+
+
+}
+#endif

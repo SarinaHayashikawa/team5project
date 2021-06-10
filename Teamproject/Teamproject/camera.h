@@ -15,6 +15,7 @@
 #define CAMERA_DISTANCE_FROM_PLAYER (100.0f)
 #define CAMERA_DISTANCE_FROM_PLAYER_STAND (200.0f)
 #define PLAYER_CAMERA_HEIGHT (20.0f) //プレイヤーの高さ
+
 //======================================================
 //クラス定義
 //======================================================
@@ -30,7 +31,11 @@ public:
 	D3DXVECTOR3 GetRot(void);
 	void SetRot(D3DXVECTOR3 rot);
 	void SetCameraDistance(float fDistance);
-	static void LoadScriptCamera(void);
+	//static void LoadScriptCamera(void);
+
+#ifdef _DEBUG
+	void		Move(void);			// 移動処理
+#endif
 private:
 
 	void SetCameraView(D3DXVECTOR3 posV, D3DXVECTOR3 posR, float fInterpolation);
@@ -45,10 +50,12 @@ private:
 	float m_fDistanceFromPlayer;
 	float m_fDistanceFromPlayerDest;
 	D3DXVECTOR3 m_rot;
-	D3DXVECTOR3 m_posVDest;            //カメラの座標(差)
-	D3DXVECTOR3 m_posRDest;            //注視点の座標(差)
-	bool m_bIsFollowPlayer;//プレイヤーに追従するか
-	float m_fInterpolation;//カメラ補間スピード
+	D3DXVECTOR3 m_posVDest;         //カメラの座標(差)
+	D3DXVECTOR3 m_posRDest;         //注視点の座標(差)
+	bool m_bIsFollowPlayer;			//プレイヤーに追従するか
+	float m_fInterpolation;			//カメラ補間スピード
+	
+	float m_fMoveRot;				//移動する向き
 };
 
 #endif
