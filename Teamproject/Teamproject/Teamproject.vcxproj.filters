@@ -90,14 +90,14 @@
     <ClCompile Include="title.cpp">
       <Filter>ソース ファイル\gamesceue</Filter>
     </ClCompile>
-    <ClCompile Include="resource manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="keyboard.cpp">
       <Filter>ソース ファイル\inputs</Filter>
     </ClCompile>
     <ClCompile Include="mouse.cpp">
       <Filter>ソース ファイル\inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="resource manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,14 +149,14 @@
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\gamemodel</Filter>
     </ClInclude>
-    <ClInclude Include="resource manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="keyboard.h">
       <Filter>ヘッダー ファイル\inputs</Filter>
     </ClInclude>
     <ClInclude Include="mouse.h">
       <Filter>ヘッダー ファイル\inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="resource manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

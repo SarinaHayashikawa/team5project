@@ -8,3 +8,5 @@
 TeamProjects.tlog
 *.db
 /Teamproject/.vs
+/Teamproject/Debug
+/Teamproject/Teamproject/Debug
