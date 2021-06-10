@@ -4,6 +4,12 @@
 // Author : 吉田悠人
 //
 //=============================================================================
+
+//=============================================================================
+// 警告制御
+//=============================================================================
+#define _CRT_SECURE_NO_WARNINGS
+
 //=============================================================================
 //インクルードファイル
 //=============================================================================
@@ -27,7 +33,7 @@ CResource::CResource()
 	m_npTexture		= NULL;
 	m_npModel		= NULL;
 	m_pTexture		= NULL;
-	//m_pModel		= NULL;
+	m_pModel		= NULL;
 }
 //=============================================================================
 // デストラクタ
@@ -43,8 +49,8 @@ HRESULT CResource::Init(void)
 {
 	//テクスチャロード
 	TextureFail();
-	////モデルファイルロード
-	//XFail();
+	//モデルファイルロード
+	XFail();
 
 	return S_OK;
 }
@@ -56,8 +62,8 @@ void CResource::Uninit(void)
 {
 	//テクスチャアンロード
 	TextureUnLoad();
-	////モデルアンロード
-	//ModelUnLoad();
+	//モデルアンロード
+	ModelUnLoad();
 
 }
 
@@ -146,121 +152,121 @@ void CResource::TextureFail(void)
 
 }
 
-////=============================================================================
-//// モデルロード
-////=============================================================================
-//CModel::MODELDATA CResource::ModelLoad(int nModel)
-//{
-//	for (int nCountModel = 0; nCountModel < m_nMaxModel; nCountModel++)
-//	{
-//		//テクスチャ番号が一致したら
-//		if (m_npModel[nCountModel] == nModel)
-//		{
-//			return m_pModel[nCountModel];
-//		}
-//	}
-//	return CModel::MODELDATA();
-//}
-//
-////=============================================================================
-//// モデルアンロード
-////=============================================================================
-//void CResource::ModelUnLoad(void)
-//{
-//	for (int nCountModel = 0; nCountModel < m_nMaxModel; nCountModel++)
-//	{
-//		if (m_pModel[nCountModel].pBuffMat != NULL)
-//		{
-//			m_pModel[nCountModel].pBuffMat->Release();
-//		}
-//
-//		if (m_pModel[nCountModel].pMesh != NULL)
-//		{
-//			m_pModel[nCountModel].pMesh->Release();
-//		}
-//
-//		for (int nCountTex = 0; nCountTex < MAX_MATERIAL; nCountTex++)
-//		{
-//			if (m_pModel[nCountModel].pTexture[nCountTex] != NULL)
-//			{
-//				m_pModel[nCountModel].pTexture[nCountTex]->Release();
-//			}
-//		}
-//
-//	}
-//
-//}
+//=============================================================================
+// モデルロード
+//=============================================================================
+CModel::MODELDATA CResource::ModelLoad(int nModel)
+{
+	for (int nCountModel = 0; nCountModel < m_nMaxModel; nCountModel++)
+	{
+		//テクスチャ番号が一致したら
+		if (m_npModel[nCountModel] == nModel)
+		{
+			return m_pModel[nCountModel];
+		}
+	}
+	return CModel::MODELDATA();
+}
 
-////=============================================================================
-//// Xファイル読み込みファイル
-////=============================================================================
-//void CResource::XFail(void)
-//{
-//	//デバイス取得
-//	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-//	//ファイルポインタ
-//	FILE*	pFile = NULL;
-//	//モデルテクスチャ用
-//	D3DXMATERIAL *pMat;
-//	//読み込み用データ
-//	char cFileString[258];
-//	char aData[256] = {};
-//	//行
-//	int nRow = 0;
-//	//初期化
-//	memset(cFileString, 0, sizeof(cFileString));
-//
-//	//ファイル読み込み
-//	fopen_s(&pFile, MODEL_DATA, "r");
-//
-//	if (pFile != NULL)
-//	{
-//		//総数読み込み
-//		fscanf_s(pFile, "MAX_DATA,%d", &m_nMaxModel);
-//
-//		//メモリ確保
-//		m_npModel = new int[m_nMaxModel];
-//		m_pModel = new CModel::MODELDATA[m_nMaxModel];
-//		//初期化
-//		for (int nModel = 0; nModel < m_nMaxModel; nModel++)
-//		{
-//			m_npModel[nModel] = NULL;
-//			ZeroMemory(&m_pModel[nModel], sizeof(m_pModel[nModel]));
-//		}
-//
-//		//行を読み飛ばし
-//		while (fgetc(pFile) != '\n');
-//
-//		while (fscanf(pFile, "%d,%[^,],%s\n", &m_npModel[nRow], m_pcTextureName, aData) != EOF)
-//		{
-//			// モデルの生成
-//			D3DXLoadMeshFromX(m_pcTextureName,
-//				D3DXMESH_SYSTEMMEM, 
-//				pDevice,
-//				NULL,
-//				&m_pModel[nRow].pBuffMat,
-//				NULL, 
-//				&m_pModel[nRow].nNumMat,
-//				&m_pModel[nRow].pMesh);
-//			// モデルのテクスチャ処理
-//			if (m_pModel[nRow].pBuffMat != NULL)
-//			{
-//				pMat = (D3DXMATERIAL *)m_pModel[nRow].pBuffMat->GetBufferPointer();
-//
-//				for (int nCountMat = 0; nCountMat < (int)m_pModel[nRow].nNumMat; nCountMat++)
-//				{
-//					D3DXCreateTextureFromFile(pDevice,
-//						pMat[nCountMat].pTextureFilename,
-//						&m_pModel[nRow].pTexture[nCountMat]);
-//				}
-//
-//			}
-//
-//			//行を進める
-//			nRow++;
-//		}
-//		fclose(pFile);				//ファイルを閉じる
-//	}
-//
-//}
-//
+//=============================================================================
+// モデルアンロード
+//=============================================================================
+void CResource::ModelUnLoad(void)
+{
+	for (int nCountModel = 0; nCountModel < m_nMaxModel; nCountModel++)
+	{
+		if (m_pModel[nCountModel].pBuffMat != NULL)
+		{
+			m_pModel[nCountModel].pBuffMat->Release();
+		}
+
+		if (m_pModel[nCountModel].pMesh != NULL)
+		{
+			m_pModel[nCountModel].pMesh->Release();
+		}
+
+		for (int nCountTex = 0; nCountTex < MAX_MATERIAL; nCountTex++)
+		{
+			if (m_pModel[nCountModel].pTexture[nCountTex] != NULL)
+			{
+				m_pModel[nCountModel].pTexture[nCountTex]->Release();
+			}
+		}
+
+	}
+
+}
+
+//=============================================================================
+// Xファイル読み込みファイル
+//=============================================================================
+void CResource::XFail(void)
+{
+	//デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+	//ファイルポインタ
+	FILE*	pFile = NULL;
+	//モデルテクスチャ用
+	D3DXMATERIAL *pMat;
+	//読み込み用データ
+	char cFileString[258];
+	char aData[256] = {};
+	//行
+	int nRow = 0;
+	//初期化
+	memset(cFileString, 0, sizeof(cFileString));
+
+	//ファイル読み込み
+	fopen_s(&pFile, MODEL_DATA, "r");
+
+	if (pFile != NULL)
+	{
+		//総数読み込み
+		fscanf_s(pFile, "MAX_DATA,%d", &m_nMaxModel);
+
+		//メモリ確保
+		m_npModel = new int[m_nMaxModel];
+		m_pModel = new CModel::MODELDATA[m_nMaxModel];
+		//初期化
+		for (int nModel = 0; nModel < m_nMaxModel; nModel++)
+		{
+			m_npModel[nModel] = NULL;
+			ZeroMemory(&m_pModel[nModel], sizeof(m_pModel[nModel]));
+		}
+
+		//行を読み飛ばし
+		while (fgetc(pFile) != '\n');
+
+		while (fscanf(pFile, "%d,%[^,],%s\n", &m_npModel[nRow], m_pcTextureName, aData) != EOF)
+		{
+			// モデルの生成
+			D3DXLoadMeshFromX(m_pcTextureName,
+				D3DXMESH_SYSTEMMEM, 
+				pDevice,
+				NULL,
+				&m_pModel[nRow].pBuffMat,
+				NULL, 
+				&m_pModel[nRow].nNumMat,
+				&m_pModel[nRow].pMesh);
+			// モデルのテクスチャ処理
+			if (m_pModel[nRow].pBuffMat != NULL)
+			{
+				pMat = (D3DXMATERIAL *)m_pModel[nRow].pBuffMat->GetBufferPointer();
+
+				for (int nCountMat = 0; nCountMat < (int)m_pModel[nRow].nNumMat; nCountMat++)
+				{
+					D3DXCreateTextureFromFile(pDevice,
+						pMat[nCountMat].pTextureFilename,
+						&m_pModel[nRow].pTexture[nCountMat]);
+				}
+
+			}
+
+			//行を進める
+			nRow++;
+		}
+		fclose(pFile);				//ファイルを閉じる
+	}
+
+}
+

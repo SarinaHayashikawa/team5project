@@ -8,20 +8,14 @@
 //*****************************************************************************
 // ヘッダファイルのインクルード
 //*****************************************************************************
-#include<stdio.h>
-#include<string.h>
-#include "main.h"
 #include "manager.h"
 #include "scene.h"
 #include "sound.h"
-#include "input.h"
 #include "joystick.h"
 #include "game.h"
-#include "scene2D.h"
-#include "camera.h"
-#include "light.h"
 #include "sound.h"
 #include "floor.h"
+#include "player.h"
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -44,6 +38,9 @@ CGame::~CGame()
 
 }
 
+//=============================================================================
+// 生成処理
+//=============================================================================
 CGame * CGame::Create(void)
 {
 	CGame *pGame;
@@ -64,6 +61,8 @@ HRESULT CGame::Init()
 	CManager::CreateCamera();
 	CManager::CreateLight();
 	CFloor::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
+	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+
 	return S_OK;
 }
 

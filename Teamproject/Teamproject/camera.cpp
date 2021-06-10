@@ -4,10 +4,7 @@
 //	Author:林川紗梨夏
 //
 //===================================================================
-//*****************************************************************************
-// 警告制御
-//*****************************************************************************
-#define _CRT_SECURE_NO_WARNINGS
+
 //======================================================
 //インクルードファイル
 //======================================================
@@ -35,8 +32,8 @@
 //======================================================
 CCamera::CCamera()
 {
-	m_posV = D3DXVECTOR3(20, 40, -100);
-	m_posR = m_posV + D3DXVECTOR3(0, 0, 500);
+	m_posV = D3DXVECTOR3(0.0f, 100.0f, 0.0f);
+	m_posR = m_posV + D3DXVECTOR3(0.0f, 0.0f, 500.0f);
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_rot = D3DXVECTOR3(45.0f, 180.0f, 0.0f);
 	m_fDistanceFromPlayer = CAMERA_DISTANCE_FROM_PLAYER;
@@ -66,11 +63,11 @@ CCamera::~CCamera()
 HRESULT CCamera::Init(void)
 {
 	//カメラの初期(位置・注意点・上方向)設定
-	m_posV = D3DXVECTOR3(20, 100, -200);
-	m_posR = m_posV + D3DXVECTOR3(0, 0, 500);
+	m_posV = D3DXVECTOR3(0.0f, 100.0f, 0.0f);
+	m_posR = m_posV + D3DXVECTOR3(0.0f, 0.0f, 500.0f);
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	//カメラの向き設定
-	m_rot = D3DXVECTOR3(45.0f, 180.0f, 0.0f);
+	m_rot = D3DXVECTOR3(89.0f, 180.0f, 0.0f);
 	//カメラのプレイヤーからの距離設定
 	m_fDistanceFromPlayer = CAMERA_DISTANCE_FROM_PLAYER;
 	m_fDistanceFromPlayerDest = CAMERA_DISTANCE_FROM_PLAYER;
@@ -95,19 +92,6 @@ void CCamera::Update(void)
 {
 #ifdef _DEBUG
 	Move();
-	//移動の計算
-	D3DXVECTOR3 RotateCenter = m_pos + D3DXVECTOR3(sinf(D3DXToRadian(m_rot.y - 90)),
-		50,
-		cosf(D3DXToRadian(-m_rot.y - 90)));
-
-	//カメラの移動処理
-	m_posV = RotateCenter +
-		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * 1,
-			sinf(D3DXToRadian(m_rot.x)) * 1,
-			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * 1);
-
-	//注意点の移動処理
-	m_posR = RotateCenter;
 
 #else
 	CPlayer* pPlayer = CManager::GetPlayer();
@@ -280,6 +264,19 @@ void CCamera::Move(void)
 		m_rot.y -= 360;
 	}
 
+	//移動の計算
+	D3DXVECTOR3 RotateCenter = m_pos + D3DXVECTOR3(sinf(D3DXToRadian(m_rot.y - 90)),
+		50,
+		cosf(D3DXToRadian(-m_rot.y - 90)));
+
+	//カメラの移動処理
+	m_posV = RotateCenter +
+		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * 1,
+			sinf(D3DXToRadian(m_rot.x)) * 1,
+			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * 1);
+
+	//注意点の移動処理
+	m_posR = RotateCenter;
 
 
 }

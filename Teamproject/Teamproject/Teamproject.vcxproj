@@ -150,12 +150,14 @@
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="joystick.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon3d.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="resource manager.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="joystick.h" />
