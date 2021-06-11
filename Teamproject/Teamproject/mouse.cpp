@@ -14,15 +14,13 @@
 //=============================================================================
 CMouse::CMouse()
 {
-	//座標の初期化
-#ifdef  MOUSE_POS_TYPE
-	m_aMousePos.lX = (LONG)0.0f;
-	m_aMousePos.lY = (LONG)0.0f;
+	//移動量の初期化
+	m_aMouseMove.lX = (LONG)0.0f;
+	m_aMouseMove.lY = (LONG)0.0f;
+	//位置の初期化
+	m_aMousePos.x = (LONG)0.0f;
+	m_aMousePos.y = (LONG)0.0f;
 
-#else 
-	posMouse.x = 0.0f;
-	posMouse.y = 0.0f;
-#endif
 	memset(m_aClickState.rgbButtons, 0, sizeof(m_aClickState.rgbButtons));
 	memset(m_aClickTrigger.rgbButtons, 0, sizeof(m_aClickTrigger.rgbButtons));
 	memset(m_aClickRelease.rgbButtons, 0, sizeof(m_aClickRelease.rgbButtons));
@@ -43,15 +41,14 @@ CMouse::~CMouse()
 HRESULT CMouse::Init(HINSTANCE hInstance, HWND hWnd)
 {
 	CInput::Init(hInstance, hWnd);
+	//移動量の初期化
+	m_aMouseMove.lX = (LONG)0.0f;
+	m_aMouseMove.lY = (LONG)0.0f;
+	//ウィンドウのデータの取得
+	m_hPointerpos = hWnd;
 	//座標の初期化
-#ifdef  MOUSE_POS_TYPE
-	m_aMousePos.lX = (LONG)0.0f;
-	m_aMousePos.lY = (LONG)0.0f;
-#else 
-	hPointerpos = hWnd;
-	posMouse.x = 0.0f;
-	posMouse.y = 0.0f;
-#endif
+	m_aMousePos.x = (LONG)0.0f;
+	m_aMousePos.y = (LONG)0.0f;
 
 	//入力デバイス（マウス）の作成
 	if (FAILED(m_pDinput->CreateDevice(GUID_SysMouse, &m_pDevice, NULL)))
@@ -93,10 +90,8 @@ HRESULT CMouse::Init(HINSTANCE hInstance, HWND hWnd)
 //=============================================================================
 void CMouse::Update(void)
 {
-
-
-#ifdef  MOUSE_POS_TYPE
 	DIMOUSESTATE ClickState;
+
 	if (SUCCEEDED(m_pDevice->GetDeviceState(sizeof(DIMOUSESTATE), &ClickState)))
 	{
 		for (int nCntClick = 0; nCntClick < NUM_CLICK_MAX; nCntClick++)
@@ -109,56 +104,35 @@ void CMouse::Update(void)
 			m_aClickRelease.rgbButtons[nCntClick] = (m_aClickState.rgbButtons[nCntClick] ^ ClickState.rgbButtons[nCntClick])&~ClickState.rgbButtons[nCntClick];
 		}
 		//マウスの移動量取得（IXとIYの移動量）
-		m_aMousePos = ClickState;
+		m_aMouseMove = ClickState;
 	}
 
 	else
 	{
 		m_pDevice->Acquire();
 	}
-#else 
-	DIMOUSESTATE ClickState;
 
-	if (SUCCEEDED(m_pDevice->GetDeviceState(sizeof(DIMOUSESTATE), &ClickState)))
-	{
-		for (int nCntClick = 0; nCntClick < NUM_CLICK_MAX; nCntClick++)
-		{
-			//クリックトリガー処理
-			m_aClickTrigger.rgbButtons[nCntClick] = (m_aClickState.rgbButtons[nCntClick] ^ ClickState.rgbButtons[nCntClick])&ClickState.rgbButtons[nCntClick];
-			//クリックリリース処理
-			m_aClickRelease.rgbButtons[nCntClick] = (m_aClickState.rgbButtons[nCntClick] ^ ClickState.rgbButtons[nCntClick])&~ClickState.rgbButtons[nCntClick];
-			//クリック処理
-			m_aClickState.rgbButtons[nCntClick] = ClickState.rgbButtons[nCntClick];
-
-		}
-	}
-
-	else
-	{
-		m_pDevice->Acquire();
-	}
 	////スクリーン座標取得
-	GetCursorPos(&posMouse);
-	ScreenToClient(hPointerpos, &posMouse);
+	GetCursorPos(&m_aMousePos);
+	ScreenToClient(m_hPointerpos, &m_aMousePos);
 
-#endif
+}
 
+//=============================================================================
+// 移動量処理
+//=============================================================================
+DIMOUSESTATE CMouse::GetMouseMove(void)
+{
+	return m_aMouseMove;
 }
 
 //=============================================================================
 // 位置処理
 //=============================================================================
-#ifdef  MOUSE_POS_TYPE
-DIMOUSESTATE CMouse::GetMousePos(void)
+POINT CMouse::GetMousePos(void)
 {
 	return m_aMousePos;
 }
-#else 
-POINT CInputMouse::GetMousePos(void)
-{
-	return posMouse;
-}
-#endif
 
 //=============================================================================
 // クリック処理

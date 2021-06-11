@@ -28,7 +28,9 @@ public:
 	void			Uninit(void);
 	void			Update(void);
 
-	void			Move(void);
+	void			Move(void);	// ˆÚ“®ˆ—
+	void			Rot(void);	// Œü‚«ˆ—
+	void			Boost(void);// ‰Á‘¬ˆ—
 
 private:
 	const int	m_nModel = 1;	// ƒ‚ƒfƒ‹”Ô†

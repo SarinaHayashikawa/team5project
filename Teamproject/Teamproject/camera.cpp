@@ -14,6 +14,8 @@
 #include "renderer.h"
 #include "mouse.h"
 #include "keyboard.h"
+#include "scene.h"
+#include "player.h"
 
 //======================================================
 // マクロ定義
@@ -38,7 +40,7 @@ CCamera::CCamera()
 	m_rot = D3DXVECTOR3(45.0f, 180.0f, 0.0f);
 	m_fDistanceFromPlayer = CAMERA_DISTANCE_FROM_PLAYER;
 	m_fDistanceFromPlayerDest = CAMERA_DISTANCE_FROM_PLAYER_STAND;
-	m_fDistance = 0.0f;
+	m_fDistance = 100.0f;
 	m_bIsFollowPlayer = false;
 	m_posVDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_posRDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -47,6 +49,7 @@ CCamera::CCamera()
 #ifdef _DEBUG
 	m_fMoveRot = 0.0f;
 	m_pos = m_posV;
+	m_bDebug = false;
 #endif
 
 }
@@ -91,15 +94,63 @@ void CCamera::Uninit(void)
 void CCamera::Update(void)
 {
 #ifdef _DEBUG
-	Move();
+	//キーボード入力の取得
+	CKeyboard* pInput = (CKeyboard*)CManager::GetInputKeyboard();
+	//プレイヤーの取得
+
+	//デバック状態の切替
+	if (pInput->GetKeyTrigger(DIK_Z))
+	{
+		if (m_bDebug == true)
+		{
+			m_bDebug = false;
+		}
+		else
+		{
+			m_bDebug = true;
+		}
+	}
+
+	if (m_bDebug == true)
+	{
+		Move();
+	}
+	else
+	{
+		PlayerFlattery();
+	}
+
+	//移動の計算
+	D3DXVECTOR3 RotateCenter = m_pos + D3DXVECTOR3(sinf(D3DXToRadian(m_rot.y - 90)),
+		50,
+		cosf(D3DXToRadian(-m_rot.y - 90)));
+
+	//カメラの移動処理
+	m_posV = RotateCenter +
+		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance,
+			sinf(D3DXToRadian(m_rot.x)) * m_fDistance,
+			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance);
+
+	//注意点の移動処理
+	m_posR = RotateCenter;
+
+
+
 
 #else
-	CPlayer* pPlayer = CManager::GetPlayer();
+	//移動の計算
+	D3DXVECTOR3 RotateCenter = m_pos + D3DXVECTOR3(sinf(D3DXToRadian(m_rot.y - 90)),
+		50,
+		cosf(D3DXToRadian(-m_rot.y - 90)));
 
-	//カメラ距離の変化を補完
-	m_posV += (m_posVDest - m_posV) * m_fInterpolation;
-	//カメラ距離の変化を補完
-	m_posR += (m_posRDest - m_posR) * m_fInterpolation;
+	//カメラの移動処理
+	m_posV = RotateCenter +
+		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance,
+			sinf(D3DXToRadian(m_rot.x)) * m_fDistance,
+			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance);
+
+	//注意点の移動処理
+	m_posR = RotateCenter;
 
 #endif
 
@@ -110,8 +161,10 @@ void CCamera::Update(void)
 //======================================================
 void CCamera::SetCamera(void)
 {
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();    //デバイスへのポインタ
-																		 //ビューマトリックスの初期化
+	//デバイスへのポインタ
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();    
+	
+	//ビューマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxView);
 	//ビューマトリックスの作成
 	D3DXMatrixLookAtLH(&m_mtxView, &m_posV, &m_posR, &m_vecU);
@@ -147,6 +200,46 @@ void CCamera::SetCameraDistance(float fDistance)
 }
 
 //======================================================
+// プレイヤー追従処理
+//======================================================
+void CCamera::PlayerFlattery(void)
+{
+	//シーン取得用
+	CScene* pTop[PRIORITY_MAX] = {};
+	//次チェックするシーンのポインタ
+	CScene* pNext = NULL;
+
+	//topのアドレスを取得
+	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+	{
+		pTop[nCount] = *(CScene::GetTop() + nCount);
+	}
+
+	//オブジェクト探査
+	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+	{
+		if (pTop[nCount] != NULL)
+		{
+			pNext = pTop[nCount];
+			//その描画優先度のオブジェクトがなくなるまでループ
+			while (pNext != NULL)
+			{
+				if (pNext->GetObjType() == CScene::OBJTYPE_PLAYER)
+				{
+					
+					m_pos = ((CPlayer*)pNext)->GetPos();
+					return;
+				}
+				//次のオブジェクトのポインタを更新
+				pNext = pNext->GetNext();
+
+			}
+		}
+	}
+
+}
+
+//======================================================
 //カメラ情報のセット
 //======================================================
 void CCamera::SetCameraView(D3DXVECTOR3 posV, D3DXVECTOR3 posR, float fInterpolation)
@@ -179,20 +272,20 @@ void CCamera::Move(void)
 	D3DXVECTOR3 distance = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	//視点を動かす
-	if (pInputMouse->GetClick(1))
+	if (m_bDebug == true)
 	{
 		//向き
-		m_rot.x += (pInputMouse->GetMousePos().lY * (float)(0.01f * CAMERA_SENSITIVITY));
-		m_rot.y -= (pInputMouse->GetMousePos().lX * (float)(0.01f * CAMERA_SENSITIVITY));
+		m_rot.x += (pInputMouse->GetMouseMove().lY * (float)(0.01f * CAMERA_SENSITIVITY));
+		m_rot.y -= (pInputMouse->GetMouseMove().lX * (float)(0.01f * CAMERA_SENSITIVITY));
 		
 		//注視点の距離を変える
-		if (pInputMouse->GetMousePos().lZ != 0)
+		if (pInputMouse->GetMouseMove().lZ != 0)
 		{
 			//単位ベクトルに取得
 			D3DXVec3Normalize(&distance, &(m_posR - m_posV));
 
 			//ズームアウトの場合
-			if (pInputMouse->GetMousePos().lZ<0)
+			if (pInputMouse->GetMouseMove().lZ<0)
 			{
 				distance *= -1;
 			}
@@ -208,6 +301,7 @@ void CCamera::Move(void)
 			//移動量処理
 			move += D3DXVECTOR3(cosf(D3DXToRadian(m_fMoveRot)), 0, sinf(D3DXToRadian(m_fMoveRot)));
 		}
+
 		if (pInput->GetKeyPress(DIK_S))
 		{
 			//移動方向指定
@@ -227,6 +321,7 @@ void CCamera::Move(void)
 			//移動量処理
 			move += D3DXVECTOR3(cosf(D3DXToRadian(m_fMoveRot)), 0, sinf(D3DXToRadian(m_fMoveRot)));
 		}
+
 		if (pInput->GetKeyPress(DIK_D))
 		{
 			//移動方向指定
@@ -253,7 +348,7 @@ void CCamera::Move(void)
 	if ((m_rot.x) >= 89
 		|| (m_rot.x) <= -89)
 	{
-		m_rot.x -= (pInputMouse->GetMousePos().lY * (float)(0.01f * CAMERA_SENSITIVITY));
+		m_rot.x -= (pInputMouse->GetMouseMove().lY * (float)(0.01f * CAMERA_SENSITIVITY));
 	}
 	if (m_rot.y<0)
 	{
@@ -263,21 +358,6 @@ void CCamera::Move(void)
 	{
 		m_rot.y -= 360;
 	}
-
-	//移動の計算
-	D3DXVECTOR3 RotateCenter = m_pos + D3DXVECTOR3(sinf(D3DXToRadian(m_rot.y - 90)),
-		50,
-		cosf(D3DXToRadian(-m_rot.y - 90)));
-
-	//カメラの移動処理
-	m_posV = RotateCenter +
-		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * 1,
-			sinf(D3DXToRadian(m_rot.x)) * 1,
-			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * 1);
-
-	//注意点の移動処理
-	m_posR = RotateCenter;
-
 
 }
 #endif

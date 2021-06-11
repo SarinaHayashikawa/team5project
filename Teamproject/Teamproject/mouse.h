@@ -34,23 +34,17 @@ public:
 	bool GetClickTrigger(int nClick);
 	bool GetClickRelease(int nClick);
 
-#ifdef  MOUSE_POS_TYPE
-	DIMOUSESTATE GetMousePos(void);
-#else 
-	POINT		GetMousePos(void);
-#endif
+	DIMOUSESTATE	GetMouseMove(void);
+	POINT			GetMousePos(void);
 
 private:
-	DIMOUSESTATE m_aClickState;			//マウスの入力情報ワーク
-	DIMOUSESTATE m_aClickTrigger;		//マウスのトリガー情報
-	DIMOUSESTATE m_aClickRelease;		//マウスのリリース情報
+	DIMOUSESTATE	m_aClickState;			//マウスの入力情報ワーク
+	DIMOUSESTATE	m_aClickTrigger;		//マウスのトリガー情報
+	DIMOUSESTATE	m_aClickRelease;		//マウスのリリース情報
 
-#ifdef  MOUSE_POS_TYPE
-	DIMOUSESTATE m_aMousePos;			//マウスの移動量
-#else 
-	POINT posMouse;						//マウスの座標
-	HWND hPointerpos;					//ウィンドウのマウスポインターの座標
-#endif
+	DIMOUSESTATE	m_aMouseMove;			//マウスの移動量
+	POINT			m_aMousePos;			//マウスの座標
+	HWND			m_hPointerpos;			//ウィンドウのマウスポインターの座標
 
 };
 

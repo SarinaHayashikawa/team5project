@@ -32,6 +32,7 @@ public:
 	void SetRot(D3DXVECTOR3 rot);
 	void SetCameraDistance(float fDistance);
 	//static void LoadScriptCamera(void);
+	void PlayerFlattery(void);		//プレイヤー追従
 
 #ifdef _DEBUG
 	void		Move(void);			// 移動処理
@@ -56,8 +57,9 @@ private:
 	float m_fInterpolation;			// カメラ補間スピード
 
 #ifdef _DEBUG						   
-	float m_fMoveRot;				// 移動する向き
+	float		m_fMoveRot;			// 移動する向き
 	D3DXVECTOR3 m_pos;				// 位置
+	bool		m_bDebug;			// デバック状態
 #endif
 
 };

@@ -11,11 +11,18 @@
 #include "player.h"
 #include "resource manager.h"
 #include "keyboard.h"
+#include "mouse.h"
+//=============================================================================
+// マクロ定義
+//=============================================================================
+#define PLAYER_SPEED (2.0f)	//プレイヤーのスピード
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CPlayer::CPlayer(int nPriority)
 {
+	SetObjType(OBJTYPE_PLAYER);
 }
 
 //=============================================================================
@@ -69,7 +76,7 @@ HRESULT CPlayer::Init(void)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
-
+	
 }
 
 //=============================================================================
@@ -77,7 +84,7 @@ void CPlayer::Uninit(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
-
+	Move();
 }
 
 //=============================================================================
@@ -87,26 +94,48 @@ void CPlayer::Move(void)
 {
 	//キーボード入力の取得
 	CKeyboard* pInput = (CKeyboard*)CManager::GetInputKeyboard();
+	//マウス入力取得
+	CMouse *pInputMouse = (CMouse*)CManager::GetInputMouse();
+
 	//位置取得
 	D3DXVECTOR3 pos = GetPos();
+	//移動量
+	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	//移動（デバック）
 	if (pInput->GetKeyPress(DIK_W))
 	{
-	
+		move += D3DXVECTOR3(0.0f,0.0f,1.0f);
 	}
 	if(pInput->GetKeyPress(DIK_S))
 	{
-
+		move += D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 	}
 	if (pInput->GetKeyPress(DIK_A))
 	{
-
+		move += D3DXVECTOR3(-1.0f, 0.0f, 0.0f);
 	}
 	if (pInput->GetKeyPress(DIK_D))
 	{
-
+		move += D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	}
 
+	//移動（マウス）
+	if (pInputMouse->GetClick(0))
+	{
+		//単位ベクトルに取得
+		D3DXVec3Normalize(&move, &D3DXVECTOR3((float)pInputMouse->GetMousePos().x - SCREEN_WIDTH/2, 0.0f, (float)-pInputMouse->GetMousePos().y + SCREEN_HEIGHT/2));
+	}
+
+
+
+	// 移動スピード
+	move *= PLAYER_SPEED;
+
+	// 移動処理
+	pos += move;
+
+	// 位置保存
+	SetPos(pos);
 }
 
