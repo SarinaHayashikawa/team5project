@@ -35,7 +35,6 @@ public:
 private:
 	const int	m_nModel = 1;	// ƒ‚ƒfƒ‹”Ô†
 	int			m_nLife;		// ƒ‰ƒCƒt
-
 };
 #endif // !_BLOCK_H_
 

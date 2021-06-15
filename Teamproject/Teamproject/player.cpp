@@ -15,8 +15,8 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SPEED (2.0f)	//プレイヤーのスピード
-
+#define PLAYER_SPEED (2.0f)			//プレイヤーのスピード(後で変更)
+#define PlAYER_ROT_SPEED (10.0f)	//プレイヤーの振り向き速度(後で変更)
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -99,6 +99,8 @@ void CPlayer::Move(void)
 
 	//位置取得
 	D3DXVECTOR3 pos = GetPos();
+	//向き取得
+	D3DXVECTOR3 rot = GetRot();
 	//移動量
 	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
@@ -123,10 +125,30 @@ void CPlayer::Move(void)
 	//移動（マウス）
 	if (pInputMouse->GetClick(0))
 	{
-		//単位ベクトルに取得
-		D3DXVec3Normalize(&move, &D3DXVECTOR3((float)pInputMouse->GetMousePos().x - SCREEN_WIDTH/2, 0.0f, (float)-pInputMouse->GetMousePos().y + SCREEN_HEIGHT/2));
-	}
+		float fRotMove=0.0f;
 
+		//単位ベクトル取得
+		D3DXVec3Normalize(&move, &D3DXVECTOR3((float)pInputMouse->GetMousePos().x - SCREEN_WIDTH/2, 0.0f, (float)-pInputMouse->GetMousePos().y + SCREEN_HEIGHT/2));
+		
+		//向きたい角度
+		fRotMove = atan2f((pos.x - (move.x + pos.x)), (pos.z - (move.z + pos.z)));
+		//差分の角度
+		float fDiff = ((D3DXToRadian(180.0f) - (fRotMove*-1.0f)) - (D3DXToRadian(180.0f) - (rot.y*-1.0f)))*-1.0f;
+		//回転方向の確認(時計周りtrue:反時計回りfalse)
+		bool bRotation = fRotMove>rot.y ? !(fRotMove - rot.y > D3DXToRadian(180.0f)): rot.y - fRotMove  > D3DXToRadian(180.0f);
+		//向きの修正
+		fDiff = (fDiff + (bRotation ? D3DXToRadian(-360.0f) : D3DXToRadian (360.0f)));
+		fDiff = fmod(fDiff, D3DXToRadian(360.0f));
+		//向き処理
+		rot.y = rot.y - (fDiff*0.1f);
+		//角度が一定に達したら修正
+		if (D3DXToDegree(rot.y) >= 360.0f
+			|| D3DXToDegree(rot.y) <= -360.0f)
+		{
+			rot.y = 0.0f;
+		}
+
+	}
 
 
 	// 移動スピード
@@ -137,5 +159,24 @@ void CPlayer::Move(void)
 
 	// 位置保存
 	SetPos(pos);
+	// 向き保存
+	SetRot(rot);
+
+}
+
+//=============================================================================
+// 向き処理関数
+//=============================================================================
+void CPlayer::Rot(void)
+{
+	
+
+}
+
+//=============================================================================
+// 加速処理関数
+//=============================================================================
+void CPlayer::Boost(void)
+{
 }
 
