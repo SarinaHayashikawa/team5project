@@ -15,14 +15,17 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SPEED (2.0f)			//プレイヤーのスピード(後で変更)
-#define PlAYER_ROT_SPEED (10.0f)	//プレイヤーの振り向き速度(後で変更)
+#define PLAYER_SPEED (1.0f)			// プレイヤーのスピード(後で変更)
+#define PLAYER_BOOST_SPEED (2.0f)	// プレイヤーのブーストスピード(後で変更)
+#define PlAYER_ROT_SPEED (10.0f)	// プレイヤーの振り向き速度(後で変更)
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CPlayer::CPlayer(int nPriority)
 {
-	SetObjType(OBJTYPE_PLAYER);
+	SetObjType(OBJTYPE_PLAYER);			// オブジェクトタイプ設定
+	m_nLife		= 0;					// ライフの初期化
+	memset(m_Move, NULL, sizeof(m_Move));// 移動量の初期化
 }
 
 //=============================================================================
@@ -99,8 +102,6 @@ void CPlayer::Move(void)
 
 	//位置取得
 	D3DXVECTOR3 pos = GetPos();
-	//向き取得
-	D3DXVECTOR3 rot = GetRot();
 	//移動量
 	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
@@ -122,45 +123,29 @@ void CPlayer::Move(void)
 		move += D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	}
 
-	//移動（マウス）
-	if (pInputMouse->GetClick(0))
+
+
+	//単位ベクトル取得
+	D3DXVec3Normalize(&m_Move, &D3DXVECTOR3((float)pInputMouse->GetMousePos().x - SCREEN_WIDTH / 2, 0.0f, (float)-pInputMouse->GetMousePos().y + SCREEN_HEIGHT / 2));
+	//角度処理
+	Rot();
+
+	if (!pInputMouse->GetClick(0))
 	{
-		float fRotMove=0.0f;
-
-		//単位ベクトル取得
-		D3DXVec3Normalize(&move, &D3DXVECTOR3((float)pInputMouse->GetMousePos().x - SCREEN_WIDTH/2, 0.0f, (float)-pInputMouse->GetMousePos().y + SCREEN_HEIGHT/2));
-		
-		//向きたい角度
-		fRotMove = atan2f((pos.x - (move.x + pos.x)), (pos.z - (move.z + pos.z)));
-		//差分の角度
-		float fDiff = ((D3DXToRadian(180.0f) - (fRotMove*-1.0f)) - (D3DXToRadian(180.0f) - (rot.y*-1.0f)))*-1.0f;
-		//回転方向の確認(時計周りtrue:反時計回りfalse)
-		bool bRotation = fRotMove>rot.y ? !(fRotMove - rot.y > D3DXToRadian(180.0f)): rot.y - fRotMove  > D3DXToRadian(180.0f);
-		//向きの修正
-		fDiff = (fDiff + (bRotation ? D3DXToRadian(-360.0f) : D3DXToRadian (360.0f)));
-		fDiff = fmod(fDiff, D3DXToRadian(360.0f));
-		//向き処理
-		rot.y = rot.y - (fDiff*0.1f);
-		//角度が一定に達したら修正
-		if (D3DXToDegree(rot.y) >= 360.0f
-			|| D3DXToDegree(rot.y) <= -360.0f)
-		{
-			rot.y = 0.0f;
-		}
-
+		// 移動スピード
+		m_Move *= PLAYER_SPEED;
+	}
+	else
+	{
+		//ブースト時のスピード
+		m_Move *= PLAYER_BOOST_SPEED;
 	}
 
-
-	// 移動スピード
-	move *= PLAYER_SPEED;
-
 	// 移動処理
-	pos += move;
+	pos += m_Move;
 
 	// 位置保存
 	SetPos(pos);
-	// 向き保存
-	SetRot(rot);
 
 }
 
@@ -169,14 +154,33 @@ void CPlayer::Move(void)
 //=============================================================================
 void CPlayer::Rot(void)
 {
-	
+	//角度の移動量
+	float fRotMove = 0.0f;
+	//位置取得
+	D3DXVECTOR3 pos = GetPos();
+	//向き取得
+	D3DXVECTOR3 rot = GetRot();
 
-}
+	//向きたい角度
+	fRotMove = atan2f((pos.x - (m_Move.x + pos.x)), (pos.z - (m_Move.z + pos.z)));
+	//差分の角度
+	float fDiff = ((D3DXToRadian(180.0f) - (fRotMove*-1.0f)) - (D3DXToRadian(180.0f) - (rot.y*-1.0f)))*-1.0f;
+	//回転方向の確認(時計周りtrue:反時計回りfalse)
+	bool bRotation = fRotMove>rot.y ? !(fRotMove - rot.y > D3DXToRadian(180.0f)) : rot.y - fRotMove  > D3DXToRadian(180.0f);
+	//向きの修正
+	fDiff = (fDiff + (bRotation ? D3DXToRadian(-360.0f) : D3DXToRadian(360.0f)));
+	fDiff = (float)(fmod(fDiff, D3DXToRadian(360.0f)));
+	//向き処理
+	rot.y = rot.y - (fDiff*0.1f);
+	//角度が一定に達したら修正
+	if (D3DXToDegree(rot.y) >= 360.0f
+		|| D3DXToDegree(rot.y) <= -360.0f)
+	{
+		rot.y = 0.0f;
+	}
 
-//=============================================================================
-// 加速処理関数
-//=============================================================================
-void CPlayer::Boost(void)
-{
+	// 向き保存
+	SetRot(rot);
+
 }
 

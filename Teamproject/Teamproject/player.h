@@ -28,13 +28,15 @@ public:
 	void			Uninit(void);
 	void			Update(void);
 
-	void			Move(void);	// ˆÚ“®ˆ—
-	void			Rot(void);	// Œü‚«ˆ—
-	void			Boost(void);// ‰Á‘¬ˆ—
 
 private:
+	void			Move(void);	// ˆÚ“®ˆ—
+	void			Rot(void);	// Œü‚«ˆ—
+
 	const int	m_nModel = 1;	// ƒ‚ƒfƒ‹”Ô†
 	int			m_nLife;		// ƒ‰ƒCƒt
+	D3DXVECTOR3 m_Move;			// ˆÚ“®—Ê
+
 };
 #endif // !_BLOCK_H_
 
