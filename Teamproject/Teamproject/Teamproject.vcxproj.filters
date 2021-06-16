@@ -13,42 +13,63 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\inputs">
-      <UniqueIdentifier>{e43de555-c3b1-4341-ad5b-3776a05a256a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\inputs">
       <UniqueIdentifier>{b1361472-faf0-4525-8fa8-f4688941bfec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\sceue">
+      <UniqueIdentifier>{771c4593-957e-4eeb-a775-122670731fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\manager">
+      <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ModelBase">
+      <UniqueIdentifier>{78510f32-8fd2-4b1a-b3b5-c353a781b102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ModelBase">
+      <UniqueIdentifier>{7493229d-9398-43b2-92aa-3f4d2599cea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameSceue">
+      <UniqueIdentifier>{2cd544e6-72c7-48e0-b44c-dff80b5d7402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel">
+      <UniqueIdentifier>{ce6d1ed7-b2ad-4a92-b789-021ba2f92805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameSceue">
+      <UniqueIdentifier>{08f72c73-0069-4d02-bab5-53fa8774b7f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel">
+      <UniqueIdentifier>{787109f7-04a6-457b-88df-04400c054bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Inputs">
+      <UniqueIdentifier>{e43de555-c3b1-4341-ad5b-3776a05a256a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Manager">
+      <UniqueIdentifier>{9663d10d-5582-42dd-a0f6-59c99fc9fe01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sceue">
+      <UniqueIdentifier>{f50bc822-ee85-461a-8768-5c5c74c42128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Player">
+      <UniqueIdentifier>{3e4fff7e-5fb4-4149-ad83-7136173bf716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Player">
+      <UniqueIdentifier>{741fa258-1d98-4a9c-b4e7-e3e177b2583e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="manager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="renderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene2d.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="input.cpp">
-      <Filter>ソース ファイル\inputs</Filter>
+      <Filter>ソース ファイル\Inputs</Filter>
     </ClCompile>
     <ClCompile Include="joystick.cpp">
-      <Filter>ソース ファイル\inputs</Filter>
+      <Filter>ソース ファイル\Inputs</Filter>
     </ClCompile>
     <ClCompile Include="sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="light.cpp">
@@ -57,13 +78,43 @@
     <ClCompile Include="camera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="floor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon3d.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="scene2d.cpp">
+      <Filter>ソース ファイル\Sceue</Filter>
     </ClCompile>
     <ClCompile Include="scene3d.cpp">
+      <Filter>ソース ファイル\Sceue</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>ソース ファイル\Sceue</Filter>
+    </ClCompile>
+    <ClCompile Include="floor.cpp">
+      <Filter>ソース ファイル\GameModel</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>ソース ファイル\GameSceue</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>ソース ファイル\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse.cpp">
+      <Filter>ソース ファイル\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="resource manager.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon3d.cpp">
+      <Filter>ソース ファイル\ModelBase</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>ソース ファイル\GameSceue</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>ソース ファイル\ModelBase</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,16 +122,7 @@
     <ClInclude Include="main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="scene2d.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
@@ -92,26 +134,50 @@
     <ClInclude Include="sound.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="light.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="scene3d.h">
+      <Filter>ヘッダー ファイル\sceue</Filter>
+    </ClInclude>
+    <ClInclude Include="scene2d.h">
+      <Filter>ヘッダー ファイル\sceue</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>ヘッダー ファイル\sceue</Filter>
+    </ClInclude>
     <ClInclude Include="floor.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\GameModel</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>ヘッダー ファイル\GameSceue</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>ヘッダー ファイル\inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse.h">
+      <Filter>ヘッダー ファイル\inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="resource manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
     </ClInclude>
     <ClInclude Include="polygon3d.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\ModelBase</Filter>
     </ClInclude>
-    <ClInclude Include="scene3d.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="game.h">
+      <Filter>ヘッダー ファイル\GameSceue</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>ヘッダー ファイル\ModelBase</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ヘッダー ファイル\GameModel\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

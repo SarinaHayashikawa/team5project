@@ -1,4 +1,3 @@
-
 //=============================================================================
 //
 // 床処理 [floor.h]
@@ -10,7 +9,15 @@
 
 #include "scene3d.h"
 #include "polygon3d.h"
+
+//=============================================================================
+// マクロ定義
+//=============================================================================
 #define TEXTURE_FLOOR		"Data/TEXTURE/FLOOR/bg001.png"
+
+//=============================================================================
+//クラス定義
+//=============================================================================
 class CFloor : public CPolygon3d
 {
 public:
@@ -23,18 +30,16 @@ public:
 		TYPE_BLOCK_001,
 		TYPE_MAX,
 	}TYPE;
-	static HRESULT Load(void);
-	static void Unload(void);
+
 	static CFloor * Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size);
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
 private:
-	int                     m_nPatternAnim; //アニメーションパターン
-	int                     m_nCountAnim; //アニメーションパターン
-	static LPDIRECT3DTEXTURE9   m_apTexture[TYPE_MAX];
-
+	int							m_nPatternAnim;			// アニメーションパターン
+	int							m_nCountAnim;			// アニメーションパターン
+	const int					m_nTexture = 1;			// テクスチャ番号
 };
 #endif // !_BLOCK_H_
 

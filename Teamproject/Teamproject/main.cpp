@@ -29,9 +29,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 int	g_nCountFPS;			// FPSカウンタ
 #endif
 
-							//=============================================================================
-							// メイン関数
-							//=============================================================================
+//=============================================================================
+// メイン関数
+//=============================================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	CManager *pManager = NULL;
@@ -83,12 +83,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//ウィンドウモード
 	//==============================================================================
 	////指定したクライアント領域を確保するために必要なウィンドウ座標を計算
-	AdjustWindowRect(&rect, WS_POPUP, false);
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 	////ウィンドウの作成
 	hWnd = CreateWindow(CLASS_NAME,
 		WINDOW_NAME,
-		WS_POPUP,
+		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
 		(rect.right - rect.left),
@@ -121,7 +121,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//ウィンドウモード
 	//==============================================================================
 	// ウインドウの表示
-	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 	//==============================================================================
 

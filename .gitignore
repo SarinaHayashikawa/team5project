@@ -1,0 +1,12 @@
+/Teamproject/.vs/TeamProjects/v14/.suo
+*.exe
+*.ilk
+*.pdb
+*.obj
+*.log
+*.idb
+TeamProjects.tlog
+*.db
+/Teamproject/.vs
+/Teamproject/Debug
+/Teamproject/Teamproject/Debug

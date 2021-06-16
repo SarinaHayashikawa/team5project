@@ -11,22 +11,16 @@
 #include "main.h"
 #include "manager.h"
 #include "renderer.h"
-#include "scene.h"
-#include "scene2d.h"
 #include "input.h"
-//#include "keyboard.h"
-//#include "mouse.h"
+#include "keyboard.h"
+#include "mouse.h"
 #include "sound.h"
 #include "joystick.h"
 #include "title.h"
 #include "game.h"
 #include "camera.h"
 #include "light.h"
-//#include "player.h"
-#include "floor.h"
-//#include "number.h"
-//#include "gauge.h"
-//#include "select.h"
+#include "resource manager.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -37,7 +31,7 @@
 CRenderer * CManager::m_pRenderer = nullptr;
 CKeyboard * CManager::m_pKeyboard = nullptr;
 CJoystick * CManager::m_pJoystick = nullptr;
-CMouse * CManager::m_pMouse = nullptr;
+CMouse * CManager::m_pMouse	= nullptr;
 CSound * CManager::m_pSound = nullptr;
 CGame * CManager::m_pGame = nullptr;
 CTitle * CManager::m_pTitle = nullptr;
@@ -48,6 +42,7 @@ CManager::MODE CManager::m_mode = MODE_NONE;
 CPlayer * CManager::m_pPlayer = nullptr;
 CMapManager * CManager::m_pMapManager = nullptr;
 HWND CManager::m_hWnd = nullptr;
+CResource * CManager::m_pResource = nullptr;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -74,23 +69,23 @@ HRESULT CManager::Init(HINSTANCE hInsitance, HWND hWnd, bool bWindow)
 		m_pRenderer = new CRenderer;
 	}
 	//レンダラーの初期化
-	m_pRenderer->Init(hWnd, TRUE);
+	m_pRenderer->Init(hWnd, bWindow);
 
-	////入力の生成
-	//if (m_pKeyboard == nullptr)
-	//{
-	//	m_pKeyboard = new CKeyboard;
-	//}
-	////キーボードの初期化
-	//m_pKeyboard->Init(hInsitance, hWnd);
+	//入力の生成
+	if (m_pKeyboard == nullptr)
+	{
+		m_pKeyboard = new CKeyboard;
+	}
+	//キーボードの初期化
+	m_pKeyboard->Init(hInsitance, hWnd);
 
-	////入力の生成
-	//if (m_pMouse == nullptr)
-	//{
-	//	m_pMouse = new CMouse;
-	//}
-	////マウスの初期化
-	//m_pMouse->Init(hInsitance, hWnd);
+	//入力の生成
+	if (m_pMouse == nullptr)
+	{
+		m_pMouse = new CMouse;
+	}
+	//マウスの初期化
+	m_pMouse->Init(hInsitance, hWnd);
 
 	//ジョイスティックの生成
 	if (m_pJoystick == nullptr)
@@ -108,10 +103,16 @@ HRESULT CManager::Init(HINSTANCE hInsitance, HWND hWnd, bool bWindow)
 	//サウンドの初期化
 	m_pSound->Init(hWnd);
 
-	ShowCursor(FALSE);//カーソル見えなくする
+	//カーソル見えなくする
+	//ShowCursor(FALSE);
 
-					  //全てのリソース読み込み
-	LoadAll();
+	//全てのリソース読み込み
+	if (m_pResource == nullptr)
+	{
+		m_pResource = new CResource;
+	}
+	m_pResource->Init();
+	//LoadAll();
 
 	SetMode(MODE_GAME);
 
@@ -145,21 +146,21 @@ void CManager::Uninit(void)
 		m_pJoystick = nullptr;
 	}
 
-	////マウスの破棄
-	//if (m_pMouse != nullptr)
-	//{
-	//	m_pMouse->Uninit();
-	//	delete m_pMouse;
-	//	m_pMouse = nullptr;
-	//}
+	//マウスの破棄
+	if (m_pMouse != nullptr)
+	{
+		m_pMouse->Uninit();
+		delete m_pMouse;
+		m_pMouse = nullptr;
+	}
 
-	////キーボードの破棄
-	//if (m_pKeyboard != nullptr)
-	//{
-	//	m_pKeyboard->Uninit();
-	//	delete m_pKeyboard;
-	//	m_pKeyboard = nullptr;
-	//}
+	//キーボードの破棄
+	if (m_pKeyboard != nullptr)
+	{
+		m_pKeyboard->Uninit();
+		delete m_pKeyboard;
+		m_pKeyboard = nullptr;
+	}
 
 	//カメラの終了
 	if (m_pCamera != nullptr)
@@ -178,7 +179,12 @@ void CManager::Uninit(void)
 	}
 
 	//全てのリソース破棄
-	UnloadAll();
+	if (m_pResource != nullptr)
+	{
+		m_pResource->Uninit();
+		delete m_pResource;
+		m_pResource = nullptr;
+	}
 }
 
 //=============================================================================
@@ -186,17 +192,17 @@ void CManager::Uninit(void)
 //=============================================================================
 void CManager::Update(void)
 {
-	////キーボードの更新
-	//if (m_pKeyboard != nullptr)
-	//{
-	//	m_pKeyboard->Update();
-	//}
+	//キーボードの更新
+	if (m_pKeyboard != nullptr)
+	{
+		m_pKeyboard->Update();
+	}
 
-	////マウスの更新
-	//if (m_pMouse != nullptr)
-	//{
-	//	m_pMouse->Update();
-	//}
+	//マウスの更新
+	if (m_pMouse != nullptr)
+	{
+		m_pMouse->Update();
+	}
 
 	//ジョイスティックの更新
 	if (m_pJoystick != nullptr)
@@ -230,26 +236,6 @@ void CManager::Draw(void)
 }
 
 //=============================================================================
-// 全リソース読み込み関数
-//=============================================================================
-void CManager::LoadAll(void)
-{
-	CFloor::Load();
-	//CNumber::Load();
-	//CGauge::Load();
-}
-
-//=============================================================================
-// 全リソース破棄関数
-//=============================================================================
-void CManager::UnloadAll(void)
-{
-	CFloor::Unload();
-	//CNumber::Unload();
-	//CGauge::Unload();
-}
-
-//=============================================================================
 // モード設定関数
 //=============================================================================
 void CManager::SetMode(MODE mode)
@@ -274,8 +260,8 @@ void CManager::SetMode(MODE mode)
 		m_pGame = CGame::Create();
 		break;
 	}
-	////キーボードの更新
-	//m_pKeyboard->Update();
+	//キーボードの更新
+	m_pKeyboard->Update();
 	////マウスの更新
 	//m_pMouse->Update();
 	//ジョイスティックの更新

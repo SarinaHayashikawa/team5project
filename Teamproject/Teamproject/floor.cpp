@@ -14,11 +14,7 @@
 #include "scene.h"
 #include "polygon3d.h"
 #include "floor.h"
-
-//*****************************************************************************
-// 静的メンバ変数初期化
-//*****************************************************************************
-LPDIRECT3DTEXTURE9 CFloor::m_apTexture[TYPE_MAX] = {};
+#include "resource manager.h"
 
 //=============================================================================
 // コンストラクタ
@@ -35,34 +31,6 @@ CFloor::CFloor(int nPriority) : CPolygon3d(nPriority)
 CFloor::~CFloor()
 {
 
-}
-
-//=============================================================================
-// テクスチャロード
-//=============================================================================
-HRESULT CFloor::Load(void)
-{
-	CRenderer * pRenderer = CManager::GetRenderer();
-	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
-	// テクスチャの生成
-	D3DXCreateTextureFromFile(pDevice, TEXTURE_FLOOR, &m_apTexture[0]);
-
-	return S_OK;
-}
-
-//=============================================================================
-// テクスチャアンロード
-//=============================================================================
-void CFloor::Unload(void)
-{
-	for (int nCnt = 0; nCnt < TYPE_MAX; nCnt++)
-	{
-		if (m_apTexture[nCnt] != NULL)
-		{
-			m_apTexture[nCnt]->Release();
-			m_apTexture[nCnt] = NULL;
-		}
-	}
 }
 
 //=============================================================================
@@ -87,6 +55,10 @@ CFloor * CFloor::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 //=============================================================================
 HRESULT CFloor::Init(void)
 {
+	//リソース確保
+	CResource* pResource = CManager::GetResource();
+	LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(m_nTexture);
+
 	SetObjType(CScene::OBJTYPE_NONE);
 
 	CPolygon3d::Init();
@@ -101,7 +73,7 @@ HRESULT CFloor::Init(void)
 
 	SetRot(D3DXVECTOR3(D3DXToRadian(-90.0f), D3DXToRadian(0.0f), D3DXToRadian(90.0f)));
 	SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-	BindTexture(m_apTexture[0]);
+	BindTexture(Texture);
 
 	return S_OK;
 }

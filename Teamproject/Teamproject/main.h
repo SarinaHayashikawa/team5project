@@ -18,8 +18,11 @@
 //*****************************************************************************
 // É}ÉNÉçíËã`
 //*****************************************************************************
-#define SCREEN_WIDTH	(1920)
-#define SCREEN_HEIGHT	(1080)
+//#define SCREEN_WIDTH	(1920)
+//#define SCREEN_HEIGHT	(1080)
+#define SCREEN_WIDTH	(1280)
+#define SCREEN_HEIGHT	(720)
+
 #define SCREEN_CENTER_X (SCREEN_WIDTH / 2)
 #define SCREEN_CENTER_Y (SCREEN_HEIGHT / 2)
 #define FVF_VERTEX_2D (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1)
