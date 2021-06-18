@@ -55,6 +55,24 @@
     <Filter Include="ヘッダー ファイル\GameModel\Player">
       <UniqueIdentifier>{741fa258-1d98-4a9c-b4e7-e3e177b2583e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Item">
+      <UniqueIdentifier>{e520a29e-3cc2-44a8-8f4e-c4558653b659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Item">
+      <UniqueIdentifier>{39fdafb1-a08b-457c-9671-20476129e600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Sushi">
+      <UniqueIdentifier>{a15d1846-f063-4c97-be98-cdcff481091b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Sushi\Base">
+      <UniqueIdentifier>{b7e71399-d8ac-4c8b-a769-7eaabb5cba68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Sushi">
+      <UniqueIdentifier>{d8608f66-a807-44b0-ac1b-69dca9a6d670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Sushi\Base">
+      <UniqueIdentifier>{ad8db148-546c-414e-94b6-b70fbdef8f0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -115,7 +133,16 @@
       <Filter>ソース ファイル\ModelBase</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\GameModel\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="billboard.cpp">
+      <Filter>ソース ファイル\ModelBase</Filter>
+    </ClCompile>
+    <ClCompile Include="food base.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ebi.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +205,15 @@
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\GameModel\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="billboard.h">
+      <Filter>ヘッダー ファイル\ModelBase</Filter>
+    </ClInclude>
+    <ClInclude Include="food base.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ebi.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

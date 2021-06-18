@@ -1,2 +1,3 @@
-MAX_DATA,1,
+MAX_DATA,2,
 1,Data/TEXTURE/FLOOR/bg001.png,床のテクスチャ
+10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ

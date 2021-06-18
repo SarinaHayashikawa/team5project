@@ -16,6 +16,7 @@
 #include "sound.h"
 #include "floor.h"
 #include "player.h"
+#include "ebi.h"
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -60,9 +61,9 @@ HRESULT CGame::Init()
 	//オブジェクト生成
 	CManager::CreateCamera();
 	CManager::CreateLight();
-	CFloor::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
+	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-
+	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f, 30.0f, 0.0f));
 	return S_OK;
 }
 
