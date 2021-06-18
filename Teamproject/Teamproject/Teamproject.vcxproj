@@ -146,6 +146,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ebi.cpp" />
+    <ClCompile Include="food base.cpp" />
+    <ClCompile Include="billboard.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
@@ -168,6 +171,9 @@
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ebi.h" />
+    <ClInclude Include="food base.h" />
+    <ClInclude Include="billboard.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
