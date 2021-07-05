@@ -66,10 +66,10 @@ HRESULT CGame::Init()
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f, 30.0f, 0.0f));
 	//ÉvÉåÉCÉÑÅ[êîñàÇ…ê∂ê¨
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f),D3DXVECTOR3(0.0f, 0.0f, 0.0f)),  0);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f)), 1);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f)), 2);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f)), 3);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(100.0f, 50.0f, 0.0f),D3DXVECTOR3(20.0f, 30.0f, 0.0f)),  0);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + 100.0f, 50.0f, 0.0f), D3DXVECTOR3(20.0f, 30.0f, 0.0f)), 1);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(100.0f, SCREEN_HEIGHT/2 + 50.0f, 0.0f), D3DXVECTOR3(20.0f, 30.0f, 0.0f)), 2);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + 100.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), D3DXVECTOR3(20.0f, 30.0f, 0.0f)), 3);
 	return S_OK;
 }
 
