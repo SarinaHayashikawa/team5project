@@ -28,6 +28,9 @@
 #define CAMERA_SPEED (10.0f)	// カメラスピード
 #define CAMERA_ZOOM	(50.0f)		// カメラズーム量
 #endif
+//======================================================
+// 静的メンバ変数の初期化
+//======================================================
 
 //======================================================
 //コンストラクタ
@@ -38,8 +41,6 @@ CCamera::CCamera()
 	m_posR = m_posV + D3DXVECTOR3(0.0f, 0.0f, 500.0f);
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_rot = D3DXVECTOR3(45.0f, 180.0f, 0.0f);
-	m_fDistanceFromPlayer = CAMERA_DISTANCE_FROM_PLAYER;
-	m_fDistanceFromPlayerDest = CAMERA_DISTANCE_FROM_PLAYER_STAND;
 	m_fDistance = 100.0f;
 	m_bIsFollowPlayer = false;
 	m_posVDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -71,9 +72,6 @@ HRESULT CCamera::Init(void)
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	//カメラの向き設定
 	m_rot = D3DXVECTOR3(89.0f, 180.0f, 0.0f);
-	//カメラのプレイヤーからの距離設定
-	m_fDistanceFromPlayer = CAMERA_DISTANCE_FROM_PLAYER;
-	m_fDistanceFromPlayerDest = CAMERA_DISTANCE_FROM_PLAYER;
 
 	//マネージャーにカメラ情報を保存
 	CManager::BindCamera(this);
@@ -194,10 +192,6 @@ void CCamera::SetRot(D3DXVECTOR3 rot)
 	m_rot = rot;
 }
 
-void CCamera::SetCameraDistance(float fDistance)
-{
-	m_fDistanceFromPlayerDest = fDistance;
-}
 
 //======================================================
 // プレイヤー追従処理
@@ -232,11 +226,9 @@ void CCamera::PlayerFlattery(void)
 				}
 				//次のオブジェクトのポインタを更新
 				pNext = pNext->GetNext();
-
 			}
 		}
 	}
-
 }
 
 //======================================================

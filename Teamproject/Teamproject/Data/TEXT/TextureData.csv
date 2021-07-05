@@ -1,3 +1,7 @@
-MAX_DATA,2,
-1,Data/TEXTURE/FLOOR/bg001.png,床のテクスチャ
+MAX_DATA,6,
+1,Data/TEXTURE/FLOOR/maptex.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
+11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
+12,Data/TEXTURE/FOOD/tuna.png,寿司のマグロ
+13,Data/TEXTURE/FOOD/salmon.png,寿司のサーモン
+14,Data/TEXTURE/FOOD/egg.png,寿司のたまご

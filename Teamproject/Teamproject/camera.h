@@ -30,7 +30,6 @@ public:
 	void SetCamera(void);
 	D3DXVECTOR3 GetRot(void);
 	void SetRot(D3DXVECTOR3 rot);
-	void SetCameraDistance(float fDistance);
 	//static void LoadScriptCamera(void);
 	void PlayerFlattery(void);		//プレイヤー追従
 
@@ -48,13 +47,12 @@ private:
 	D3DXMATRIX m_mtxView;          // ビューマトリックス
 	D3DXVECTOR3 m_RotateCenter;    // カメラの回転中心座標
 	float m_fDistance;             // 視点-注意点の距離
-	float m_fDistanceFromPlayer;
-	float m_fDistanceFromPlayerDest;
 	D3DXVECTOR3 m_rot;				   
 	D3DXVECTOR3 m_posVDest;         // カメラの座標(差)
 	D3DXVECTOR3 m_posRDest;         // 注視点の座標(差)
 	bool m_bIsFollowPlayer;			// プレイヤーに追従するか
 	float m_fInterpolation;			// カメラ補間スピード
+
 
 #ifdef _DEBUG						   
 	float		m_fMoveRot;			// 移動する向き

@@ -1,35 +1,28 @@
 //=============================================================================
 //
-// 食べ物ベース [food base.h]
+// 寿司　サーモン[salmon.h]
 // Author : 吉田悠人
 //
 //=============================================================================
-#ifndef _BAIT_H_
-#define _BAIT_H_
+#ifndef _SALMON_H_
+#define _SALMON_H_
 //=============================================================================
 // ヘッダーファイル
 //=============================================================================
 #include "model.h"
-#include "billboard.h"
+#include "food base.h"
 
 //=============================================================================
 // クラス定義
 //=============================================================================
-class CFoodBase :public CBillboard
+class CSalmon :public CFoodBase
 {
 public:
-	CFoodBase();
-	~CFoodBase();
-
-	void	Update(void);
-
-	void	Collision(void);					// 当たり判定関数
-	void	SetPoint(int nPoint);				// ポイントセッター
-	int		GetPoint(void) { return m_nPoint; }	// ポイントゲッター
+	CSalmon();
+	static CSalmon * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
 
 private:
-	int m_nPoint;		//ポイント数値
-
+	const int m_nTexture = 13;		// テクスチャ番号
 };
 
 #endif

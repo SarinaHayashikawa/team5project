@@ -260,12 +260,6 @@ void CManager::SetMode(MODE mode)
 		m_pGame = CGame::Create();
 		break;
 	}
-	//キーボードの更新
-	m_pKeyboard->Update();
-	////マウスの更新
-	//m_pMouse->Update();
-	//ジョイスティックの更新
-	m_pJoystick->Update();
 }
 //=============================================================================
 //  カメラ生成
