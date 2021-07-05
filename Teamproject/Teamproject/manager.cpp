@@ -43,6 +43,7 @@ CPlayer * CManager::m_pPlayer = nullptr;
 CMapManager * CManager::m_pMapManager = nullptr;
 HWND CManager::m_hWnd = nullptr;
 CResource * CManager::m_pResource = nullptr;
+CScore * CManager::m_apScore[MAX_PLAYER] = {};
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -135,7 +136,7 @@ void CManager::Uninit(void)
 	{
 		m_pSound->Uninit();
 		delete m_pSound;
-		m_pSound = NULL;
+		m_pSound = nullptr;
 	}
 
 	//ジョイスティックの破棄
@@ -267,6 +268,15 @@ void CManager::SetMode(MODE mode)
 	//ジョイスティックの更新
 	m_pJoystick->Update();
 }
+
+//=============================================================================
+//  スコアポインタセット
+//=============================================================================
+void CManager::SetScore(CScore * pScore, int nPlayer)
+{
+	m_apScore[nPlayer] = pScore;
+}
+
 //=============================================================================
 //  カメラ生成
 //=============================================================================
