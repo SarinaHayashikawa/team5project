@@ -79,6 +79,12 @@
     <Filter Include="ヘッダー ファイル\UI">
       <UniqueIdentifier>{8d3854e0-019c-49b3-aa4e-73280fed3f6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\UI\miniMap">
+      <UniqueIdentifier>{85fafc88-60ed-4fd9-a458-20172e894e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI\miniMap">
+      <UniqueIdentifier>{e6de765e-2498-4b2a-a0aa-baeb78dc81e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,6 +162,15 @@
     <ClCompile Include="score.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>ソース ファイル\UI\miniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="map_manager.cpp">
+      <Filter>ソース ファイル\UI\miniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="locationpoint.cpp">
+      <Filter>ソース ファイル\UI\miniMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -232,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="score.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="locationpoint.h">
+      <Filter>ヘッダー ファイル\UI\miniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>ヘッダー ファイル\UI\miniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="map_manager.h">
+      <Filter>ヘッダー ファイル\UI\miniMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

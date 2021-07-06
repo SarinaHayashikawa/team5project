@@ -1,4 +1,6 @@
-MAX_DATA,3,
+MAX_DATA,5,
 1,Data/TEXTURE/FLOOR/bg001.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
 20,Data/TEXTURE/UI/number.png,数字
+21,Data/TEXTURE/UI/map.png,ミニマップ
+22,Data/TEXTURE/UI/locationpoint.png,現在位置

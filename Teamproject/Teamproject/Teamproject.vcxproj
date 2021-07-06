@@ -153,6 +153,9 @@
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="locationpoint.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="keyboard.cpp" />
@@ -180,6 +183,9 @@
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="locationpoint.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="map_manager.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="keyboard.h" />

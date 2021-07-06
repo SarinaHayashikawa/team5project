@@ -18,6 +18,8 @@
 #include "player.h"
 #include "ebi.h"
 #include "score.h"
+#include "map_manager.h"
+#include "map.h"
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -65,11 +67,14 @@ HRESULT CGame::Init()
 	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f, 30.0f, 0.0f));
+	
 	//プレイヤー数毎に生成
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(100.0f, 50.0f, 0.0f),D3DXVECTOR3(20.0f, 30.0f, 0.0f)),  0);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + 100.0f, 50.0f, 0.0f), D3DXVECTOR3(20.0f, 30.0f, 0.0f)), 1);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(100.0f, SCREEN_HEIGHT/2 + 50.0f, 0.0f), D3DXVECTOR3(20.0f, 30.0f, 0.0f)), 2);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + 100.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), D3DXVECTOR3(20.0f, 30.0f, 0.0f)), 3);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, 50.0f, 0.0f), SCORE_SIZE),  0);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, 50.0f, 0.0f), SCORE_SIZE), 1);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, SCREEN_HEIGHT/2 + 50.0f, 0.0f), SCORE_SIZE), 2);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 3);
+	//ミニマップ生成
+	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f));
 	return S_OK;
 }
 

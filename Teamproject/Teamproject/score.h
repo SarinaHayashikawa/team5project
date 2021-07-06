@@ -19,6 +19,7 @@
 #define SCORE_SIZE_WIDTH (60.0f)
 #define SCORE_SIZE_HEIGHT (100.0f)
 #define SCORE_POS (D3DXVECTOR3(SCREEN_WIDTH / 2 + SCORE_SIZE_WIDTH,80.0f,0.0f))
+#define SCORE_SIZE (D3DXVECTOR3(50.0f,80.0f,0.0f))
 //*****************************************************************************
 // ëOï˚êÈåæ
 //*****************************************************************************
