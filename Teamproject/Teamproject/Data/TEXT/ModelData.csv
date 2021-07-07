@@ -1,2 +1,4 @@
-MAX_DATA,1,
+MAX_DATA,3,
 1,Data/MODEL/PLAYER/pochi.x,プレイヤーモデル
+2,Data/MODEL/ITEM/scoreup.x,アイテムモデル
+3,Data/MODEL/ITEM/shield.x,アイテムモデル

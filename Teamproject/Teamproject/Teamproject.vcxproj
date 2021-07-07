@@ -153,6 +153,7 @@
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="keyboard.cpp" />
@@ -167,6 +168,8 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2d.cpp" />
     <ClCompile Include="scene3d.cpp" />
+    <ClCompile Include="scoreup.cpp" />
+    <ClCompile Include="shield.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
@@ -178,6 +181,7 @@
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="keyboard.h" />
@@ -192,6 +196,8 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2d.h" />
     <ClInclude Include="scene3d.h" />
+    <ClInclude Include="scoreup.h" />
+    <ClInclude Include="shield.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>
