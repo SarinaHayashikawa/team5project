@@ -87,7 +87,7 @@ void CMapManager::Update(void)
 {
 	//プレイヤーの位置取得
 	D3DXVECTOR3 pos = CManager::GetPlayer()->GetPos();
-	
+	//オブジェクトの現在位置をセット
 	m_pLocationPoint->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
 }
 //=============================================================================
