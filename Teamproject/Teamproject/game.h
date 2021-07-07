@@ -40,7 +40,6 @@ public:
 	void Draw(void);
 	CScene2D * GetScene(void) { return m_pScene; };
 	CGame * GetManager(void) { return this; };
-
 	static bool GetIsStopUpdate(void) { return m_bIsStopUpdate; };
 	static void SetIsStopUpdate(bool bIsStopUpdate) { m_bIsStopUpdate = bIsStopUpdate; };
 	static bool GetIsStopUpdateContinue(void) { return m_bIsStopUpdateContinue; };

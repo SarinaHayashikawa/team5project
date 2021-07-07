@@ -277,6 +277,11 @@ void CManager::SetScore(CScore * pScore, int nPlayer)
 	m_apScore[nPlayer] = pScore;
 }
 
+void CManager::SetPlayer(CPlayer * pPlayer)
+{
+	m_pPlayer = pPlayer;
+}
+
 //=============================================================================
 //  ÉJÉÅÉâê∂ê¨
 //=============================================================================
