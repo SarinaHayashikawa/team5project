@@ -81,7 +81,7 @@ void CFoodBase::Collision(void)
 						//サーバーができてから変更予定
 
 						//スコアを加算（予定）
-
+						((CPlayer*)pNext)->AddParts();
 						//終了処理で消す
 						Uninit();
 						return;

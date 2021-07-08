@@ -20,8 +20,9 @@
 //======================================================
 // マクロ定義
 //======================================================
-#define SCRIPT_PASS		"Data/TEXT/camera.txt"
-#define CAMERA_INTERPOLATION 0.2f //カメラ補間スピード
+#define SCRIPT_PASS				("Data/TEXT/camera.txt")
+#define CAMERA_INTERPOLATION	(0.2f)					//カメラ補間スピード
+#define MAX_SCREEN				(4)						//最大画面分割数
 
 #ifdef _DEBUG
 #define CAMERA_SENSITIVITY (5)	// マウス感度
@@ -155,7 +156,7 @@ void CCamera::Update(void)
 }
 
 //======================================================
-//カメラによる描画
+// カメラによる描画
 //======================================================
 void CCamera::SetCamera(void)
 {
@@ -174,6 +175,81 @@ void CCamera::SetCamera(void)
 	D3DXMatrixPerspectiveFovLH(&m_mtxProjection, D3DXToRadian(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 10.0f, CAMERA_VIEW_RANGE);
 	//プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_mtxProjection);
+}
+
+//======================================================
+// カメラによる分割描画
+//======================================================
+void CCamera::SetCamera(D3DXVECTOR3 CameraPos, D3DXVECTOR3 LookPosition)
+{
+	//デバイスへのポインタ
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+
+	//ビューマトリックスの初期化
+	D3DXMatrixIdentity(&m_mtxView);
+	//ビューマトリックスの作成
+	D3DXMatrixLookAtLH(&m_mtxView,&m_posV,&m_posR,&m_vecU);
+	//ビューマトリックスの設定
+	pDevice->SetTransform(D3DTS_VIEW, &m_mtxView);
+	//プロジェクションマトリックスの初期化
+	D3DXMatrixIdentity(&m_mtxProjection);
+	//プロジェクションマトリックスの作成
+	D3DXMatrixPerspectiveFovLH(&m_mtxProjection, D3DXToRadian(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 10.0f, CAMERA_VIEW_RANGE);
+	//プロジェクションマトリックスの設定
+	pDevice->SetTransform(D3DTS_PROJECTION, &m_mtxProjection);
+
+}
+
+//======================================================
+// ビューポート設定
+//======================================================
+bool CCamera::SetUpViewport(int screen_id)
+{
+	//デバイスへのポインタ
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+
+	// ビューポートパラメータ
+	D3DVIEWPORT9 view_port;
+
+	//画面のサイズ
+	if (MAX_SCREEN >= 2)
+	{
+		m_WidowSize.Width = SCREEN_WIDTH / 2.0f;
+	}
+
+	if (MAX_SCREEN >= 3)
+	{
+		m_WidowSize.Height = SCREEN_HEIGHT / 2.0f;
+	}
+
+	//画面の位置
+	D3DXVECTOR2 offset[] = 
+	{
+		D3DXVECTOR2(0.0f, 0.0f),
+		D3DXVECTOR2(SCREEN_WIDTH / 2.0f, 0.0f),
+		D3DXVECTOR2(0.0f, SCREEN_HEIGHT / 2.0f),
+		D3DXVECTOR2(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f),
+	};
+
+	// ビューポートの左上座標
+	view_port.X = offset[screen_id].x;
+	view_port.Y = offset[screen_id].y;
+
+	// ビューポートの幅
+	view_port.Width = m_WidowSize.Width;
+	// ビューポートの高さ
+	view_port.Height = m_WidowSize.Height;
+	// ビューポート深度設定
+	view_port.MinZ = 0.0f;
+	view_port.MaxZ = 1.0f;
+
+	// ビューポート設定
+	if (FAILED(pDevice->SetViewport(&view_port)))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 //======================================================

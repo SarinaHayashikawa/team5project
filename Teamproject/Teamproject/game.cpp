@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //*****************************************************************************
 #include "manager.h"
+#include "camera.h"
 #include "scene.h"
 #include "sound.h"
 #include "joystick.h"
@@ -22,6 +23,7 @@
 #include "tuna.h"
 #include "salmon.h"
 #include "player parts.h"
+#include "renderer.h"
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -29,21 +31,14 @@
 bool CGame::m_bPlayerUse = true;
 bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
-
-CGame::CameraDivided CGame::m_pCameraDivided[4] =
-{
-	{ D3DXVECTOR3(0.0f, 0.0f, -300.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f) },
-	{ D3DXVECTOR3(0.0f, 0.0f, 300.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f) },
-	{ D3DXVECTOR3(300.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f) },
-	{ D3DXVECTOR3(-300.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f) },
-};
+CCamera* CGame::m_pCamera = nullptr;
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CGame::CGame()
 {
-	m_nGameCount = 0;
+	m_nGameCount	= 0;
 }
 //=============================================================================
 // デストラクタ
@@ -83,7 +78,7 @@ HRESULT CGame::Init()
 	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CTuna::Create(D3DXVECTOR3(90.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
-
+	m_pCamera = CManager::GetCamera();
 	return S_OK;
 }
 
@@ -129,5 +124,4 @@ void CGame::Update(void)
 //=============================================================================
 void CGame::Draw(void)
 {
-
 }

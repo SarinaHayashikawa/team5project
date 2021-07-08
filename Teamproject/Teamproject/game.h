@@ -7,7 +7,7 @@
 #define _GAME_H_
 
 #include "scene.h"
-
+#include "camera.h"
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
@@ -45,18 +45,12 @@ public:
 	static bool GetIsStopUpdateContinue(void) { return m_bIsStopUpdateContinue; };
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 private:
-	CScene2D * m_pScene;
-	int    m_nGameCount;//ゲームカウント
+	CScene2D*	m_pScene;		//シーンポインタ
+	int			m_nGameCount;	//ゲームカウント
 
-	typedef struct 	//分割カメラ
-	{
-		D3DXVECTOR3 Pos;			// 位置
-		D3DXVECTOR3 LookPosition;	// 注視点
-	}CameraDivided;
-	static CameraDivided m_pCameraDivided[4];//分割カメラの情報
-
-	static bool m_bPlayerUse;//プレイヤーが使われているか
-	static bool m_bIsStopUpdate;//アップデート停止しているか
-	static bool m_bIsStopUpdateContinue;//コンティニュー発生しているか
+	static CCamera*	m_pCamera;					//カメラポインタ
+	static bool		m_bPlayerUse;				//プレイヤーが使われているか
+	static bool		m_bIsStopUpdate;			//アップデート停止しているか
+	static bool		m_bIsStopUpdateContinue;	//コンティニュー発生しているか
 };
 #endif
