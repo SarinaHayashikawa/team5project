@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //*****************************************************************************
 #include "manager.h"
+#include "camera.h"
 #include "scene.h"
 #include "sound.h"
 #include "joystick.h"
@@ -17,6 +18,12 @@
 #include "floor.h"
 #include "player.h"
 #include "ebi.h"
+#include "egg.h"
+#include "ikura.h"
+#include "tuna.h"
+#include "salmon.h"
+#include "player parts.h"
+#include "renderer.h"
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -24,12 +31,14 @@
 bool CGame::m_bPlayerUse = true;
 bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
+CCamera* CGame::m_pCamera = nullptr;
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CGame::CGame()
 {
-	m_nGameCount = 0;
+	m_nGameCount	= 0;
 }
 //=============================================================================
 // デストラクタ
@@ -63,7 +72,13 @@ HRESULT CGame::Init()
 	CManager::CreateLight();
 	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f, 30.0f, 0.0f));
+	//CPlayerParts::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CTuna::Create(D3DXVECTOR3(90.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	m_pCamera = CManager::GetCamera();
 	return S_OK;
 }
 
@@ -109,5 +124,4 @@ void CGame::Update(void)
 //=============================================================================
 void CGame::Draw(void)
 {
-
 }

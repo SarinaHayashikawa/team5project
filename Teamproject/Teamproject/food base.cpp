@@ -78,8 +78,10 @@ void CFoodBase::Collision(void)
 						&&PlayerPos.z + FOOD_HIT>pos.z
 						&&PlayerPos.z - FOOD_HIT<pos.z)
 					{
-						//スコアを加算（予定）
+						//サーバーができてから変更予定
 
+						//スコアを加算（予定）
+						((CPlayer*)pNext)->AddParts();
 						//終了処理で消す
 						Uninit();
 						return;

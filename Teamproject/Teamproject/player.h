@@ -14,6 +14,15 @@
 #include "model.h"
 
 //=============================================================================
+// 前方宣言
+//=============================================================================
+class CPlayerParts;
+//=============================================================================
+// マクロ定義
+//=============================================================================
+#define MAX_PARTS (20)	//最大パーツ数
+
+//=============================================================================
 //クラス定義
 //=============================================================================
 class CPlayer : public CModel
@@ -25,9 +34,9 @@ public:
 	static CPlayer* Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size);
 
 	HRESULT			Init(void);
-	void			Uninit(void);
 	void			Update(void);
 
+	void			AddParts(void);	// パーツ追加（食べ物を食べた後の追加パーツ）処理関数
 
 private:
 	void			Move(void);	// 移動処理
@@ -35,8 +44,9 @@ private:
 
 	const int	m_nModel = 1;	// モデル番号
 	int			m_nLife;		// ライフ
-	D3DXVECTOR3 m_Move;			// 移動量
 
+	int				m_nParts;				// パーツ数
+	CPlayerParts*	m_pParts[MAX_PARTS];	// パーツポインタ
 };
 #endif // !_BLOCK_H_
 

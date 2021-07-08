@@ -1,35 +1,28 @@
 //=============================================================================
 //
-// 食べ物ベース [food base.h]
+// 寿司　卵[egg.h]
 // Author : 吉田悠人
 //
 //=============================================================================
-#ifndef _BAIT_H_
-#define _BAIT_H_
+#ifndef _EGG_H_
+#define _EGG_H_
 //=============================================================================
 // ヘッダーファイル
 //=============================================================================
 #include "model.h"
-#include "billboard.h"
+#include "food base.h"
 
 //=============================================================================
 // クラス定義
 //=============================================================================
-class CFoodBase :public CBillboard
+class CEgg :public CFoodBase
 {
 public:
-	CFoodBase();
-	~CFoodBase();
-
-	void	Update(void);
-
-	void	Collision(void);					// 当たり判定関数
-	void	SetPoint(int nPoint);				// ポイントセッター
-	int		GetPoint(void) { return m_nPoint; }	// ポイントゲッター
+	CEgg();
+	static CEgg * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
 
 private:
-	int m_nPoint;		//ポイント数値
-
+	const int m_nTexture = 14;		// テクスチャ番号
 };
 
 #endif
