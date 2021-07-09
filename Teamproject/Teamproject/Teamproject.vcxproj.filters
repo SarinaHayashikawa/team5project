@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\inputs">
-      <UniqueIdentifier>{b1361472-faf0-4525-8fa8-f4688941bfec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\sceue">
-      <UniqueIdentifier>{771c4593-957e-4eeb-a775-122670731fd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\manager">
-      <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\ModelBase">
       <UniqueIdentifier>{78510f32-8fd2-4b1a-b3b5-c353a781b102}</UniqueIdentifier>
     </Filter>
@@ -78,6 +69,32 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\GameModel\Item\ItemBase[">
       <UniqueIdentifier>{55919fbe-ce38-483b-95b0-fe1a644c44b0}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Manager">
+      <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Inputs">
+      <UniqueIdentifier>{b1361472-faf0-4525-8fa8-f4688941bfec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Sceue">
+      <UniqueIdentifier>{771c4593-957e-4eeb-a775-122670731fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Player\Player Parts">
+      <UniqueIdentifier>{c071a8ec-691c-4efa-b958-c0693ef0f070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Player\Player Parts">
+      <UniqueIdentifier>{dbebfb63-ba60-4a5a-b5e6-12180978a52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Player\Player Parts\Base">
+      <UniqueIdentifier>{cf1eb2d9-18e0-4f48-a3ef-c49543dc7f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Player\Player Parts\Base">
+      <UniqueIdentifier>{ec20d133-4799-454a-8f93-61331288aaa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{50a1a7ee-1c35-48a9-b501-9075d4ea52dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI">
+      <UniqueIdentifier>{beb23345-95a1-4b7e-9827-40cccd5114bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +176,36 @@
     <ClCompile Include="scoreup.cpp">
       <Filter>ソース ファイル\GameModel\Item</Filter>
     </ClCompile>
+    <ClCompile Include="player parts.cpp">
+      <Filter>ソース ファイル\GameModel\Player\Player Parts\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ikura.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="tuna.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="egg.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="salmon.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="locationpoint.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="number.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="map_manager.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -168,10 +215,10 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="joystick.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="sound.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -183,16 +230,16 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="scene3d.h">
-      <Filter>ヘッダー ファイル\sceue</Filter>
+      <Filter>ヘッダー ファイル\Sceue</Filter>
     </ClInclude>
     <ClInclude Include="scene2d.h">
-      <Filter>ヘッダー ファイル\sceue</Filter>
+      <Filter>ヘッダー ファイル\Sceue</Filter>
     </ClInclude>
     <ClInclude Include="manager.h">
-      <Filter>ヘッダー ファイル\manager</Filter>
+      <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル\sceue</Filter>
+      <Filter>ヘッダー ファイル\Sceue</Filter>
     </ClInclude>
     <ClInclude Include="floor.h">
       <Filter>ヘッダー ファイル\GameModel</Filter>
@@ -201,13 +248,13 @@
       <Filter>ヘッダー ファイル\GameSceue</Filter>
     </ClInclude>
     <ClInclude Include="keyboard.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="mouse.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="resource manager.h">
-      <Filter>ヘッダー ファイル\manager</Filter>
+      <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
     <ClInclude Include="polygon3d.h">
       <Filter>ヘッダー ファイル\ModelBase</Filter>
@@ -238,6 +285,35 @@
     </ClInclude>
     <ClInclude Include="scoreup.h">
       <Filter>ヘッダー ファイル\GameModel\Item</Filter>
+    <ClInclude Include="player parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ikura.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="tuna.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="salmon.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="egg.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="locationpoint.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="map_manager.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="number.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

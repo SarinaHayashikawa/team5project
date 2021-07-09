@@ -1,46 +1,50 @@
 //=============================================================================
 //
-// 描画処理 [renderer.h]
+// スコア処理 [score.h]
 // Author : 林川紗梨夏
 //
 //=============================================================================
-#ifndef _RENDERER_H_
-#define _RENDERER_H_
+#ifndef _SCORE_H_
+#define _SCORE_H_
 
 //*****************************************************************************
 // ヘッダファイルのインクルード
 //*****************************************************************************
-#include "main.h"
-
+#include "number.h"
+#include "scene2D.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-
+#define MAX_DIGITS (4) //最大桁数
+#define SCORE_SIZE_WIDTH (60.0f)
+#define SCORE_SIZE_HEIGHT (100.0f)
+#define SCORE_POS (D3DXVECTOR3(SCREEN_WIDTH / 2 + SCORE_SIZE_WIDTH,80.0f,0.0f))
+#define SCORE_SIZE (D3DXVECTOR3(50.0f,80.0f,0.0f))
 //*****************************************************************************
 // 前方宣言
-//*****************************************************************************
-//*****************************************************************************
-// 構造体定義
 //*****************************************************************************
 
 //*****************************************************************************
 // クラス定義
 //*****************************************************************************
-class CRenderer
+class CScore : public CScene
 {
 public:
-	CRenderer();
-	~CRenderer();
-	HRESULT Init(HWND hWnd, bool bWindow);
+
+	CScore(int nPriority = 8);
+	~CScore();
+	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	LPDIRECT3DDEVICE9 GetDevice(void);		// デバイスの取得関数
+	static CScore * Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size);
+	void SetScore(int nScore);
+	void AddScore(int nValue);
 
 private:
-	void DrawFPS(void);
-	LPDIRECT3D9 m_pD3D;
-	LPDIRECT3DDEVICE9 m_pD3DDevice;
-	LPD3DXFONT m_pFont;
+	CNumber                           *m_apNumber[MAX_DIGITS];//ナンバー（最大桁数分）
+	D3DXVECTOR3                        m_Pos;
+	D3DXVECTOR3                        m_Size;
+	int                                m_nScore; //スコアの数値
 };
-#endif
+#endif // !_SCORE_H_
