@@ -7,7 +7,7 @@
 #define _GAME_H_
 
 #include "scene.h"
-
+#include "camera.h"
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
@@ -15,7 +15,6 @@ class CInput;
 class CKeyboard;
 class CJoystick;
 class CRenderer;
-class CScene;
 class CScene2D;
 class CTitle;
 class CEnemy;
@@ -45,10 +44,12 @@ public:
 	static bool GetIsStopUpdateContinue(void) { return m_bIsStopUpdateContinue; };
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 private:
-	CScene2D * m_pScene;
-	int    m_nGameCount;//ゲームカウント
-	static bool m_bPlayerUse;//プレイヤーが使われているか
-	static bool m_bIsStopUpdate;//アップデート停止しているか
-	static bool m_bIsStopUpdateContinue;//コンティニュー発生しているか
+	CScene2D*	m_pScene;		//シーンポインタ
+	int			m_nGameCount;	//ゲームカウント
+
+	static CCamera*	m_pCamera;					//カメラポインタ
+	static bool		m_bPlayerUse;				//プレイヤーが使われているか
+	static bool		m_bIsStopUpdate;			//アップデート停止しているか
+	static bool		m_bIsStopUpdateContinue;	//コンティニュー発生しているか
 };
 #endif

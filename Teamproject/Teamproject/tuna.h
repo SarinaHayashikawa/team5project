@@ -1,35 +1,28 @@
 //=============================================================================
 //
-// 食べ物ベース [food base.h]
+// 寿司　マグロ[tuna.h]
 // Author : 吉田悠人
 //
 //=============================================================================
-#ifndef _BAIT_H_
-#define _BAIT_H_
+#ifndef _TUNA_H_
+#define _TUNA_H_
 //=============================================================================
 // ヘッダーファイル
 //=============================================================================
 #include "model.h"
-#include "billboard.h"
+#include "food base.h"
 
 //=============================================================================
 // クラス定義
 //=============================================================================
-class CFoodBase :public CBillboard
+class CTuna :public CFoodBase
 {
 public:
-	CFoodBase();
-	~CFoodBase();
-
-	void	Update(void);
-
-	void	Collision(void);					// 当たり判定関数
-	void	SetPoint(int nPoint);				// ポイントセッター
-	int		GetPoint(void) { return m_nPoint; }	// ポイントゲッター
+	CTuna();
+	static CTuna * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
 
 private:
-	int m_nPoint;		//ポイント数値
-
+	const int m_nTexture = 12;		// テクスチャ番号
 };
 
 #endif

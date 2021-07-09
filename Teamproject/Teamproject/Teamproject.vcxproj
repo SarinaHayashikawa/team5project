@@ -147,15 +147,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ebi.cpp" />
+    <ClCompile Include="egg.cpp" />
     <ClCompile Include="food base.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="locationpoint.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="map_manager.cpp" />
+=======
+    <ClCompile Include="salmon.cpp" />
+    <ClCompile Include="tuna.cpp" />
+>>>>>>> remotes/origin/master
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="keyboard.cpp" />
@@ -163,7 +170,11 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="number.cpp" />
+=======
+    <ClCompile Include="player parts.cpp" />
+>>>>>>> remotes/origin/master
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon3d.cpp" />
     <ClCompile Include="renderer.cpp" />
@@ -177,15 +188,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ebi.h" />
+    <ClInclude Include="egg.h" />
     <ClInclude Include="food base.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
+<<<<<<< HEAD
     <ClInclude Include="locationpoint.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="map_manager.h" />
+=======
+    <ClInclude Include="salmon.h" />
+    <ClInclude Include="tuna.h" />
+>>>>>>> remotes/origin/master
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="keyboard.h" />
@@ -193,7 +211,11 @@
     <ClInclude Include="light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
+<<<<<<< HEAD
     <ClInclude Include="number.h" />
+=======
+    <ClInclude Include="player parts.h" />
+>>>>>>> remotes/origin/master
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon3d.h" />
     <ClInclude Include="renderer.h" />

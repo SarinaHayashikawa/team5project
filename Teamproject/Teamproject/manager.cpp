@@ -210,9 +210,10 @@ void CManager::Update(void)
 	{
 		m_pJoystick->Update();
 	}
+
+	//カメラの更新処理
 	if (m_pCamera != nullptr)
 	{
-		//カメラのの更新処理
 		m_pCamera->Update();
 	}
 
@@ -231,9 +232,25 @@ void CManager::Draw(void)
 {
 	if (m_pCamera != nullptr)
 	{
-		m_pCamera->SetCamera();
+		// 現在のシーン状況で画面分割をする
+		// ゲームシーン以外の場合分割しない
+		if (m_mode!= MODE_GAME)
+		{
+			m_pCamera->SetCamera();
+			m_pRenderer->Draw();
+		}
+		// ゲームシーンの場合分割する
+		else
+		{
+			for (int nCamera = 0; nCamera<4; nCamera++)
+			{
+				m_pCamera->SetUpViewport(nCamera);
+				m_pCamera->SetCamera(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+				m_pRenderer->Draw();
+
+			}
+		}
 	}
-	m_pRenderer->Draw();
 }
 
 //=============================================================================
@@ -261,12 +278,6 @@ void CManager::SetMode(MODE mode)
 		m_pGame = CGame::Create();
 		break;
 	}
-	//キーボードの更新
-	m_pKeyboard->Update();
-	////マウスの更新
-	//m_pMouse->Update();
-	//ジョイスティックの更新
-	m_pJoystick->Update();
 }
 
 //=============================================================================

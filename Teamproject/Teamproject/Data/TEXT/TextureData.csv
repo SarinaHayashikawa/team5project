@@ -1,6 +1,5 @@
-MAX_DATA,5,
-1,Data/TEXTURE/FLOOR/bg001.png,床のテクスチャ
-10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
-20,Data/TEXTURE/UI/number.png,数字
-21,Data/TEXTURE/UI/map.png,ミニマップ
+1,Data/TEXTURE/FLOOR/bg001.png,床のテクスチャ10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
+12,Data/TEXTURE/FOOD/tuna.png,寿司のマグロ
+13,Data/TEXTURE/FOOD/salmon.png,寿司のサーモン
+14,Data/TEXTURE/FOOD/egg.png,寿司のたまご21,Data/TEXTURE/UI/map.png,ミニマップ
 22,Data/TEXTURE/UI/locationpoint.png,現在位置

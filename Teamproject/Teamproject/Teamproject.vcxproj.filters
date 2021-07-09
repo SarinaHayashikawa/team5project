@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\inputs">
-      <UniqueIdentifier>{b1361472-faf0-4525-8fa8-f4688941bfec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\sceue">
-      <UniqueIdentifier>{771c4593-957e-4eeb-a775-122670731fd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\manager">
-      <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\ModelBase">
       <UniqueIdentifier>{78510f32-8fd2-4b1a-b3b5-c353a781b102}</UniqueIdentifier>
     </Filter>
@@ -73,6 +64,7 @@
     <Filter Include="ソース ファイル\GameModel\Sushi\Base">
       <UniqueIdentifier>{ad8db148-546c-414e-94b6-b70fbdef8f0e}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{543dcdac-8438-405f-bf92-cdb7d4394152}</UniqueIdentifier>
     </Filter>
@@ -84,6 +76,28 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\UI\miniMap">
       <UniqueIdentifier>{e6de765e-2498-4b2a-a0aa-baeb78dc81e0}</UniqueIdentifier>
+=======
+    <Filter Include="ヘッダー ファイル\Manager">
+      <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Inputs">
+      <UniqueIdentifier>{b1361472-faf0-4525-8fa8-f4688941bfec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Sceue">
+      <UniqueIdentifier>{771c4593-957e-4eeb-a775-122670731fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Player\Player Parts">
+      <UniqueIdentifier>{c071a8ec-691c-4efa-b958-c0693ef0f070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Player\Player Parts">
+      <UniqueIdentifier>{dbebfb63-ba60-4a5a-b5e6-12180978a52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Player\Player Parts\Base">
+      <UniqueIdentifier>{cf1eb2d9-18e0-4f48-a3ef-c49543dc7f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Player\Player Parts\Base">
+      <UniqueIdentifier>{ec20d133-4799-454a-8f93-61331288aaa7}</UniqueIdentifier>
+>>>>>>> remotes/origin/master
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +170,7 @@
     <ClCompile Include="ebi.cpp">
       <Filter>ソース ファイル\GameModel\Sushi</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="number.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
@@ -170,6 +185,22 @@
     </ClCompile>
     <ClCompile Include="locationpoint.cpp">
       <Filter>ソース ファイル\UI\miniMap</Filter>
+=======
+    <ClCompile Include="player parts.cpp">
+      <Filter>ソース ファイル\GameModel\Player\Player Parts\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ikura.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="tuna.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="egg.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+    </ClCompile>
+    <ClCompile Include="salmon.cpp">
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
+>>>>>>> remotes/origin/master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,10 +211,10 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="joystick.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="sound.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -195,16 +226,16 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="scene3d.h">
-      <Filter>ヘッダー ファイル\sceue</Filter>
+      <Filter>ヘッダー ファイル\Sceue</Filter>
     </ClInclude>
     <ClInclude Include="scene2d.h">
-      <Filter>ヘッダー ファイル\sceue</Filter>
+      <Filter>ヘッダー ファイル\Sceue</Filter>
     </ClInclude>
     <ClInclude Include="manager.h">
-      <Filter>ヘッダー ファイル\manager</Filter>
+      <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
-      <Filter>ヘッダー ファイル\sceue</Filter>
+      <Filter>ヘッダー ファイル\Sceue</Filter>
     </ClInclude>
     <ClInclude Include="floor.h">
       <Filter>ヘッダー ファイル\GameModel</Filter>
@@ -213,13 +244,13 @@
       <Filter>ヘッダー ファイル\GameSceue</Filter>
     </ClInclude>
     <ClInclude Include="keyboard.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="mouse.h">
-      <Filter>ヘッダー ファイル\inputs</Filter>
+      <Filter>ヘッダー ファイル\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="resource manager.h">
-      <Filter>ヘッダー ファイル\manager</Filter>
+      <Filter>ヘッダー ファイル\Manager</Filter>
     </ClInclude>
     <ClInclude Include="polygon3d.h">
       <Filter>ヘッダー ファイル\ModelBase</Filter>
@@ -242,6 +273,7 @@
     <ClInclude Include="ebi.h">
       <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="number.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
@@ -256,6 +288,22 @@
     </ClInclude>
     <ClInclude Include="map_manager.h">
       <Filter>ヘッダー ファイル\UI\miniMap</Filter>
+=======
+    <ClInclude Include="player parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ikura.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="tuna.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="salmon.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="egg.h">
+      <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+>>>>>>> remotes/origin/master
     </ClInclude>
   </ItemGroup>
 </Project>

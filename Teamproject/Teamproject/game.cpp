@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //*****************************************************************************
 #include "manager.h"
+#include "camera.h"
 #include "scene.h"
 #include "sound.h"
 #include "joystick.h"
@@ -17,16 +18,22 @@
 #include "floor.h"
 #include "player.h"
 #include "ebi.h"
-#include "score.h"
+#include "egg.h"
+#include "ikura.h"
+#include "tuna.h"
+#include "salmon.h"
+#include "player parts.h"
+#include "renderer.h"#include "score.h"
 #include "map_manager.h"
-#include "map.h"
-//*****************************************************************************
+#include "map.h"//*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
 //CLife * CGame::m_pLife = NULL;
 bool CGame::m_bPlayerUse = true;
 bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
+CCamera* CGame::m_pCamera = nullptr;
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -66,7 +73,13 @@ HRESULT CGame::Init()
 	CManager::CreateLight();
 	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
 	CManager::SetPlayer(CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f)));
-	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f, 30.0f, 0.0f));
+	//CPlayerParts::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CTuna::Create(D3DXVECTOR3(90.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	m_pCamera = CManager::GetCamera();
 	
 	//プレイヤー数毎に生成
 	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, 50.0f, 0.0f), SCORE_SIZE),  0);
@@ -120,5 +133,4 @@ void CGame::Update(void)
 //=============================================================================
 void CGame::Draw(void)
 {
-
 }

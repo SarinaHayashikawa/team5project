@@ -27,10 +27,11 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void SetCamera(void);
+	void SetCamera(void);												//カメラによる描画
+	void SetCamera(D3DXVECTOR3 CameraPos, D3DXVECTOR3 LookPosition);	//カメラによる分割描画
+	bool SetUpViewport(int screen_id);									// ビューポート設定
 	D3DXVECTOR3 GetRot(void);
 	void SetRot(D3DXVECTOR3 rot);
-	void SetCameraDistance(float fDistance);
 	//static void LoadScriptCamera(void);
 	void PlayerFlattery(void);		//プレイヤー追従
 
@@ -38,9 +39,13 @@ public:
 	void		Move(void);			// 移動処理
 #endif
 private:
-
+	typedef struct 	//分割カメラ
+	{
+		float Width;			// 位置
+		float Height;	// 注視点
+	}WindowSize;
+	WindowSize m_WidowSize;
 	void SetCameraView(D3DXVECTOR3 posV, D3DXVECTOR3 posR, float fInterpolation);
-
 	D3DXVECTOR3 m_posV;            // カメラの座標
 	D3DXVECTOR3 m_posR;            // 注視点の座標
 	D3DXVECTOR3 m_vecU;            // カメラの上方向
@@ -48,13 +53,12 @@ private:
 	D3DXMATRIX m_mtxView;          // ビューマトリックス
 	D3DXVECTOR3 m_RotateCenter;    // カメラの回転中心座標
 	float m_fDistance;             // 視点-注意点の距離
-	float m_fDistanceFromPlayer;
-	float m_fDistanceFromPlayerDest;
 	D3DXVECTOR3 m_rot;				   
 	D3DXVECTOR3 m_posVDest;         // カメラの座標(差)
 	D3DXVECTOR3 m_posRDest;         // 注視点の座標(差)
 	bool m_bIsFollowPlayer;			// プレイヤーに追従するか
 	float m_fInterpolation;			// カメラ補間スピード
+
 
 #ifdef _DEBUG						   
 	float		m_fMoveRot;			// 移動する向き
