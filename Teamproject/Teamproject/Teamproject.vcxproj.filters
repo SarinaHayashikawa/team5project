@@ -58,17 +58,12 @@
     <Filter Include="ヘッダー ファイル\GameModel\Sushi\Base">
       <UniqueIdentifier>{b7e71399-d8ac-4c8b-a769-7eaabb5cba68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameModel\Player\Sushi">
+    <Filter Include="ソース ファイル\GameModel\Sushi">
       <UniqueIdentifier>{d8608f66-a807-44b0-ac1b-69dca9a6d670}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameModel\Player\Sushi\Base">
+    <Filter Include="ソース ファイル\GameModel\Sushi\Base">
       <UniqueIdentifier>{ad8db148-546c-414e-94b6-b70fbdef8f0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameModel\Item\ItemBase">
-      <UniqueIdentifier>{b9efe866-8007-4c3a-9667-0f51fb9c3ce2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\GameModel\Item\ItemBase[">
-      <UniqueIdentifier>{55919fbe-ce38-483b-95b0-fe1a644c44b0}</UniqueIdentifier>
     <Filter Include="ヘッダー ファイル\Manager">
       <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
     </Filter>
@@ -162,19 +157,10 @@
       <Filter>ソース ファイル\ModelBase</Filter>
     </ClCompile>
     <ClCompile Include="food base.cpp">
-      <Filter>ソース ファイル\GameModel\Player\Sushi\Base</Filter>
+      <Filter>ソース ファイル\GameModel\Sushi\Base</Filter>
     </ClCompile>
     <ClCompile Include="ebi.cpp">
-      <Filter>ソース ファイル\GameModel\Player\Sushi</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>ソース ファイル\GameModel\Item\ItemBase</Filter>
-    </ClCompile>
-    <ClCompile Include="shield.cpp">
-      <Filter>ソース ファイル\GameModel\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="scoreup.cpp">
-      <Filter>ソース ファイル\GameModel\Item</Filter>
+      <Filter>ソース ファイル\GameModel\Sushi</Filter>
     </ClCompile>
     <ClCompile Include="player parts.cpp">
       <Filter>ソース ファイル\GameModel\Player\Player Parts\Base</Filter>
@@ -205,6 +191,15 @@
     </ClCompile>
     <ClCompile Include="map_manager.cpp">
       <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="scoreup.cpp">
+      <Filter>ソース ファイル\GameModel\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>ソース ファイル\GameModel\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="shield.cpp">
+      <Filter>ソース ファイル\GameModel\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,14 +272,6 @@
     <ClInclude Include="ebi.h">
       <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
-      <Filter>ヘッダー ファイル\GameModel\Item\ItemBase[</Filter>
-    </ClInclude>
-    <ClInclude Include="shield.h">
-      <Filter>ヘッダー ファイル\GameModel\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="scoreup.h">
-      <Filter>ヘッダー ファイル\GameModel\Item</Filter>
     <ClInclude Include="player parts.h">
       <Filter>ヘッダー ファイル\GameModel\Player\Player Parts\Base</Filter>
     </ClInclude>
@@ -314,6 +301,15 @@
     </ClInclude>
     <ClInclude Include="score.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="scoreup.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="shield.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
