@@ -1,12 +1,12 @@
 //=============================================================================
 //
-// ƒQ[ƒ€ˆ— [game.cpp]
+// ã‚²ãƒ¼ãƒ å‡¦ç† [game.cpp]
 // Author : 
 //
 //=============================================================================
 #define _CRT_SECURE_NO_WARNINGS
 //*****************************************************************************
-// ƒwƒbƒ_ƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+// ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //*****************************************************************************
 #include "manager.h"
 #include "camera.h"
@@ -17,6 +17,8 @@
 #include "sound.h"
 #include "floor.h"
 #include "player.h"
+#include "Shield.h"
+#include "scoreup.h"
 #include "ebi.h"
 #include "egg.h"
 #include "ikura.h"
@@ -27,8 +29,9 @@
 #include "score.h"
 #include "map_manager.h"
 #include "map.h"
+
 //*****************************************************************************
-// Ã“Iƒƒ“ƒo•Ï”‰Šú‰»
+// é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°åˆæœŸåŒ–
 //*****************************************************************************
 //CLife * CGame::m_pLife = NULL;
 bool CGame::m_bPlayerUse = true;
@@ -37,14 +40,14 @@ bool CGame::m_bIsStopUpdateContinue = false;
 CCamera* CGame::m_pCamera = nullptr;
 
 //=============================================================================
-// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 //=============================================================================
 CGame::CGame()
 {
 	m_nGameCount	= 0;
 }
 //=============================================================================
-// ƒfƒXƒgƒ‰ƒNƒ^
+// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 //=============================================================================
 CGame::~CGame()
 {
@@ -52,7 +55,7 @@ CGame::~CGame()
 }
 
 //=============================================================================
-// ¶¬ˆ—
+// ç”Ÿæˆå‡¦ç†
 //=============================================================================
 CGame * CGame::Create(void)
 {
@@ -66,14 +69,18 @@ CGame * CGame::Create(void)
 }
 
 //=============================================================================
-// ‰Šú‰»ˆ—
+// åˆæœŸåŒ–å‡¦ç†
 //=============================================================================
 HRESULT CGame::Init()
 {
-	//ƒIƒuƒWƒFƒNƒg¶¬
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆ
 	CManager::CreateCamera();
 	CManager::CreateLight();
 	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
+	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f, 30.0f, 0.0f));
+	CShield::Create(D3DXVECTOR3(-30.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SHIELD);
+	CScoreup::Create(D3DXVECTOR3(-60.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SCOREUP);
 	CManager::SetPlayer(CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f)));
 	//CPlayerParts::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
@@ -83,18 +90,18 @@ HRESULT CGame::Init()
 	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	m_pCamera = CManager::GetCamera();
 
-	//ƒvƒŒƒCƒ„[”–ˆ‚É¶¬
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°æ¯ã«ç”Ÿæˆ
 	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, 50.0f, 0.0f), SCORE_SIZE), 0);
 	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, 50.0f, 0.0f), SCORE_SIZE), 1);
 	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 2);
 	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 3);
-	//ƒ~ƒjƒ}ƒbƒv¶¬
+	//ãƒŸãƒ‹ãƒãƒƒãƒ—ç”Ÿæˆ
 	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f));
 	return S_OK;
 }
 
 //=============================================================================
-// I—¹ˆ—
+// çµ‚äº†å‡¦ç†
 //=============================================================================
 void CGame::Uninit(void)
 {
@@ -102,28 +109,28 @@ void CGame::Uninit(void)
 }
 
 //=============================================================================
-// XVˆ—
+// æ›´æ–°å‡¦ç†
 //=============================================================================
 void CGame::Update(void)
 {
-	//ƒTƒEƒ“ƒh
+	//ã‚µã‚¦ãƒ³ãƒ‰
 	CSound * pSound = CManager::GetSound();
-	//ƒL[ƒ{[ƒh‚Ìæ“¾
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å–å¾—
 	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
 
-	////ƒ|[ƒY’†,ƒRƒ“ƒeƒBƒjƒ…[‰æ–Ê‚Å‚Í‚È‚¢AUPDATE‰Â”\‚ÈXV
+	////ãƒãƒ¼ã‚ºä¸­,ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã§ã¯ãªã„æ™‚ã€UPDATEå¯èƒ½ãªæ™‚æ›´æ–°
 	//if (m_bIsStopUpdate == false && m_bIsStopUpdateContinue == false && m_bIsStopUpdate == false)
 	//{
-	//		if (lpDIDevice != NULL && pInputJoystick->GetJoystickTrigger(7) || pInputKeyboard->GetKeyboardTrigger(DIK_P))//ƒ|[ƒY
+	//		if (lpDIDevice != NULL && pInputJoystick->GetJoystickTrigger(7) || pInputKeyboard->GetKeyboardTrigger(DIK_P))//ãƒãƒ¼ã‚º
 	//		{
-	//			//XV‚ğ~‚ß‚é
+	//			//æ›´æ–°ã‚’æ­¢ã‚ã‚‹
 	//			m_bIsStopUpdate = true;
 	//		}
 	//}
 
 	m_nGameCount++;
 
-	//if (pInputKeyboard->GetKeyboardTrigger(DIK_RETURN))//ƒXƒ^[ƒg
+	//if (pInputKeyboard->GetKeyboardTrigger(DIK_RETURN))//ã‚¹ã‚¿ãƒ¼ãƒˆ
 	//{
 	//	CManager::SetMode(CManager::MODE_TITLE);
 	//	return;
@@ -131,7 +138,7 @@ void CGame::Update(void)
 }
 
 //=============================================================================
-// •`‰æˆ—
+// æç”»å‡¦ç†
 //=============================================================================
 void CGame::Draw(void)
 {

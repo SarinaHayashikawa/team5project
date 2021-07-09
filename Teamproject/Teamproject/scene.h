@@ -39,7 +39,8 @@ public:
 		OBJTYPE_ENEMY,
 		OBJTYPE_MODEL,
 		OBJTYPE_OBSTACLE,
-		OBJTYPE_STAGE
+		OBJTYPE_STAGE,
+		OBJTYPE_ITEM
 	} OBJTYPE;
 	CScene(int nPriority = 0);
 	virtual ~CScene();

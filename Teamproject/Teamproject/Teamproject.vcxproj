@@ -155,6 +155,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="locationpoint.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="map_manager.cpp" />
@@ -177,6 +178,8 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2d.cpp" />
     <ClCompile Include="scene3d.cpp" />
+    <ClCompile Include="scoreup.cpp" />
+    <ClCompile Include="shield.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
@@ -190,6 +193,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="locationpoint.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="map_manager.h" />
@@ -212,6 +216,8 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2d.h" />
     <ClInclude Include="scene3d.h" />
+    <ClInclude Include="scoreup.h" />
+    <ClInclude Include="shield.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>
