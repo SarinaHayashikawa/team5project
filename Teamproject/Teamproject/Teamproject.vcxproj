@@ -155,7 +155,12 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="locationpoint.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="map_manager.cpp" />
+    <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
+    <ClCompile Include="score.cpp" />
     <ClCompile Include="tuna.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
@@ -185,7 +190,12 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="locationpoint.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="map_manager.h" />
+    <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
+    <ClInclude Include="score.h" />
     <ClInclude Include="tuna.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
