@@ -43,6 +43,7 @@ CPlayer * CManager::m_pPlayer = nullptr;
 CMapManager * CManager::m_pMapManager = nullptr;
 HWND CManager::m_hWnd = nullptr;
 CResource * CManager::m_pResource = nullptr;
+CScore * CManager::m_apScore[MAX_PLAYER] = {};
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -338,4 +339,16 @@ bool CManager::GetIsActiveWindow(void)
 		bActive = false;
 	}
 	return bActive;
+}
+//=============================================================================
+//  スコアポインタセット
+//=============================================================================
+void CManager::SetScore(CScore * pScore, int nPlayer)
+{
+	m_apScore[nPlayer] = pScore;
+}
+
+void CManager::SetPlayer(CPlayer * pPlayer)
+{
+	m_pPlayer = pPlayer;
 }

@@ -66,7 +66,7 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos)
 HRESULT CMapManager::Init(void)
 {
 	//ê∂ê¨
-	CMap::Create(m_originPos,D3DXVECTOR3(300.0f, 300.0f,0.0f));
+	CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
 	//ê∂ê¨
 	m_pLocationPoint = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f));
 	return S_OK;
