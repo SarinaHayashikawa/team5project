@@ -39,7 +39,7 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 		pScoreup->SetPos(pos);			// 位置設定
 		pScoreup->SetSize(size);		// サイズ設定
 		pScoreup->SetItem(type);		// アイテムタイプ(スコアアップ)固定
-		pScoreup->SetModelData(Model);	// テクスチャ設定
+		pScoreup->SetModelData(Model);	// モデル設定
 
 		pScoreup->Init();				//初期化処理
 	}

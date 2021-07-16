@@ -302,14 +302,14 @@
     <ClInclude Include="score.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
+    <ClInclude Include="shield.h">
+      <Filter>ヘッダー ファイル\GameModel\Item</Filter>
+    </ClInclude>
     <ClInclude Include="item.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\GameModel\Item</Filter>
     </ClInclude>
     <ClInclude Include="scoreup.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="shield.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\GameModel\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
