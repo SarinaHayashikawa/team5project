@@ -136,7 +136,7 @@ void CManager::Uninit(void)
 	{
 		m_pSound->Uninit();
 		delete m_pSound;
-		m_pSound = NULL;
+		m_pSound = nullptr;
 	}
 
 	//ジョイスティックの破棄
@@ -279,6 +279,20 @@ void CManager::SetMode(MODE mode)
 		break;
 	}
 }
+
+//=============================================================================
+//  スコアポインタセット
+//=============================================================================
+void CManager::SetScore(CScore * pScore, int nPlayer)
+{
+	m_apScore[nPlayer] = pScore;
+}
+
+void CManager::SetPlayer(CPlayer * pPlayer)
+{
+	m_pPlayer = pPlayer;
+}
+
 //=============================================================================
 //  カメラ生成
 //=============================================================================

@@ -73,6 +73,9 @@ public:
 	static CSound * GetSound(void) { return m_pSound; };
 	static CCamera *GetCamera(void) { return m_pCamera; }
 	static CPlayer * GetPlayer(void) { return m_pPlayer; };
+	static CScore * GetScore(int nPlayer) { return m_apScore[nPlayer]; };
+	static void SetScore(CScore * pScore, int nPlayer);
+	static void SetPlayer(CPlayer * pPlayer);
 	static void CreateCamera(void);
 	static void CreateLight(void);
 	static void CManager::BindCamera(CCamera* pCamera);

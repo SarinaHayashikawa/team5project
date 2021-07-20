@@ -64,6 +64,19 @@
     <Filter Include="ソース ファイル\GameModel\Sushi\Base">
       <UniqueIdentifier>{ad8db148-546c-414e-94b6-b70fbdef8f0e}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{543dcdac-8438-405f-bf92-cdb7d4394152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI">
+      <UniqueIdentifier>{8d3854e0-019c-49b3-aa4e-73280fed3f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI\miniMap">
+      <UniqueIdentifier>{85fafc88-60ed-4fd9-a458-20172e894e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI\miniMap">
+      <UniqueIdentifier>{e6de765e-2498-4b2a-a0aa-baeb78dc81e0}</UniqueIdentifier>
+=======
     <Filter Include="ヘッダー ファイル\Manager">
       <UniqueIdentifier>{c138329c-72ca-4496-b7f5-63066266e793}</UniqueIdentifier>
     </Filter>
@@ -84,6 +97,7 @@
     </Filter>
     <Filter Include="ソース ファイル\GameModel\Player\Player Parts\Base">
       <UniqueIdentifier>{ec20d133-4799-454a-8f93-61331288aaa7}</UniqueIdentifier>
+>>>>>>> remotes/origin/master
     </Filter>
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{50a1a7ee-1c35-48a9-b501-9075d4ea52dd}</UniqueIdentifier>
@@ -168,6 +182,22 @@
     <ClCompile Include="ebi.cpp">
       <Filter>ソース ファイル\GameModel\Sushi</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="number.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>ソース ファイル\UI\miniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="map_manager.cpp">
+      <Filter>ソース ファイル\UI\miniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="locationpoint.cpp">
+      <Filter>ソース ファイル\UI\miniMap</Filter>
+=======
     <ClCompile Include="player parts.cpp">
       <Filter>ソース ファイル\GameModel\Player\Player Parts\Base</Filter>
     </ClCompile>
@@ -182,6 +212,7 @@
     </ClCompile>
     <ClCompile Include="salmon.cpp">
       <Filter>ソース ファイル\GameModel\Sushi</Filter>
+>>>>>>> remotes/origin/master
     </ClCompile>
     <ClCompile Include="locationpoint.cpp">
       <Filter>ソース ファイル\UI</Filter>
@@ -281,6 +312,22 @@
     <ClInclude Include="ebi.h">
       <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="number.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="locationpoint.h">
+      <Filter>ヘッダー ファイル\UI\miniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>ヘッダー ファイル\UI\miniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="map_manager.h">
+      <Filter>ヘッダー ファイル\UI\miniMap</Filter>
+=======
     <ClInclude Include="player parts.h">
       <Filter>ヘッダー ファイル\GameModel\Player\Player Parts\Base</Filter>
     </ClInclude>
@@ -295,6 +342,7 @@
     </ClInclude>
     <ClInclude Include="egg.h">
       <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+>>>>>>> remotes/origin/master
     </ClInclude>
     <ClInclude Include="locationpoint.h">
       <Filter>ヘッダー ファイル\UI</Filter>
