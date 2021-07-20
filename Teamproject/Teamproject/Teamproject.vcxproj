@@ -158,6 +158,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="locationpoint.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="Fieldmanager.cpp" />
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="locationpoint.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="Fieldmanager.h" />
     <ClInclude Include="map_manager.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
