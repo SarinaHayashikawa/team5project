@@ -171,6 +171,24 @@
     <ClCompile Include="salmon.cpp">
       <Filter>ソース ファイル\GameModel\Sushi</Filter>
     </ClCompile>
+    <ClCompile Include="player control.cpp">
+      <Filter>ソース ファイル\GameModel\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ebi parts.cpp">
+      <Filter>ソース ファイル\GameModel\Player\Player Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="egg parts.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ikura parts.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="tuna parts.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="salmon parts.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -256,6 +274,24 @@
     </ClInclude>
     <ClInclude Include="egg.h">
       <Filter>ヘッダー ファイル\GameModel\Sushi</Filter>
+    </ClInclude>
+    <ClInclude Include="player control.h">
+      <Filter>ヘッダー ファイル\GameModel\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="egg parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="ebi parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="ikura parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="salmon parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="tuna parts.h">
+      <Filter>ヘッダー ファイル\GameModel\Player\Player Parts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

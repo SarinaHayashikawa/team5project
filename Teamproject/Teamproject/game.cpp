@@ -24,6 +24,7 @@
 #include "salmon.h"
 #include "player parts.h"
 #include "renderer.h"
+#include "player control.h"
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -38,6 +39,7 @@ CCamera* CGame::m_pCamera = nullptr;
 //=============================================================================
 CGame::CGame()
 {
+	m_pPlayerControl = nullptr;
 	m_nGameCount	= 0;
 }
 //=============================================================================
@@ -71,13 +73,13 @@ HRESULT CGame::Init()
 	CManager::CreateCamera();
 	CManager::CreateLight();
 	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
-	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-	//CPlayerParts::Create(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CTuna::Create(D3DXVECTOR3(90.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
+	m_pPlayerControl = new CPlayerControl;
+	m_pPlayerControl->Init();
 	m_pCamera = CManager::GetCamera();
 	return S_OK;
 }
@@ -99,24 +101,13 @@ void CGame::Update(void)
 	CSound * pSound = CManager::GetSound();
 	//キーボードの取得
 	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
+	m_pPlayerControl->Update();
+	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
+	{
+		//カメラにプレイヤーの位置を伝える
+		m_pCamera->SetPos(nPlayer, m_pPlayerControl->GetPlayer(nPlayer)->GetPos());
+	}
 
-	////ポーズ中,コンティニュー画面ではない時、UPDATE可能な時更新
-	//if (m_bIsStopUpdate == false && m_bIsStopUpdateContinue == false && m_bIsStopUpdate == false)
-	//{
-	//		if (lpDIDevice != NULL && pInputJoystick->GetJoystickTrigger(7) || pInputKeyboard->GetKeyboardTrigger(DIK_P))//ポーズ
-	//		{
-	//			//更新を止める
-	//			m_bIsStopUpdate = true;
-	//		}
-	//}
-
-	m_nGameCount++;
-
-	//if (pInputKeyboard->GetKeyboardTrigger(DIK_RETURN))//スタート
-	//{
-	//	CManager::SetMode(CManager::MODE_TITLE);
-	//	return;
-	//}
 }
 
 //=============================================================================
@@ -125,3 +116,5 @@ void CGame::Update(void)
 void CGame::Draw(void)
 {
 }
+
+

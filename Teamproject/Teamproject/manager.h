@@ -74,7 +74,7 @@ public:
 	static CPlayer * GetPlayer(void) { return m_pPlayer; };
 	static void CreateCamera(void);
 	static void CreateLight(void);
-	static void CManager::BindCamera(CCamera* pCamera);
+	static void BindCamera(CCamera* pCamera);
 	static bool GetIsActiveWindow(void);
 	static CResource* GetResource(void) { return m_pResource; };			//リソースゲッター
 private:

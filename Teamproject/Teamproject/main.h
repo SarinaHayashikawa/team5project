@@ -20,8 +20,10 @@
 //*****************************************************************************
 //#define SCREEN_WIDTH	(1920)
 //#define SCREEN_HEIGHT	(1080)
-#define SCREEN_WIDTH	(1280)
-#define SCREEN_HEIGHT	(720)
+#define SCREEN_WIDTH	(1280)	//âÊñ ÇÃâ°ïù
+#define SCREEN_HEIGHT	(720)	//âÊñ ÇÃóßïù
+#define MAX_PLAYER		(4)		//ÉvÉåÉCÉÑÅ[ÇÃç≈ëÂêî
+
 
 #define SCREEN_CENTER_X (SCREEN_WIDTH / 2)
 #define SCREEN_CENTER_Y (SCREEN_HEIGHT / 2)

@@ -146,16 +146,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ebi parts.cpp" />
     <ClCompile Include="ebi.cpp" />
+    <ClCompile Include="egg parts.cpp" />
     <ClCompile Include="egg.cpp" />
     <ClCompile Include="food base.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="ikura parts.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="player control.cpp" />
+    <ClCompile Include="salmon parts.cpp" />
     <ClCompile Include="salmon.cpp" />
+    <ClCompile Include="tuna parts.cpp" />
     <ClCompile Include="tuna.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
@@ -176,16 +182,22 @@
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ebi parts.h" />
     <ClInclude Include="ebi.h" />
+    <ClInclude Include="egg parts.h" />
     <ClInclude Include="egg.h" />
     <ClInclude Include="food base.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="ikura parts.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="player control.h" />
+    <ClInclude Include="salmon parts.h" />
     <ClInclude Include="salmon.h" />
+    <ClInclude Include="tuna parts.h" />
     <ClInclude Include="tuna.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />

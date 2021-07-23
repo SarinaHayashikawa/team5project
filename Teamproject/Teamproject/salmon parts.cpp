@@ -1,27 +1,21 @@
 //=============================================================================
 //
-// 寿司　卵 [egg.cpp]
-// Author : 吉田悠人
+//  寿司　サーモンパーツ [salmon parts.cpp]
+//	Author:吉田悠人
 //
 //=============================================================================
 
 //=============================================================================
-// ヘッダーファイル
+// インクルードファイル
 //=============================================================================
-#include "egg.h"
-#include "resource manager.h"
-#include "manager.h"
+#include "salmon parts.h"
 #include "renderer.h"
-
-//=============================================================================
-// マクロ定義
-//=============================================================================
-#define EGG_SCORE (10)
+#include "resource manager.h"
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CEgg::CEgg()
+CSalmonParts::CSalmonParts()
 {
 
 }
@@ -29,26 +23,31 @@ CEgg::CEgg()
 //=============================================================================
 // 生成処理関数
 //=============================================================================
-CEgg * CEgg::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+CSalmonParts * CSalmonParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size, CScene3d * pParent)
 {
-	//メモリの確保
-	CEgg *pEgg;
-	pEgg = new CEgg;
-
+	//メモリ確保
+	CSalmonParts* pSalmonPrts = NULL;
+	pSalmonPrts = new CSalmonParts;
 	//リソース確保(リソースマネージャーから呼び出す)
 	CResource* pResource = CManager::GetResource();
-	LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(pEgg->m_nTexture);
+	LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(pSalmonPrts->m_nTexture);
 
 	//NULLチェック
-	if (pEgg != NULL)
+	if (pSalmonPrts != NULL)
 	{
-		pEgg->SetPos(pos);			// 位置設定
-		pEgg->SetSize(size);		// サイズ設定
-		pEgg->SetPoint(EGG_SCORE);	// スコア設定
-		pEgg->BindTexture(Texture);	// テクスチャ設定
-		pEgg->SetFoodType(TYPE_EGG);// タイプ設定
-		pEgg->Init();				// 初期化処理
+		//位置設定
+		pSalmonPrts->SetPos(Pos);
+		//向き設定
+		pSalmonPrts->SetRot(Rot);
+		//サイズ設定
+		pSalmonPrts->SetSize(Size);
+		//親パーツポインタ取得
+		pSalmonPrts->SetParent(pParent);
+		//テクスチャ設定
+		pSalmonPrts->BindTexture(Texture);
+		//初期化処理
+		pSalmonPrts->Init();
 	}
 
-	return pEgg;
+	return pSalmonPrts;
 }

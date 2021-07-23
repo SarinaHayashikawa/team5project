@@ -37,11 +37,13 @@ public:
     virtual ~CModel();
     virtual void	Draw(void);
     
-	MODELDATA	GetModelData(void);				//モデルデータゲッター
-	void		SetModelData(MODELDATA Model);	//モデルデータセッター
+	MODELDATA	GetModelData(void);					// モデルデータゲッター
+	void		SetModelData(MODELDATA Model);		// モデルデータセッター
+	float		GetAlphaValue(void);				// モデルカラーゲッター
+	void		SetAlphaValue(float fAlphaValue);	// モデルカラーセッター
 
 private:
-    MODELDATA	m_ModelData;		//モデルデータ
-
+    MODELDATA	m_ModelData;		// モデルデータ
+	float		m_fAlphaValue;		// アルファ値
 };
 #endif

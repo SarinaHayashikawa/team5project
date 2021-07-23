@@ -42,11 +42,12 @@ CTuna * CTuna::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	//NULLチェック
 	if (pTuna != NULL)
 	{
-		pTuna->SetPos(pos);			// 位置設定
-		pTuna->SetSize(size);		// サイズ設定
+		pTuna->SetPos(pos);				// 位置設定
+		pTuna->SetSize(size);			// サイズ設定
 		pTuna->SetPoint(TUNA_SCORE);	// スコア設定
-		pTuna->BindTexture(Texture);// テクスチャ設定
-		pTuna->Init();				// 初期化処理
+		pTuna->BindTexture(Texture);	// テクスチャ設定
+		pTuna->SetFoodType(TYPE_TUNA);	// タイプ設定
+		pTuna->Init();					// 初期化処理
 	}
 
 	return pTuna;
