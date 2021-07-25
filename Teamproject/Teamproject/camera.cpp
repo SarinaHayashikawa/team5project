@@ -244,13 +244,13 @@ bool CCamera::SetUpViewport(int screen_id)
 	};
 
 	// ビューポートの左上座標
-	view_port.X = offset[screen_id].x;
-	view_port.Y = offset[screen_id].y;
+	view_port.X = (DWORD)offset[screen_id].x;
+	view_port.Y = (DWORD)offset[screen_id].y;
 
 	// ビューポートの幅
-	view_port.Width = m_WidowSize.Width;
+	view_port.Width = (DWORD)m_WidowSize.Width;
 	// ビューポートの高さ
-	view_port.Height = m_WidowSize.Height;
+	view_port.Height = (DWORD)m_WidowSize.Height;
 	// ビューポート深度設定
 	view_port.MinZ = 0.0f;
 	view_port.MaxZ = 1.0f;

@@ -89,7 +89,6 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size)
 //=============================================================================
 HRESULT CPlayer::Init(void)
 {
-
 	return S_OK;
 }
 

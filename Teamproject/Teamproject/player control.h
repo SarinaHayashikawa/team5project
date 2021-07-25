@@ -20,13 +20,17 @@ class CPlayer;
 //=============================================================================
 //クラス定義
 //=============================================================================
-class CPlayerControl
+class CPlayerControl : public CScene
 {
 public:
 	CPlayerControl(int nPriority = 3);
 	~CPlayerControl();
-	HRESULT	Init(void);												// 初期化処理関数
-	void	Update(void);											// 更新処理関数
+	static CPlayerControl *Create();	// 生成処理関数
+	HRESULT	Init(void);					// 初期化処理関数
+	void	Uninit(void);				// 終了処理関数
+	void	Update(void);				// 更新処理関数
+	void	Draw(void);					// 描画処理関数
+
 	CPlayer * GetPlayer(int nPlayer) { return m_pPlayer[nPlayer]; }	// プレイヤーゲッター関数
 private:
 	void RespawnControl(int nPlayer);		// プレイヤーのリスポーン

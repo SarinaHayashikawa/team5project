@@ -15,7 +15,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-
+#define MAX_PLAYER (4)
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
@@ -34,6 +34,7 @@ class CMapManager;
 class CTitle;
 class CSelect;
 class CResource;
+class CScore;
 
 //*****************************************************************************
 // 構造体定義
@@ -77,6 +78,9 @@ public:
 	static void BindCamera(CCamera* pCamera);
 	static bool GetIsActiveWindow(void);
 	static CResource* GetResource(void) { return m_pResource; };			//リソースゲッター
+	static CScore * GetScore(int nPlayer) { return m_apScore[nPlayer]; };
+	static void SetPlayer(CPlayer * pPlayer);
+	static void SetScore(CScore * pScore, int nPlayer);
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
@@ -93,5 +97,6 @@ private:
 	static CMapManager * m_pMapManager;
 	static HWND m_hWnd;
 	static CResource* m_pResource;		//リソースポインタ
+	static CScore * m_apScore[MAX_PLAYER];//プレイヤースコア
 };
 #endif

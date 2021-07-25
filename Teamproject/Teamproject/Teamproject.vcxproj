@@ -160,8 +160,14 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="player control.cpp" />
     <ClCompile Include="salmon parts.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="locationpoint.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="map_manager.cpp" />
+    <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
     <ClCompile Include="tuna parts.cpp" />
+    <ClCompile Include="score.cpp" />
     <ClCompile Include="tuna.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
@@ -178,6 +184,8 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2d.cpp" />
     <ClCompile Include="scene3d.cpp" />
+    <ClCompile Include="scoreup.cpp" />
+    <ClCompile Include="shield.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
@@ -196,8 +204,14 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="player control.h" />
     <ClInclude Include="salmon parts.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="locationpoint.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="map_manager.h" />
+    <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
     <ClInclude Include="tuna parts.h" />
+    <ClInclude Include="score.h" />
     <ClInclude Include="tuna.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
@@ -214,6 +228,8 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2d.h" />
     <ClInclude Include="scene3d.h" />
+    <ClInclude Include="scoreup.h" />
+    <ClInclude Include="shield.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>

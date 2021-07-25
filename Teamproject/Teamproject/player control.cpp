@@ -19,7 +19,6 @@
 #define PLAYER_SIZE			(5.0f)	// プレイヤーの当たり判定のサイズ
 #define PLAYER_DEATH		(60*3)	// プレイヤーが死亡時間
 
-
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -52,6 +51,23 @@ CPlayerControl::~CPlayerControl()
 }
 
 //=============================================================================
+// 生成処理関数
+//=============================================================================
+CPlayerControl * CPlayerControl::Create()
+{
+	//メモリ確保
+	CPlayerControl *pPlayerControl = nullptr;
+	pPlayerControl = new CPlayerControl;
+
+	if (pPlayerControl != nullptr)
+	{
+		pPlayerControl->Init();
+	}
+	return pPlayerControl;
+
+}
+
+//=============================================================================
 // 初期化処理関数
 //=============================================================================
 HRESULT CPlayerControl::Init(void)
@@ -61,6 +77,14 @@ HRESULT CPlayerControl::Init(void)
 		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	}
 	return S_OK;
+}
+
+//=============================================================================
+// 終了処理関数
+//=============================================================================
+void CPlayerControl::Uninit(void)
+{
+	Release();
 }
 
 //=============================================================================
@@ -84,6 +108,13 @@ void CPlayerControl::Update(void)
 		}
 	}
 
+}
+
+//=============================================================================
+// 描画処理関数
+//=============================================================================
+void CPlayerControl::Draw(void)
+{
 }
 
 //=============================================================================
@@ -133,7 +164,7 @@ void CPlayerControl::DamageHit(int nPlayer)
 					//プレイヤーとパーツの距離を計算
 					float RangeX = PlayerPos.x - PartsPos.x;
 					float RangeZ = PlayerPos.z - PartsPos.z;
-					float Range = sqrt(RangeX * RangeX + RangeZ * RangeZ);
+					float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
 
 					//範囲に入っているか
 					if (Range <= PLAYER_SIZE + PLAYER_SIZE)
@@ -169,7 +200,7 @@ void CPlayerControl::PlayerHit(int nPlayer)
 				//プレイヤー同士の距離を計算
 				float RangeX = PlayerPos.x - HitPlayerPos.x;
 				float RangeZ = PlayerPos.z - HitPlayerPos.z;
-				float Range = sqrt(RangeX * RangeX + RangeZ * RangeZ);
+				float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
 
 				//プレイヤーが近くにいるか
 				if (Range <= PLAYER_SIZE + PLAYER_SIZE)
@@ -192,7 +223,7 @@ void CPlayerControl::PlayerControl(int nPlayer)
 	// コントローラーの取得
 	CJoystick* pJoystick = CManager::GetInputJoystick();
 	//入力先
-	D3DXVECTOR3 Joystic = D3DXVECTOR3(pJoystick->GetJoyStick(nPlayer).lX, -pJoystick->GetJoyStick(nPlayer).lY, 0.0f);
+	D3DXVECTOR3 Joystic = D3DXVECTOR3((float)pJoystick->GetJoyStick(nPlayer).lX, (float)-pJoystick->GetJoyStick(nPlayer).lY, 0.0f);
 	// プレイヤーの操作 
 	m_pPlayer[nPlayer]->RotControl(Joystic);
 	//プレイヤーの加速操作
