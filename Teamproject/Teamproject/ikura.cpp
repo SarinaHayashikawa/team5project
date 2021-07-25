@@ -47,6 +47,7 @@ CIkura * CIkura::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		pIkura->SetSize(size);			// サイズ設定
 		pIkura->SetPoint(IKURA_SCORE);	// スコア設定
 		pIkura->BindTexture(Texture);	// テクスチャ設定
+		pIkura->SetFoodType(TYPE_IKURA);// タイプ設定
 		pIkura->Init();					// 初期化処理
 	}
 

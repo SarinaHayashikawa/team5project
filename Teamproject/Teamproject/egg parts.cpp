@@ -1,27 +1,21 @@
 //=============================================================================
 //
-// 寿司　卵 [egg.cpp]
-// Author : 吉田悠人
+// 寿司　卵パーツ [egg parts.cpp]
+//	Author:吉田悠人
 //
 //=============================================================================
 
 //=============================================================================
-// ヘッダーファイル
+// インクルードファイル
 //=============================================================================
-#include "egg.h"
-#include "resource manager.h"
-#include "manager.h"
+#include "egg parts.h"
 #include "renderer.h"
-
-//=============================================================================
-// マクロ定義
-//=============================================================================
-#define EGG_SCORE (10)
+#include "resource manager.h"
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CEgg::CEgg()
+CEggParts::CEggParts()
 {
 
 }
@@ -29,26 +23,31 @@ CEgg::CEgg()
 //=============================================================================
 // 生成処理関数
 //=============================================================================
-CEgg * CEgg::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+CEggParts * CEggParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size, CScene3d * pParent)
 {
-	//メモリの確保
-	CEgg *pEgg;
-	pEgg = new CEgg;
-
+	//メモリ確保
+	CEggParts* pEggPrts = NULL;
+	pEggPrts = new CEggParts;
 	//リソース確保(リソースマネージャーから呼び出す)
 	CResource* pResource = CManager::GetResource();
-	LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(pEgg->m_nTexture);
+	LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(pEggPrts->m_nTexture);
 
 	//NULLチェック
-	if (pEgg != NULL)
+	if (pEggPrts != NULL)
 	{
-		pEgg->SetPos(pos);			// 位置設定
-		pEgg->SetSize(size);		// サイズ設定
-		pEgg->SetPoint(EGG_SCORE);	// スコア設定
-		pEgg->BindTexture(Texture);	// テクスチャ設定
-		pEgg->SetFoodType(TYPE_EGG);// タイプ設定
-		pEgg->Init();				// 初期化処理
+		//位置設定
+		pEggPrts->SetPos(Pos);
+		//向き設定
+		pEggPrts->SetRot(Rot);
+		//サイズ設定
+		pEggPrts->SetSize(Size);
+		//親パーツポインタ取得
+		pEggPrts->SetParent(pParent);
+		//テクスチャ設定
+		pEggPrts->BindTexture(Texture);
+		//初期化処理
+		pEggPrts->Init();
 	}
 
-	return pEgg;
+	return pEggPrts;
 }

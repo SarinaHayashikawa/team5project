@@ -21,6 +21,7 @@ CModel::CModel()
     //モデルデータの初期化
     ZeroMemory(&m_ModelData, sizeof(m_ModelData));
 	SetObjType(OBJTYPE_MODEL);
+	m_fAlphaValue = 1.0f;	//カラー
 }
 
 //=============================================================================
@@ -73,8 +74,8 @@ void CModel::Draw(void)
     //マテリアル情報の設定とマテリアルごとに描画
     for(int nCntMat = 0; nCntMat < (int)m_ModelData.nNumMat; nCntMat++)
     {
-		//マテリアルのアンビエントにディフューズカラーを設定
-		//pMat[nCntMat].MatD3D.Ambient = pMat[nCntMat].MatD3D.Diffuse;
+		//アルファ値設定
+		pMat[nCntMat].MatD3D.Diffuse.a = m_fAlphaValue;
 		//マテリアルの設定
         pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
 		// テクスチャ
@@ -101,4 +102,20 @@ CModel::MODELDATA CModel::GetModelData(void)
 void CModel::SetModelData(MODELDATA Model)
 {
 	m_ModelData = Model;
+}
+
+//=============================================================================
+// モデルカラーゲッター
+//=============================================================================
+float CModel::GetAlphaValue(void)
+{
+	return m_fAlphaValue;
+}
+
+//=============================================================================
+// モデルカラーセッター
+//=============================================================================
+void CModel::SetAlphaValue(float fAlphaValue)
+{
+	m_fAlphaValue = fAlphaValue;
 }

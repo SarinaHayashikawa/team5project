@@ -30,10 +30,6 @@
 #define	NUM_JS_MAX (256)
 
 //*****************************************************************************
-// 前方宣言
-//*****************************************************************************
-
-//*****************************************************************************
 // クラス定義
 //*****************************************************************************
 class CJoystick : public CInput
@@ -44,27 +40,29 @@ public:
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd);
 	void Uninit(void);
 	void Update(void);
-	bool GetJoystickPress(int nKey);
-	bool GetJoystickTrigger(int nKey);
-	bool GetJoystickRelease(int nKey);
-	BOOL CreateEffect(HWND);
+	bool GetJoystickPress(int nKey, int nJoystick);
+	bool GetJoystickTrigger(int nKey, int nJoystick);
+	bool GetJoystickRelease(int nKey, int nJoystick);
+	DIJOYSTATE	GetJoyStick(int nJoystick);
+	BOOL CreateEffect(HWND hWnd, int nJoystick);
 	static BOOL CALLBACK EnumFFDevicesCallback(const DIDEVICEINSTANCE * pdidInstance, VOID * pContext);
 	static BOOL CALLBACK EnumJoysticksCallback(const DIDEVICEINSTANCE *pdidInstance, VOID *pContext);
 	static BOOL CALLBACK EnumAxesCallback(const DIDEVICEOBJECTINSTANCE *pdidoi, VOID *pContext);
-	static LPDIRECTINPUTDEVICE8 GetDevice(void) { return m_pJDevice; }
-	static LPDIRECTINPUTEFFECT GetEffect(void) { return m_IpDIEffect; }
+	static LPDIRECTINPUTDEVICE8 GetDevice(int nJoystick) { return m_pJDevice[nJoystick]; }
+	static LPDIRECTINPUTEFFECT GetEffect(int nJoystick) { return m_IpDIEffect[nJoystick]; }
+
 private:
-	static LPDIRECTINPUTDEVICE8 m_pJDevice;		//デバイス
-	static LPDIRECTINPUTEFFECT m_IpDIEffect;	//エフェクト
-	DIDEVCAPS	m_diDevCaps;					//Caps
+	static LPDIRECTINPUTDEVICE8 m_pJDevice[MAX_PLAYER];		//デバイス
+	static LPDIRECTINPUTEFFECT m_IpDIEffect[MAX_PLAYER];	//エフェクト
+	static DIDEVCAPS	m_diDevCaps;					//Caps
 	DWORD m_dwNumForceFeedbackAxis;				//フォースフィードバック
 	DWORD m_rgdwAxes[2] = { DIJOFS_X , DIJOFS_Y };
 	LONG  m_rglDirection[2] = { 1 , 1 };
 	DICONSTANTFORCE cf;
 	DIEFFECT        eff;
+	BYTE m_aJoyState[NUM_JS_MAX][MAX_PLAYER];				// ジョイスティックの入力情報ワーク
+	BYTE m_aJoyStateTrigger[NUM_JS_MAX][MAX_PLAYER];		// ジョイスティックトリガー情報
+	BYTE m_aJoyStateRelease[NUM_JS_MAX][MAX_PLAYER];		// ジョイスティックリリース情報
 
-	BYTE m_aJoyState[NUM_JS_MAX];				// ジョイスティックの入力情報ワーク
-	BYTE m_aJoyStateTrigger[NUM_JS_MAX];		//ジョイスティックトリガー情報
-	BYTE m_aJoyStateRelease[NUM_JS_MAX];		// ジョイスティックリリース情報
 };
 #endif

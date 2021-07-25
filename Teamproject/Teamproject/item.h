@@ -34,9 +34,9 @@ public:
 
 	void			Update(void);
 	void			Collision(void);					// 当たり判定関数
-	void			ItemEffect(void);
+	void			ItemEffect(ITEM type);					//アイテム効果関数
 	void			SetItem(ITEM item);				// アイテムの種類設定
-				
+	ITEM GetType(void) { return m_ItemType; };
 private:
 
 	ITEM        m_ItemType;

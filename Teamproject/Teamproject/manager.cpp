@@ -242,10 +242,10 @@ void CManager::Draw(void)
 		// ƒQ[ƒ€ƒV[ƒ“‚Ìê‡•ªŠ„‚·‚é
 		else
 		{
-			for (int nCamera = 0; nCamera<4; nCamera++)
+			for (int nCamera = 0; nCamera<MAX_PLAYER; nCamera++)
 			{
 				m_pCamera->SetUpViewport(nCamera);
-				m_pCamera->SetCamera(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+				m_pCamera->SetCamera(nCamera);
 				m_pRenderer->Draw();
 
 			}

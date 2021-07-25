@@ -29,7 +29,7 @@ public:
 private:
 	int                     m_nPatternAnim; //アニメーションパターン
 	int                     m_nCountAnim; //アニメーションパターン
-	int                     m_nTexture = 22;//テクスチャ番号
+	const int               m_nTexture = 22;//テクスチャ番号
 };
 #endif // !_LOCATION_POINT_H_
 
