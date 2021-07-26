@@ -37,15 +37,15 @@ CPlayer::CPlayer(int nPriority)
 	m_nLife		= 0;										// ライフの初期化
 	m_nRepelFrameCount = 0;									// はじかれた際のフレーム値の初期化
 	m_nDeathFrameCount = 0;									// 死亡時のカウントフレーム値　の初期化
-	m_fDashCoutn = 0;										// 加速値の初期化
-	m_nParts	= 0;										// パーツ数の初期化
-	m_PlayerStats = PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
-	m_DashSwitch = false;									// ダッシュ切替の初期化
-	m_RotMove	= D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// 向きの移動量の初期化
-	m_RepelMove = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// はじかれた際の移動量の初期化
+	m_fDashCoutn	= 0;										// 加速値の初期化
+	m_nParts		= 0;										// パーツ数の初期化
+	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
+	m_bInvincible	= false;									// 無敵状態の初期化
+	m_bDashSwitch	= false;									// ダッシュ切替の初期化
+	m_RotMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// 向きの移動量の初期化
+	m_RepelMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// はじかれた際の移動量の初期化
 	memset(m_pParts, NULL, sizeof(m_pParts[MAX_PARTS]));	// パーツポインタの初期化
 }
-
 //=============================================================================
 // デストラクタ
 //=============================================================================
@@ -85,14 +85,6 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size)
 }
 
 //=============================================================================
-// 初期化処理関数
-//=============================================================================
-HRESULT CPlayer::Init(void)
-{
-	return S_OK;
-}
-
-//=============================================================================
 // 更新処理関数
 //=============================================================================
 void CPlayer::Update(void)
@@ -102,23 +94,22 @@ void CPlayer::Update(void)
 
 	switch (m_PlayerStats)
 	{
-	case PLAYER_STATS_NORMAL:
+	case PLAYER_STATS_NORMAL:	//通常状態の場合
 		//移動処理
 		Move();
 		//角度処理
 		Rot();
 		break;
-	case PLAYER_STATS_REPEL:
+	case PLAYER_STATS_REPEL:	//はじかれている場合
 		RepelMove();
 		break;
-	case PLAYER_STATS_DEATH:
+	case PLAYER_STATS_DEATH:	//死亡している場合
 		Death();
 		break;
-	default:
+	default:					//指定している以外の状態になってしまった際
+		m_PlayerStats = PLAYER_STATS_NORMAL;
 		break;
 	}
-	
-
 }
 
 //=============================================================================
@@ -208,7 +199,7 @@ void CPlayer::RotControl(D3DXVECTOR3 Control)
 //=============================================================================
 void CPlayer::Dash(bool bDash)
 {
-	m_DashSwitch = bDash;
+	m_bDashSwitch = bDash;
 }
 
 //=============================================================================
@@ -227,7 +218,9 @@ void CPlayer::DamageHit(void)
 //=============================================================================
 void CPlayer::Repel(CScene3d* Player)
 {
-	if (m_PlayerStats != PLAYER_STATS_REPEL)
+	//プレイヤーの状態が通常の場合＆無敵状態出ないとき
+	if (m_PlayerStats != PLAYER_STATS_REPEL
+		&&m_bInvincible == false)
 	{
 		//現在位置
 		D3DXVECTOR3 pos = GetPos();
@@ -239,6 +232,7 @@ void CPlayer::Repel(CScene3d* Player)
 		D3DXVECTOR3 Normal = PlayerPos - pos;
 		//移動処理
 		D3DXVECTOR3 move = D3DXVECTOR3((float)(cos(HItPint.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(HItPint.y - D3DXToRadian(90.0f))));
+		
 		//移動量
 		D3DXVec3Normalize(&Normal, &Normal);
 		//移動量の計算
@@ -248,7 +242,6 @@ void CPlayer::Repel(CScene3d* Player)
 		m_fDashCoutn = 0.0f;
 		//状態変化
 		m_PlayerStats = PLAYER_STATS_REPEL;
-
 	}
 }
 
@@ -306,7 +299,7 @@ void CPlayer::Move(void)
 	//移動処理
 	move = D3DXVECTOR3((float)(cos(rot.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(rot.y - D3DXToRadian(90.0f))));
 
-	if (!m_DashSwitch)
+	if (!m_bDashSwitch)
 	{
 		if (m_fDashCoutn <= PLAYER_SPEED)
 		{

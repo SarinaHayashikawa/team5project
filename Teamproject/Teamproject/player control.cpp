@@ -107,7 +107,6 @@ void CPlayerControl::Update(void)
 			RespawnControl(nPlayer);
 		}
 	}
-
 }
 
 //=============================================================================
