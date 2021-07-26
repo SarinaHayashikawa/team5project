@@ -97,10 +97,7 @@ HRESULT CGame::Init()
 	m_pPlayerControl = CPlayerControl::Create();
 
 	//プレイヤー数毎に生成
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, 50.0f, 0.0f), SCORE_SIZE), 0);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, 50.0f, 0.0f), SCORE_SIZE), 1);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 2);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 3);
+	
 	
 	//ミニマップ生成
 	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f));

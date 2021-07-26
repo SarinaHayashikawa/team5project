@@ -15,7 +15,7 @@
 //*****************************************************************************
 // É}ÉNÉçíËã`
 //*****************************************************************************
-#define MAX_DIGITS (4) //ç≈ëÂåÖêî
+#define MAX_DIGITS (5) //ç≈ëÂåÖêî
 #define SCORE_SIZE_WIDTH (60.0f)
 #define SCORE_SIZE_HEIGHT (100.0f)
 #define SCORE_POS (D3DXVECTOR3(SCREEN_WIDTH / 2 + SCORE_SIZE_WIDTH,80.0f,0.0f))
