@@ -23,6 +23,7 @@ class CCamera;
 class CLight;
 class CPlayer;
 class CScore;
+class CPlayerControl;
 
 //=============================================================================
 //マネージャークラス
@@ -37,6 +38,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+
 	CScene2D * GetScene(void) { return m_pScene; };
 	CGame * GetManager(void) { return this; };
 
@@ -45,10 +47,11 @@ public:
 	static bool GetIsStopUpdateContinue(void) { return m_bIsStopUpdateContinue; };
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 private:
-	CScene2D*	m_pScene;		//シーンポインタ
-	int			m_nGameCount;	//ゲームカウント
+	CScene2D*	m_pScene;				//シーンポインタ
+	int			m_nGameCount;			//ゲームカウント
+	CPlayerControl* m_pPlayerControl;	//プレイヤーコントロールポインタ
+	static CCamera*	m_pCamera;			//カメラポインタ
 
-	static CCamera*	m_pCamera;					//カメラポインタ
 	static bool		m_bPlayerUse;				//プレイヤーが使われているか
 	static bool		m_bIsStopUpdate;			//アップデート停止しているか
 	static bool		m_bIsStopUpdateContinue;	//コンティニュー発生しているか

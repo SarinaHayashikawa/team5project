@@ -42,11 +42,12 @@ CSalmon * CSalmon::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	//NULLチェック
 	if (pSalmon != NULL)
 	{
-		pSalmon->SetPos(pos);			// 位置設定
-		pSalmon->SetSize(size);		// サイズ設定
+		pSalmon->SetPos(pos);				// 位置設定
+		pSalmon->SetSize(size);				// サイズ設定
 		pSalmon->SetPoint(SALMON_SCORE);	// スコア設定
-		pSalmon->BindTexture(Texture);// テクスチャ設定
-		pSalmon->Init();				// 初期化処理
+		pSalmon->BindTexture(Texture);		// テクスチャ設定
+		pSalmon->SetFoodType(TYPE_SALMON);	// タイプ設定
+		pSalmon->Init();					// 初期化処理
 	}
 
 	return pSalmon;

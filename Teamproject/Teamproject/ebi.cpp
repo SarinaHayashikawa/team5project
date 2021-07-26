@@ -46,7 +46,7 @@ CEbi * CEbi::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		pEbi->SetSize(size);		// サイズ設定
 		pEbi->SetPoint(EBI_SCORE);	// スコア設定
 		pEbi->BindTexture(Texture);	// テクスチャ設定
-
+		pEbi->SetFoodType(TYPE_EBI);// タイプ設定
 		pEbi->Init();				// 初期化処理
 	}
 

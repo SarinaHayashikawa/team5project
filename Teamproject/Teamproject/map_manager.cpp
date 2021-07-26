@@ -65,9 +65,9 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos)
 //=============================================================================
 HRESULT CMapManager::Init(void)
 {
-	//生成
+	//マップ生成
 	CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
-	//生成
+	//プレイヤー位置の生成
 	m_pLocationPoint = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f));
 	return S_OK;
 }
@@ -87,7 +87,7 @@ void CMapManager::Update(void)
 {
 	//プレイヤーの位置取得
 	D3DXVECTOR3 pos = CManager::GetPlayer()->GetPos();
-	//オブジェクトの現在位置をセット
+	//プレイヤーの現在位置をセット
 	m_pLocationPoint->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
 }
 //=============================================================================

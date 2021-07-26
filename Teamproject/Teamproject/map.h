@@ -27,8 +27,8 @@ public:
 	void Update(void);
 	void Draw(void);
 private:
-	int                     m_nPatternAnim; //アニメーションパターン
-	int                     m_nCountAnim; //アニメーションパターン
+	int                     m_nPatternAnim;	//アニメーションパターン
+	int                     m_nCountAnim;	//アニメーションパターン
 	int                     m_nTexture = 21;//テクスチャ番号
 };
 #endif // !_MAP_H_

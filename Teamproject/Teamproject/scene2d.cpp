@@ -27,16 +27,16 @@
 //=============================================================================
 CScene2d::CScene2d(int nPriority) :CScene(nPriority)
 {
-	m_pTexture = NULL;								//テクスチャへのポインタ
-	m_pVtxBuff = NULL;								//頂点バッファへのポインタ
+	m_pTexture = NULL;							//テクスチャへのポインタ
+	m_pVtxBuff = NULL;							//頂点バッファへのポインタ
 	m_Pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//座標
 	m_Size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//サイズ
-	m_Rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//向き
+	m_Rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//向き
 
-	m_aTex[0] = D3DXVECTOR2(0.0f, 0.0f);
+	m_aTex[0] = D3DXVECTOR2(0.0f, 0.0f);		//テクスチャ座標
 	m_aTex[1] = D3DXVECTOR2(1.0f, 0.0f);
 	m_aTex[2] = D3DXVECTOR2(0.0f, 1.0f);
-	m_aTex[3] = D3DXVECTOR2(1.0f, 1.0f);//テクスチャ座標
+	m_aTex[3] = D3DXVECTOR2(1.0f, 1.0f);		
 
 	m_Col = D3DCOLOR_RGBA(255, 255, 255, 255);	//頂点カラー
 	m_fScale = 1.0f;								//縮尺
