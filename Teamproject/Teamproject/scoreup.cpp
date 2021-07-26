@@ -46,4 +46,18 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 	return pScoreup;
 }
 
+void CScoreup::ItemEffect(ITEM type)
+{
+	if (type != NULL)
+	{
+		if (type == ITEM_SCOREUP)
+		{
+			//スコアアップの処理
+
+			//スコアの効果(予定)
+		
+		}
+	}
+}
+
 

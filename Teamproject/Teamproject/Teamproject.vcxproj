@@ -162,6 +162,7 @@
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
     <ClCompile Include="score.cpp" />
+    <ClCompile Include="timer.cpp" />
     <ClCompile Include="tuna.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
     <ClInclude Include="score.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="tuna.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />

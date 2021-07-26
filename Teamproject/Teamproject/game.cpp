@@ -88,10 +88,10 @@ HRESULT CGame::Init()
 	m_pCamera = CManager::GetCamera();
 
 	//プレイヤー数毎に生成
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, 50.0f, 0.0f), SCORE_SIZE), 0);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, 50.0f, 0.0f), SCORE_SIZE), 1);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(180.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 2);
-	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 80.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 3);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(240.0f, 50.0f, 0.0f), SCORE_SIZE), 0);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 50.0f, 50.0f, 0.0f), SCORE_SIZE), 1);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(240.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 2);
+	CManager::SetScore(CScore::Create(D3DXVECTOR3(SCREEN_WIDTH - 50.0f, SCREEN_HEIGHT / 2 + 50.0f, 0.0f), SCORE_SIZE), 3);
 	//ミニマップ生成
 	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f));
 	return S_OK;
