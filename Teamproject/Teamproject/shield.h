@@ -21,7 +21,7 @@ public:
 	CShield();
 
 	static CShield * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type);
-
+	void ItemEffect(ITEM type);		//アイテム効果関数
 
 private:
 	const int	m_nModel = 3;	// モデル番号	

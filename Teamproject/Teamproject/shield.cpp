@@ -12,6 +12,7 @@
 #include "resource manager.h"
 #include "manager.h"
 #include "renderer.h"
+#include "scoreup.h"
 
 //=============================================================================
 // コンストラクタ
@@ -44,6 +45,20 @@ CShield * CShield::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 		pShield->Init();				//初期化処理
 	}
 	return pShield;
+}
+
+void CShield::ItemEffect(ITEM type)
+{
+	if (type != NULL)
+	{
+		if (type == ITEM_SHIELD)
+		{
+			//スコアアップの処理
+
+			//スコアの効果(予定)
+			
+		}
+	}
 }
 
 
