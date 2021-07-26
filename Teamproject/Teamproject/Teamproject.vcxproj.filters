@@ -201,9 +201,6 @@
     <ClCompile Include="shield.cpp">
       <Filter>ソース ファイル\GameModel\Item</Filter>
     </ClCompile>
-    <ClCompile Include="timer.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -313,9 +310,6 @@
     </ClInclude>
     <ClInclude Include="scoreup.h">
       <Filter>ヘッダー ファイル\GameModel\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="timer.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
