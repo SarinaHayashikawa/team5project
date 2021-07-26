@@ -20,6 +20,11 @@
 #include "salmon parts.h"
 #include "tuna parts.h"
 #include "food base.h"
+#include "ebi.h"
+#include "egg.h"
+#include "ikura.h"
+#include "salmon.h"
+#include "tuna.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -28,22 +33,25 @@
 #define PLAYER_ROT_SPEED	(10.0f)	// プレイヤーの振り向き速度(後で変更)
 #define PLAYER_REPEL		(15.0f)	// プレイヤーがはじかれる距離
 #define PLAYER_REPEL_FRAME	(10.0f)	// プレイヤーのはじかれた際のフレーム
+#define PLAYER_INVINCIBLE	(30*2)	// プレイヤーの無敵時間
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CPlayer::CPlayer(int nPriority)
 {
 	SetObjType(OBJTYPE_PLAYER);								// オブジェクトタイプ設定
-	m_nLife		= 0;										// ライフの初期化
-	m_nRepelFrameCount = 0;									// はじかれた際のフレーム値の初期化
-	m_nDeathFrameCount = 0;									// 死亡時のカウントフレーム値　の初期化
-	m_fDashCoutn	= 0;										// 加速値の初期化
-	m_nParts		= 0;										// パーツ数の初期化
+	m_nLife				 = 0;								// ライフの初期化
+	m_nRepelFrameCount	 = 0;								// はじかれた際のフレーム値の初期化
+	m_nFlashing			 = 0;								// 死亡時のカウントフレーム値　の初期化
+	m_nInvinciFrameCount = 0;								// 無敵状態のフレームカウントの初期化
+	m_fDashCoutn	= 0;									// 加速値の初期化
+	m_nParts		= 0;									// パーツ数の初期化
 	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
-	m_bInvincible	= false;									// 無敵状態の初期化
-	m_bDashSwitch	= false;									// ダッシュ切替の初期化
-	m_RotMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// 向きの移動量の初期化
-	m_RepelMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);			// はじかれた際の移動量の初期化
+	m_bInvincible	= false;								// 無敵状態の初期化
+	m_bDashSwitch	= false;								// ダッシュ切替の初期化
+	m_bShield		= false;								// アイテムシールドスイッチの初期化
+	m_RotMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向きの移動量の初期化
+	m_RepelMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// はじかれた際の移動量の初期化
 	memset(m_pParts, NULL, sizeof(m_pParts[MAX_PARTS]));	// パーツポインタの初期化
 }
 //=============================================================================
@@ -107,9 +115,10 @@ void CPlayer::Update(void)
 		Death();
 		break;
 	default:					//指定している以外の状態になってしまった際
-		m_PlayerStats = PLAYER_STATS_NORMAL;
+		SetStats(PLAYER_STATS_NORMAL);
 		break;
 	}
+	Invincible();
 }
 
 //=============================================================================
@@ -170,8 +179,6 @@ void CPlayer::AddParts(CFoodBase::FOOD_TYPE FoodType)
 			m_pParts[m_nParts] = CTunaParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
 			break;
 		}
-
-
 	}
 
 	//パーツ数を増やす
@@ -207,9 +214,54 @@ void CPlayer::Dash(bool bDash)
 //=============================================================================
 void CPlayer::DamageHit(void)
 {
-	if (m_PlayerStats != PLAYER_STATS_DEATH)
+	if (m_PlayerStats == PLAYER_STATS_NORMAL)
 	{
-		m_PlayerStats = PLAYER_STATS_DEATH;
+		//シールドアイテムを持っていなかった場合
+		if (!m_bShield)
+		{
+			//状態を死亡に変更
+			SetStats(PLAYER_STATS_DEATH);
+
+			//持っている寿司をばら撒く
+			for (int nParts = 0; nParts < m_nParts; nParts++)
+			{
+				if (m_pParts[nParts] != nullptr)
+				{
+					//パーツの位置取得
+					D3DXVECTOR3 PartsPos = m_pParts[nParts]->GetPos();
+					switch (m_pParts[nParts]->GetType())
+					{
+					case CFoodBase::TYPE_EBI:
+						CEbi::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+						break;
+					case CFoodBase::TYPE_EGG:
+						CEgg::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+						break;
+					case CFoodBase::TYPE_IKURA:
+						CIkura::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+						break;
+					case CFoodBase::TYPE_SALMON:
+						CSalmon::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+						break;
+					case CFoodBase::TYPE_TUNA:
+						CTuna::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+						break;
+					}
+
+					m_pParts[nParts]->Uninit();
+					m_pParts[nParts] = nullptr;
+				}
+			}
+			m_nParts = 0;
+		}
+		//持っていた場合
+		else
+		{
+			//アイテムを消費
+			m_bShield = false;
+			//一定時間無敵にする
+			m_bInvincible = true;
+		}
 	}
 }
 
@@ -219,7 +271,7 @@ void CPlayer::DamageHit(void)
 void CPlayer::Repel(CScene3d* Player)
 {
 	//プレイヤーの状態が通常の場合＆無敵状態出ないとき
-	if (m_PlayerStats != PLAYER_STATS_REPEL
+	if (m_PlayerStats == PLAYER_STATS_NORMAL
 		&&m_bInvincible == false)
 	{
 		//現在位置
@@ -240,8 +292,23 @@ void CPlayer::Repel(CScene3d* Player)
 		m_RepelMove = (-m_RepelMove*PLAYER_REPEL) + pos;
 		//加速値の初期化
 		m_fDashCoutn = 0.0f;
-		//状態変化
-		m_PlayerStats = PLAYER_STATS_REPEL;
+		
+		//一定時間無敵にする
+		m_bInvincible = true;
+
+		//シールドアイテムを持っているか
+		//持っていない場合
+		if (m_bShield==false)
+		{
+			//はじかれ状態に変化
+			SetStats(PLAYER_STATS_REPEL);
+		}
+		//持っていた場合
+		else
+		{
+			//アイテムを消費して防ぐ
+			m_bShield = false;
+		}
 	}
 }
 
@@ -250,14 +317,32 @@ void CPlayer::Repel(CScene3d* Player)
 //=============================================================================
 void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 {
-	//リスポーン位置
-	SetPos(RespawnPos);
-	//ステータス設定
-	m_PlayerStats = PLAYER_STATS_NORMAL;
-	//死亡した際のカウント初期化
-	m_nDeathFrameCount = 0;
-	//アルファ値を初期化
-	SetAlphaValue(1.0f);
+	if (m_PlayerStats == PLAYER_STATS_DEATH)
+	{
+		//リスポーン位置
+		SetPos(RespawnPos);
+		//ステータス設定
+		SetStats(PLAYER_STATS_NORMAL);
+		//リスポーン時に一定時間無敵にする
+		m_bInvincible = true;
+		//点滅ストップ処理
+		FlashingStop();
+	}
+}
+
+//=============================================================================
+// シールド取得処理
+//=============================================================================
+void CPlayer::ShieldGet(void)
+{
+	//アイテムを持っているか
+	if (m_bShield == false)
+	{
+		//取得状態のためtrueに変更
+		m_bShield = true;
+		//見た目に変化？
+
+	}
 }
 
 //=============================================================================
@@ -265,16 +350,7 @@ void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 //=============================================================================
 void CPlayer::Death(void)
 {
-	//カウント
-	m_nDeathFrameCount++;
-	if (m_nDeathFrameCount % 3)
-	{
-		SetAlphaValue(1.0f);
-	}
-	else
-	{
-		SetAlphaValue(0.0f);
-	}
+	Flashing();
 }
 
 //=============================================================================
@@ -387,7 +463,61 @@ void CPlayer::RepelMove(void)
 		//カウント初期化
 		m_nRepelFrameCount = 0;
 		//ステータスを変更
-		m_PlayerStats = PLAYER_STATS_NORMAL;
+		SetStats(PLAYER_STATS_NORMAL);
 	}
+}
+
+//=============================================================================
+// 無敵時間処理関数
+//=============================================================================
+void CPlayer::Invincible(void)
+{
+	//無敵スイッチがtrueの場合
+	if (m_bInvincible == true)
+	{
+		//点滅処理
+		Flashing();
+		//カウントダウン
+		m_nInvinciFrameCount++;
+		//カウントが一定に達したら
+		if (m_nInvinciFrameCount >= PLAYER_INVINCIBLE)
+		{
+			//カウントの初期化
+			m_nInvinciFrameCount = 0;
+			//無敵スイッチをfalseにする
+			m_bInvincible = false;
+			//点滅ストップ
+			FlashingStop();
+			return;
+		}
+	}
+	
+}
+
+//=============================================================================
+// 点滅処理関数
+//=============================================================================
+void CPlayer::Flashing(void)
+{
+	//カウント
+	m_nFlashing++;
+	if (m_nFlashing % 3)
+	{
+		SetAlphaValue(1.0f);
+	}
+	else
+	{
+		SetAlphaValue(0.0f);
+	}
+}
+//=============================================================================
+// 点滅ストップ処理関数
+//=============================================================================
+void CPlayer::FlashingStop(void)
+{
+	//点滅のカウント初期化
+	m_nFlashing = 0;
+	//アルファ値を初期化
+	SetAlphaValue(1.0f);
 }
 

@@ -210,14 +210,14 @@
     <ClCompile Include="ikura parts.cpp">
       <Filter>ソース ファイル\GameModel\Player\Player Parts</Filter>
     </ClCompile>
-    <ClCompile Include="light.cpp">
-      <Filter>ソース ファイル\GameModel\Player\Player Parts</Filter>
-    </ClCompile>
     <ClCompile Include="salmon parts.cpp">
       <Filter>ソース ファイル\GameModel\Player\Player Parts</Filter>
     </ClCompile>
     <ClCompile Include="tuna parts.cpp">
       <Filter>ソース ファイル\GameModel\Player\Player Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

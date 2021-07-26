@@ -43,6 +43,8 @@ CIkuraParts * CIkuraParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 
 		pIkuraPrts->SetSize(Size);
 		//親パーツポインタ取得
 		pIkuraPrts->SetParent(pParent);
+		//タイプ設定
+		pIkuraPrts->SetType(CFoodBase::TYPE_IKURA);
 		//テクスチャ設定
 		pIkuraPrts->BindTexture(Texture);
 		//初期化処理
