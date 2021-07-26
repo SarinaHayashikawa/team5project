@@ -43,6 +43,8 @@ CEbiParts * CEbiParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size
 		pEbiPrts->SetSize(Size);
 		//親パーツポインタ取得
 		pEbiPrts->SetParent(pParent);
+		//タイプ設定
+		pEbiPrts->SetType(CFoodBase::TYPE_EBI);
 		//テクスチャ設定
 		pEbiPrts->BindTexture(Texture);
 		//初期化処理

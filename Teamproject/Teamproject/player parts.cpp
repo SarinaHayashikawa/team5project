@@ -36,33 +36,6 @@ CPlayerParts::~CPlayerParts()
 }
 
 //=============================================================================
-// 生成処理関数
-//=============================================================================
-CPlayerParts * CPlayerParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size, CScene3d* pParent)
-{
-	//メモリ確保
-	CPlayerParts* pPlayerParts = NULL;
-	pPlayerParts = new CPlayerParts;
-
-	//NULLチェック
-	if (pPlayerParts != NULL)
-	{
-		//位置設定
-		pPlayerParts->SetPos(Pos);
-		//向き設定
-		pPlayerParts->SetRot(Rot);
-		//サイズ設定
-		pPlayerParts->SetSize(Size);
-		//親パーツポインタ取得
-		pPlayerParts->SetParent(pParent);
-		//初期化処理
-		pPlayerParts->Init();
-	}
-
-	return pPlayerParts;
-}
-
-//=============================================================================
 // 更新処理関数
 //=============================================================================
 void CPlayerParts::Update(void)

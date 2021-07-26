@@ -24,7 +24,7 @@ public:
 	typedef enum
 	{
 		ITEM_NONE = 0,		// 割り当てなし
-		ITEM_SCOREUP,			// スコアアップ
+		ITEM_SCOREUP,		// スコアアップ
 		ITEM_SHIELD,		// シールド
 		ITEM_MAX			// 種類の最大数
 	}ITEM;
@@ -32,11 +32,11 @@ public:
 	CItem(int nPriority = 3);
 	~CItem();
 
-	void			Update(void);
-	void			Collision(void);					// 当たり判定関数
-	void			ItemEffect(ITEM type);					//アイテム効果関数
-	void			SetItem(ITEM item);				// アイテムの種類設定
-	ITEM GetType(void) { return m_ItemType; };
+	void Update(void);
+	void Collision(void);						// 当たり判定関数
+	void ItemEffect(ITEM type);					// アイテム効果関数
+	void SetItem(ITEM item);					// アイテムの種類設定
+	ITEM GetType(void) { return m_ItemType; };	
 private:
 
 	ITEM        m_ItemType;

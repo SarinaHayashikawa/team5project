@@ -43,6 +43,8 @@ CEggParts * CEggParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size
 		pEggPrts->SetSize(Size);
 		//親パーツポインタ取得
 		pEggPrts->SetParent(pParent);
+		//タイプ設定
+		pEggPrts->SetType(CFoodBase::TYPE_EGG);
 		//テクスチャ設定
 		pEggPrts->BindTexture(Texture);
 		//初期化処理
