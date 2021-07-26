@@ -43,6 +43,8 @@ CTunaParts * CTunaParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Si
 		pTunaPrts->SetSize(Size);
 		//親パーツポインタ取得
 		pTunaPrts->SetParent(pParent);
+		//タイプ設定
+		pTunaPrts->SetType(CFoodBase::TYPE_TUNA);
 		//テクスチャ設定
 		pTunaPrts->BindTexture(Texture);
 		//初期化処理

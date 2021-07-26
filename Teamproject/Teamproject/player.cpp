@@ -20,6 +20,12 @@
 #include "salmon parts.h"
 #include "tuna parts.h"
 #include "food base.h"
+#include "ebi.h"
+#include "egg.h"
+#include "ikura.h"
+#include "salmon.h"
+#include "tuna.h"
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -28,6 +34,7 @@
 #define PLAYER_ROT_SPEED	(10.0f)	// プレイヤーの振り向き速度(後で変更)
 #define PLAYER_REPEL		(15.0f)	// プレイヤーがはじかれる距離
 #define PLAYER_REPEL_FRAME	(10.0f)	// プレイヤーのはじかれた際のフレーム
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -216,9 +223,41 @@ void CPlayer::Dash(bool bDash)
 //=============================================================================
 void CPlayer::DamageHit(void)
 {
-	if (m_PlayerStats != PLAYER_STATS_DEATH)
+	if (m_PlayerStats == PLAYER_STATS_NORMAL)
 	{
 		m_PlayerStats = PLAYER_STATS_DEATH;
+		
+		//持っている寿司をばら撒く
+		for (int nParts = 0; nParts < m_nParts; nParts++)
+		{
+			if (m_pParts[nParts] != nullptr)
+			{
+				//パーツの位置取得
+				D3DXVECTOR3 PartsPos = m_pParts[nParts]->GetPos();
+				switch (m_pParts[nParts]->GetType())
+				{
+				case CFoodBase::TYPE_EBI:
+					CEbi::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_EGG:
+					CEgg::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_IKURA:
+					CIkura::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_SALMON:
+					CSalmon::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_TUNA:
+					CTuna::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				}
+				
+				m_pParts[nParts]->Uninit();
+				m_pParts[nParts] = nullptr;
+			}
+		}
+		m_nParts = 0;
 	}
 }
 
@@ -227,7 +266,7 @@ void CPlayer::DamageHit(void)
 //=============================================================================
 void CPlayer::Repel(CScene3d* Player)
 {
-	if (m_PlayerStats != PLAYER_STATS_REPEL)
+	if (m_PlayerStats == PLAYER_STATS_NORMAL)
 	{
 		//現在位置
 		D3DXVECTOR3 pos = GetPos();
@@ -257,14 +296,17 @@ void CPlayer::Repel(CScene3d* Player)
 //=============================================================================
 void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 {
-	//リスポーン位置
-	SetPos(RespawnPos);
-	//ステータス設定
-	m_PlayerStats = PLAYER_STATS_NORMAL;
-	//死亡した際のカウント初期化
-	m_nDeathFrameCount = 0;
-	//アルファ値を初期化
-	SetAlphaValue(1.0f);
+	if (m_PlayerStats== PLAYER_STATS_DEATH)
+	{
+		//リスポーン位置
+		SetPos(RespawnPos);
+		//ステータス設定
+		m_PlayerStats = PLAYER_STATS_NORMAL;
+		//死亡した際のカウント初期化
+		m_nDeathFrameCount = 0;
+		//アルファ値を初期化
+		SetAlphaValue(1.0f);
+	}
 }
 
 //=============================================================================

@@ -43,6 +43,8 @@ CSalmonParts * CSalmonParts::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR
 		pSalmonPrts->SetSize(Size);
 		//親パーツポインタ取得
 		pSalmonPrts->SetParent(pParent);
+		//タイプ設定
+		pSalmonPrts->SetType(CFoodBase::TYPE_SALMON);
 		//テクスチャ設定
 		pSalmonPrts->BindTexture(Texture);
 		//初期化処理
