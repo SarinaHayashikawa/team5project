@@ -35,6 +35,7 @@ class CTitle;
 class CSelect;
 class CResource;
 class CScore;
+class CPlayerControl;
 
 //*****************************************************************************
 // 構造体定義
@@ -79,8 +80,9 @@ public:
 	static bool GetIsActiveWindow(void);
 	static CResource* GetResource(void) { return m_pResource; };			//リソースゲッター
 	static CScore * GetScore(int nPlayer) { return m_apScore[nPlayer]; };
-	static void SetPlayer(CPlayer * pPlayer);
 	static void SetScore(CScore * pScore, int nPlayer);
+	static void SetPlayerControl(CPlayerControl * pPlayerControl);
+	static CPlayerControl * GetPlayerControl(void) { return m_pPlayerControl; };
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
@@ -98,5 +100,6 @@ private:
 	static HWND m_hWnd;
 	static CResource* m_pResource;		//リソースポインタ
 	static CScore * m_apScore[MAX_PLAYER];//プレイヤースコア
+	static CPlayerControl * m_pPlayerControl;//プレイヤー管理のポインタ
 };
 #endif

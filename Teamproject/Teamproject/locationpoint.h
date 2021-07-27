@@ -21,7 +21,7 @@ public:
 	CLocationPoint(int nPriority = 8);
 	~CLocationPoint();
 
-	static CLocationPoint *Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size);
+	static CLocationPoint *Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size,int number);
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
@@ -29,6 +29,7 @@ public:
 private:
 	int                     m_nPatternAnim; //アニメーションパターン
 	int                     m_nCountAnim; //アニメーションパターン
+	int                     m_nPlayerNum;//プレイヤー番号
 	const int               m_nTexture = 22;//テクスチャ番号
 };
 #endif // !_LOCATION_POINT_H_

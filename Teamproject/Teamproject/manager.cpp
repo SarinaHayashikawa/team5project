@@ -44,6 +44,7 @@ CMapManager * CManager::m_pMapManager = nullptr;
 HWND CManager::m_hWnd = nullptr;
 CResource * CManager::m_pResource = nullptr;
 CScore * CManager::m_apScore[MAX_PLAYER] = {};
+CPlayerControl * CManager::m_pPlayerControl = nullptr;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -347,8 +348,10 @@ void CManager::SetScore(CScore * pScore, int nPlayer)
 {
 	m_apScore[nPlayer] = pScore;
 }
-
-void CManager::SetPlayer(CPlayer * pPlayer)
+//=============================================================================
+//  プレイヤー管理ポインタセット
+//=============================================================================
+void CManager::SetPlayerControl(CPlayerControl * pPlayerControl)
 {
-	m_pPlayer = pPlayer;
+	m_pPlayerControl = pPlayerControl;
 }

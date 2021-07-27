@@ -32,7 +32,7 @@ public:
 	void Draw(void);
 private:
 	D3DXVECTOR3 m_originPos;//マップの原点（ここを{0,0}とする）
-	CLocationPoint * m_pLocationPoint;//現在位置
+	CLocationPoint * m_pLocationPoint[MAX_PLAYER];//現在位置
 };
 #endif // !_MAP_MANAGER_H_
 

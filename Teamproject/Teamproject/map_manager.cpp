@@ -19,7 +19,7 @@
 #include "locationpoint.h"
 #include "game.h"
 #include "player.h"
-
+#include "player control.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -68,7 +68,13 @@ HRESULT CMapManager::Init(void)
 	//マップ生成
 	CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
 	//プレイヤー位置の生成
-	m_pLocationPoint = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f));
+	m_pLocationPoint[0] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f),0);
+	//プレイヤー位置の生成
+	m_pLocationPoint[1] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f), 1);
+	//プレイヤー位置の生成
+	m_pLocationPoint[2] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f), 2);
+	//プレイヤー位置の生成
+	m_pLocationPoint[3] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f), 3);
 	return S_OK;
 }
 
@@ -85,10 +91,13 @@ void CMapManager::Uninit(void)
 //=============================================================================
 void CMapManager::Update(void)
 {
-	//プレイヤーの位置取得
-	D3DXVECTOR3 pos = CManager::GetPlayer()->GetPos();
-	//プレイヤーの現在位置をセット
-	m_pLocationPoint->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
+	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
+	{
+		//プレイヤーの位置取得
+		D3DXVECTOR3 pos = CManager::GetPlayerControl()->GetPlayer(nCount)->GetPos();
+		//プレイヤーの現在位置をセット
+		m_pLocationPoint[nCount]->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
+	}
 }
 //=============================================================================
 // 描画処理
