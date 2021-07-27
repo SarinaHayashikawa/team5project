@@ -60,7 +60,8 @@ private:
 	void			Move(void);				// 移動処理
 	void			Rot(void);				// 向き処理
 	void			RepelMove(void);		// はじかれ移動処理
-	void			Invincible(void);		// 無敵時間処理
+	void			Invincible(void);		// 無敵処理
+	void			SwitchedInvincible(int nInvincible); //無敵状態に移行
 	void			Flashing(void);			// 点滅処理
 	void			FlashingStop(void);		// 点滅ストップ処理
 
@@ -73,6 +74,7 @@ private:
 	int				m_nFlashing;			// 点滅する際のフレームカウント
 	bool			m_bInvincible;			// 無敵状態のスイッチ
 	int				m_nInvinciFrameCount;	// 無敵状態のフレームカウント
+	int				m_MaxInvinciCount;		// 無敵状態の最大カウント数
 	bool			m_bShield;				// アイテムのシールドスイッチ（持っているか）
 	float			m_fDashCoutn;			// 加速値
 	bool			m_bDashSwitch;			// 加速切替スイッチ

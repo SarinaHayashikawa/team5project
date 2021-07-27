@@ -44,6 +44,7 @@ CPlayer::CPlayer(int nPriority)
 	m_nRepelFrameCount	 = 0;								// はじかれた際のフレーム値の初期化
 	m_nFlashing			 = 0;								// 死亡時のカウントフレーム値　の初期化
 	m_nInvinciFrameCount = 0;								// 無敵状態のフレームカウントの初期化
+	m_MaxInvinciCount	 = 0;								// 無敵状態の最大数の初期化
 	m_fDashCoutn	= 0;									// 加速値の初期化
 	m_nParts		= 0;									// パーツ数の初期化
 	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
@@ -492,6 +493,21 @@ void CPlayer::Invincible(void)
 		}
 	}
 	
+}
+
+//=============================================================================
+// 無敵スイッチオン処理関数
+//=============================================================================
+void CPlayer::SwitchedInvincible(int nInvincible)
+{
+	// 無敵かどうか
+	if (!m_bInvincible)
+	{
+		//カウントの最大数を書き込む
+		m_MaxInvinciCount = nInvincible;
+		//無敵スイッチオン
+		m_bInvincible = true;
+	}
 }
 
 //=============================================================================
