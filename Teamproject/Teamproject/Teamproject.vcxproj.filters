@@ -91,6 +91,12 @@
     <Filter Include="ヘッダー ファイル\UI">
       <UniqueIdentifier>{beb23345-95a1-4b7e-9827-40cccd5114bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MapManager">
+      <UniqueIdentifier>{a2e55ea0-8b8b-443b-a1c4-c9d465c3b012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MapManager">
+      <UniqueIdentifier>{8ba777dc-eb5f-44fd-97f5-401ebb22c9fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -201,6 +207,9 @@
     <ClCompile Include="shield.cpp">
       <Filter>ソース ファイル\GameModel\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Fieldmanager.cpp">
+      <Filter>ソース ファイル\MapManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -310,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="shield.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Fieldmanager.h">
+      <Filter>ヘッダー ファイル\MapManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
