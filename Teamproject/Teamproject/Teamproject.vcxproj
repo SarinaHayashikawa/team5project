@@ -155,24 +155,15 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="item.cpp" />
     <ClCompile Include="locationpoint.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="Fieldmanager.cpp" />
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
-=======
-<<<<<<< HEAD
-    <ClCompile Include="locationpoint.cpp" />
-    <ClCompile Include="map.cpp" />
-    <ClCompile Include="map_manager.cpp" />
-=======
->>>>>>> dc016bdd9ad1bb3d8824b34514b365687c662569
     <ClCompile Include="salmon.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="tuna.cpp" />
->>>>>>> remotes/origin/master
     <ClCompile Include="model.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="keyboard.cpp" />
@@ -180,11 +171,7 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="number.cpp" />
-=======
     <ClCompile Include="player parts.cpp" />
->>>>>>> remotes/origin/master
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon3d.cpp" />
     <ClCompile Include="renderer.cpp" />
@@ -192,12 +179,8 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2d.cpp" />
     <ClCompile Include="scene3d.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="scoreup.cpp" />
     <ClCompile Include="shield.cpp" />
-=======
-    <ClCompile Include="score.cpp" />
->>>>>>> dc016bdd9ad1bb3d8824b34514b365687c662569
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
@@ -211,24 +194,15 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
-<<<<<<< HEAD
     <ClInclude Include="item.h" />
     <ClInclude Include="locationpoint.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Fieldmanager.h" />
     <ClInclude Include="map_manager.h" />
     <ClInclude Include="number.h" />
-=======
-<<<<<<< HEAD
-    <ClInclude Include="locationpoint.h" />
-    <ClInclude Include="map.h" />
-    <ClInclude Include="map_manager.h" />
-=======
->>>>>>> dc016bdd9ad1bb3d8824b34514b365687c662569
     <ClInclude Include="salmon.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="tuna.h" />
->>>>>>> remotes/origin/master
     <ClInclude Include="model.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="keyboard.h" />
@@ -236,11 +210,7 @@
     <ClInclude Include="light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
-<<<<<<< HEAD
-    <ClInclude Include="number.h" />
-=======
     <ClInclude Include="player parts.h" />
->>>>>>> remotes/origin/master
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon3d.h" />
     <ClInclude Include="renderer.h" />
@@ -248,12 +218,8 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2d.h" />
     <ClInclude Include="scene3d.h" />
-<<<<<<< HEAD
     <ClInclude Include="scoreup.h" />
     <ClInclude Include="shield.h" />
-=======
-    <ClInclude Include="score.h" />
->>>>>>> dc016bdd9ad1bb3d8824b34514b365687c662569
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>

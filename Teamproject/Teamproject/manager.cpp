@@ -354,15 +354,3 @@ bool CManager::GetIsActiveWindow(void)
 	}
 	return bActive;
 }
-//=============================================================================
-//  スコアポインタセット
-//=============================================================================
-void CManager::SetScore(CScore * pScore, int nPlayer)
-{
-	m_apScore[nPlayer] = pScore;
-}
-
-void CManager::SetPlayer(CPlayer * pPlayer)
-{
-	m_pPlayer = pPlayer;
-}

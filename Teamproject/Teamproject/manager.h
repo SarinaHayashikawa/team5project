@@ -81,9 +81,6 @@ public:
 	static void CManager::BindCamera(CCamera* pCamera);
 	static bool GetIsActiveWindow(void);
 	static CResource* GetResource(void) { return m_pResource; };			//リソースゲッター
-	static CScore * GetScore(int nPlayer) { return m_apScore[nPlayer]; };
-	static void SetPlayer(CPlayer * pPlayer);
-	static void SetScore(CScore * pScore, int nPlayer);
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
