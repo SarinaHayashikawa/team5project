@@ -57,14 +57,14 @@ public:
 
 private:
 
-	void			Death(void);			// 死亡処理
-	void			Move(void);				// 移動処理
-	void			Rot(void);				// 向き処理
-	void			RepelMove(void);		// はじかれ移動処理
-	void			Invincible(void);		// 無敵処理
-	void			SwitchedInvincible(int nInvincible); //無敵状態に移行
-	void			Flashing(void);			// 点滅処理
-	void			FlashingStop(void);		// 点滅ストップ処理
+	void			Death(void);							// 死亡処理
+	void			Move(void);								// 移動処理
+	void			Rot(void);								// 向き処理
+	void			RepelMove(void);						// はじかれ移動処理
+	void			Invincible(void);						// 無敵処理
+	void			SwitchedInvincible(int nInvincible);	// 無敵状態に移行
+	void			Flashing(void);							// 点滅処理
+	void			FlashingStop(void);						// 点滅ストップ処理
 
 	const int		m_nModel = 1;			// モデル番号
 	PLAYER_STATS	m_PlayerStats;			// プレイヤーステータス
@@ -81,7 +81,6 @@ private:
 	bool			m_bDashSwitch;			// 加速切替スイッチ
 	int				m_nParts;				// パーツ数
 	CPlayerParts*	m_pParts[MAX_PARTS];	// パーツポインタ
-
 };
 #endif // !_PLAYER_H_
 

@@ -309,7 +309,6 @@ void CPlayer::DamageHit(void)
 //=============================================================================
 void CPlayer::Repel(CScene3d* Player)
 {
-
 	//プレイヤーの状態が通常の場合＆無敵状態出ないとき
 	if (m_PlayerStats == PLAYER_STATS_NORMAL
 		&&m_bInvincible == false)

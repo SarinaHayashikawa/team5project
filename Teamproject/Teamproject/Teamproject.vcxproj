@@ -210,6 +210,7 @@
     <ClInclude Include="map_manager.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
+    <ClInclude Include="stage manager.h" />
     <ClInclude Include="tuna parts.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="tuna.h" />

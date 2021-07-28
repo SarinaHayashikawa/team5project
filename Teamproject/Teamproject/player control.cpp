@@ -13,6 +13,9 @@
 #include "joystick.h"
 #include "manager.h"
 #include "player parts.h"
+
+#include <time.h>
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -119,16 +122,32 @@ void CPlayerControl::Draw(void)
 //=============================================================================
 void CPlayerControl::RespawnControl(int nPlayer)
 {
+	//プレイヤーの状態が死んでいる状態なのか
 	if (m_pPlayer[nPlayer]->GetStats()== CPlayer::PLAYER_STATS_DEATH)
-	{
+	{//死んでいたら
+
 		//リスポーンカウント
 		m_nRespawn[nPlayer]++;
 
 		//リスポーンカウントが一定に達したら
 		if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
 		{
+			//半径
+			int nRadius = 100;//(ココの数値を範囲制限の円の半径を取得)
+			//中心地
+			D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
+			//ランダム角度
+			srand((unsigned int)time(NULL));	//ランダム関数の初期化
+			float fAngle = (float)(rand() % 360 + 1);	//ランダムで角度を決める
+			fAngle = D3DXToRadian(fAngle);		//ラジアンに変える
+			//ランダムな距離
+			srand((unsigned int)time(NULL));		//ランダム関数の初期化
+			int nDistance = rand() % nRadius + 1;	//ランダムな距離を取得
+			//ランダムリスポーン位置
+			D3DXVECTOR3 random = centre + D3DXVECTOR3(nDistance*cos(fAngle), 0.0f, nDistance*sin(fAngle));
+
 			//リスポーン処理
-			m_pPlayer[nPlayer]->Respawn(m_PlayerPos[nPlayer]);
+			m_pPlayer[nPlayer]->Respawn(random);
 			//リスポーンカウントの初期化
 			m_nRespawn[nPlayer] = 0;
 		}

@@ -91,6 +91,12 @@
     <Filter Include="ヘッダー ファイル\UI">
       <UniqueIdentifier>{beb23345-95a1-4b7e-9827-40cccd5114bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameModel\Stage">
+      <UniqueIdentifier>{da2acafe-9c87-44dd-9065-5c7dd9264b2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Stage">
+      <UniqueIdentifier>{d48dda68-af50-4c39-8c62-d013260711b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,9 +128,6 @@
     </ClCompile>
     <ClCompile Include="scene.cpp">
       <Filter>ソース ファイル\Sceue</Filter>
-    </ClCompile>
-    <ClCompile Include="floor.cpp">
-      <Filter>ソース ファイル\GameModel</Filter>
     </ClCompile>
     <ClCompile Include="title.cpp">
       <Filter>ソース ファイル\GameSceue</Filter>
@@ -219,6 +222,9 @@
     <ClCompile Include="light.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="floor.cpp">
+      <Filter>ソース ファイル\GameModel\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -253,9 +259,6 @@
     </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>ヘッダー ファイル\Sceue</Filter>
-    </ClInclude>
-    <ClInclude Include="floor.h">
-      <Filter>ヘッダー ファイル\GameModel</Filter>
     </ClInclude>
     <ClInclude Include="title.h">
       <Filter>ヘッダー ファイル\GameSceue</Filter>
@@ -346,6 +349,12 @@
     </ClInclude>
     <ClInclude Include="scoreup.h">
       <Filter>ヘッダー ファイル\GameModel\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="floor.h">
+      <Filter>ヘッダー ファイル\GameModel\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="stage manager.h">
+      <Filter>ヘッダー ファイル\GameModel\Stage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
