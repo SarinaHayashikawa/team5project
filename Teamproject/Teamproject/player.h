@@ -54,6 +54,7 @@ public:
 	int				GetPartsCount(void) { return m_nParts; }						// パーツ数ゲッター
 	void			SetStats(const PLAYER_STATS Stats) { m_PlayerStats = Stats; }	// プレイヤー状態セッター
 	PLAYER_STATS	GetStats(void) { return m_PlayerStats; }						// プレイヤー状態ゲッター
+
 private:
 
 	void			Death(void);			// 死亡処理
