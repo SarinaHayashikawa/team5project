@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "renderer.h"
 #include "scoreup.h"
+#include "player.h"
 
 //=============================================================================
 // コンストラクタ
@@ -46,15 +47,14 @@ CShield * CShield::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 	return pShield;
 }
 
-void CShield::ItemEffect(ITEM type)
+void CShield::ItemEffect(ITEM type, CPlayer* pPlayer)
 {
 	if (type != NULL)
 	{
 		if (type == ITEM_SHIELD)
 		{
-			//スコアアップの処理
-
-			//スコアの効果(予定)
+			//シールドの処理
+			pPlayer->ShieldGet();
 			
 		}
 	}

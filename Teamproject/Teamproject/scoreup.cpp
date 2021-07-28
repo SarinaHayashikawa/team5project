@@ -46,7 +46,7 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 	return pScoreup;
 }
 
-void CScoreup::ItemEffect(ITEM type)
+void CScoreup::ItemEffect(ITEM type,CPlayer* pPlayer)
 {
 	if (type != NULL)
 	{

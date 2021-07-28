@@ -13,6 +13,11 @@
 #include "model.h"
 
 //=============================================================================
+//前方宣言
+//=============================================================================
+class CPlayer;
+
+//=============================================================================
 // クラス定義
 //=============================================================================
 class CShield :public CItem
@@ -21,7 +26,7 @@ public:
 	CShield();
 
 	static CShield * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type);
-	void ItemEffect(ITEM type);		//アイテム効果関数
+	void ItemEffect(ITEM type ,CPlayer* pPlayer);		//アイテム効果関数
 
 private:
 	const int	m_nModel = 3;	// モデル番号	

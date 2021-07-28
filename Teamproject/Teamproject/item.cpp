@@ -81,7 +81,7 @@ void CItem::Collision(void)
 						ITEM type = GetType();
 
 						//アイテムの効果（タイプ）
-						ItemEffect(type);
+						ItemEffect(type, ((CPlayer*)pNext));
 						//終了処理で消す
 						Uninit();
 						return;
