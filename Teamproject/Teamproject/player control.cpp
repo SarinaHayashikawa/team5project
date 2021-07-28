@@ -16,9 +16,8 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SIZE			(5.0f)	// プレイヤーの当たり判定のサイズ
+#define PLAYER_SIZE			(7.0f)	// プレイヤーの当たり判定のサイズ
 #define PLAYER_DEATH		(30*3)	// プレイヤーが死亡時間
-
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -106,7 +105,6 @@ void CPlayerControl::Update(void)
 			RespawnControl(nPlayer);
 		}
 	}
-
 }
 
 //=============================================================================
@@ -187,27 +185,34 @@ void CPlayerControl::PlayerHit(int nPlayer)
 	//NULLチェック
 	if (m_pPlayer[nPlayer] != nullptr)
 	{
+		//一度処理をした部分を省くために+1
 		int nPlayerCount = nPlayer + 1;
+		//プレイヤー同士の処理
 		for (nPlayerCount; nPlayerCount < MAX_PLAYER; nPlayerCount++)
 		{
+			//プレイヤーのポインタのNULLチェック
 			if (m_pPlayer[nPlayerCount] != nullptr)
 			{
-				//プレイヤーの位置
-				D3DXVECTOR3 PlayerPos = m_pPlayer[nPlayer]->GetPos();
-				//あてられたプレイヤーの位置
-				D3DXVECTOR3 HitPlayerPos = m_pPlayer[nPlayerCount]->GetPos();
-				//プレイヤー同士の距離を計算
-				float RangeX = PlayerPos.x - HitPlayerPos.x;
-				float RangeZ = PlayerPos.z - HitPlayerPos.z;
-				float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
-
-				//プレイヤーが近くにいるか
-				if (Range <= PLAYER_SIZE + PLAYER_SIZE)
+				//相手プレイヤーの状態チェック
+				if (m_pPlayer[nPlayerCount]->GetStats()== CPlayer::PLAYER_STATS_NORMAL)
 				{
-					//プレイヤー同士の判定
-					m_pPlayer[nPlayer]->Repel(m_pPlayer[nPlayerCount]);
-					m_pPlayer[nPlayerCount]->Repel(m_pPlayer[nPlayer]);
-					return;
+					//プレイヤーの位置
+					D3DXVECTOR3 PlayerPos = m_pPlayer[nPlayer]->GetPos();
+					//あてられたプレイヤーの位置
+					D3DXVECTOR3 HitPlayerPos = m_pPlayer[nPlayerCount]->GetPos();
+					//プレイヤー同士の距離を計算
+					float RangeX = PlayerPos.x - HitPlayerPos.x;
+					float RangeZ = PlayerPos.z - HitPlayerPos.z;
+					float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
+
+					//プレイヤーが近くにいるか
+					if (Range <= PLAYER_SIZE + PLAYER_SIZE)
+					{
+						//プレイヤー同士の判定
+						m_pPlayer[nPlayer]->Repel(m_pPlayer[nPlayerCount]);
+						m_pPlayer[nPlayerCount]->Repel(m_pPlayer[nPlayer]);
+						return;
+					}
 				}
 			}
 		}

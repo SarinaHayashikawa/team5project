@@ -19,7 +19,6 @@
 class CItem : public CModel
 {
 public:
-
 	// アイテムの種類
 	typedef enum
 	{
@@ -30,15 +29,14 @@ public:
 	}ITEM;
 
 	CItem(int nPriority = 3);
-	~CItem();
-	virtual void Update(void);
-	void Collision(void);								// 当たり判定関数
-	virtual void ItemEffect(ITEM type) = 0;				// アイテム効果関数
-	void SetItem(ITEM item);							// アイテムの種類設定
-	ITEM GetType(void) { return m_ItemType; };
+	 ~CItem();
+	void Update(void);
+	void Collision(void);						// 当たり判定関数
+	virtual void ItemEffect(ITEM type) = 0;		// アイテム効果関数
+	void SetItem(ITEM item);					// アイテムの種類設定
+	ITEM GetType(void) { return m_ItemType; };	// タイプゲッター
 private:
-
-	ITEM        m_ItemType;
+	ITEM        m_ItemType;		//アイテムタイプ
 };
 #endif // !_ITEM_H_
 
