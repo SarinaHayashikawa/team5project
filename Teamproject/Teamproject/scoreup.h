@@ -13,6 +13,12 @@
 #include "model.h"
 
 //=============================================================================
+//前方宣言
+//=============================================================================
+class CPlayer;
+
+
+//=============================================================================
 // クラス定義
 //=============================================================================
 class CScoreup :public CItem
@@ -21,7 +27,7 @@ public:
 	CScoreup();
 
 	static CScoreup * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type);
-	void ItemEffect(ITEM type);		//アイテム効果関数
+	void ItemEffect(ITEM type, CPlayer* pPlayer);		//アイテム効果関数
 
 private:
 	const int	m_nModel = 2;	// モデル番号	
