@@ -159,6 +159,9 @@
     <ClCompile Include="ikura parts.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="MapEdgeMask.cpp" />
+    <ClCompile Include="MapEdgeMaskOut.cpp" />
+    <ClCompile Include="mapEdgeOverlay.cpp" />
     <ClCompile Include="player control.cpp" />
     <ClCompile Include="salmon parts.cpp" />
     <ClCompile Include="item.cpp" />
@@ -204,6 +207,9 @@
     <ClInclude Include="ikura parts.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="MapEdgeMask.h" />
+    <ClInclude Include="MapEdgeMaskOut.h" />
+    <ClInclude Include="MapEdgeOverlay.h" />
     <ClInclude Include="player control.h" />
     <ClInclude Include="salmon parts.h" />
     <ClInclude Include="item.h" />

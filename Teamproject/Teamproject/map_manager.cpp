@@ -21,6 +21,9 @@
 #include "player.h"
 #include "player control.h"
 #include "Fieldmanager.h"
+#include "MapEdgeMask.h"
+#include "MapEdgeOverlay.h"
+#include "MapEdgeMaskOut.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -35,6 +38,7 @@
 CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 {
 	m_originPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_pMapEdgeMask = nullptr;
 }
 
 //=============================================================================
@@ -69,6 +73,10 @@ HRESULT CMapManager::Init(void)
 {
 	//ステージ生成
 	CFieldManager::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
+	//ステージ生成（現在のフィールド）
+	m_pMapEdgeMask = CMapEdgeMask::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
+	//ステージ生成（フィールド外側）
+	CMapEdgeOverlay::Create(D3DXVECTOR3(0.0f, -49.0f, 0.0f), m_MapSize * 2.0f);
 	//ミニマップ生成
 	CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
 	//プレイヤー位置の生成
@@ -95,6 +103,12 @@ void CMapManager::Uninit(void)
 //=============================================================================
 void CMapManager::Update(void)
 {
+	//とりあえず収縮してるか確認する
+	m_MapSize.x -= 2.0f;
+	m_MapSize.y -= 2.0f;
+	m_MapSize.z -= 2.0f;
+
+	m_pMapEdgeMask->SetSize(m_MapSize);
 	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
 	{
 		//プレイヤーの位置取得
