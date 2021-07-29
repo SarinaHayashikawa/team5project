@@ -146,16 +146,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="ebi parts.cpp" />
     <ClCompile Include="ebi.cpp" />
     <ClCompile Include="egg parts.cpp" />
     <ClCompile Include="egg.cpp" />
     <ClCompile Include="Fieldmanager.cpp" />
+=======
+    <ClCompile Include="ebi.cpp" />
+    <ClCompile Include="egg.cpp" />
+>>>>>>> c5f400a2e6024fc5401ad8132de3cda4ceab2622
     <ClCompile Include="food base.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="ikura parts.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
@@ -168,6 +174,17 @@
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
     <ClCompile Include="tuna parts.cpp" />
+=======
+    <ClCompile Include="ikura.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="locationpoint.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="Fieldmanager.cpp" />
+    <ClCompile Include="map_manager.cpp" />
+    <ClCompile Include="number.cpp" />
+    <ClCompile Include="salmon.cpp" />
+>>>>>>> c5f400a2e6024fc5401ad8132de3cda4ceab2622
     <ClCompile Include="score.cpp" />
     <ClCompile Include="tuna.cpp" />
     <ClCompile Include="model.cpp" />
@@ -191,16 +208,22 @@
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="ebi parts.h" />
     <ClInclude Include="ebi.h" />
     <ClInclude Include="egg parts.h" />
     <ClInclude Include="egg.h" />
     <ClInclude Include="Fieldmanager.h" />
+=======
+    <ClInclude Include="ebi.h" />
+    <ClInclude Include="egg.h" />
+>>>>>>> c5f400a2e6024fc5401ad8132de3cda4ceab2622
     <ClInclude Include="food base.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
+<<<<<<< HEAD
     <ClInclude Include="ikura parts.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
@@ -213,6 +236,17 @@
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
     <ClInclude Include="tuna parts.h" />
+=======
+    <ClInclude Include="ikura.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="locationpoint.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="Fieldmanager.h" />
+    <ClInclude Include="map_manager.h" />
+    <ClInclude Include="number.h" />
+    <ClInclude Include="salmon.h" />
+>>>>>>> c5f400a2e6024fc5401ad8132de3cda4ceab2622
     <ClInclude Include="score.h" />
     <ClInclude Include="tuna.h" />
     <ClInclude Include="model.h" />
