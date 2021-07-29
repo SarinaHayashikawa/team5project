@@ -91,6 +91,12 @@
     <Filter Include="ヘッダー ファイル\UI">
       <UniqueIdentifier>{beb23345-95a1-4b7e-9827-40cccd5114bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Map">
+      <UniqueIdentifier>{47b751e3-7c93-4ad1-9e0c-f578e6af9207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Map">
+      <UniqueIdentifier>{8fd4991d-65ee-4304-ba77-8e71b6729091}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -192,9 +198,6 @@
     <ClCompile Include="map.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="map_manager.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="scoreup.cpp">
       <Filter>ソース ファイル\GameModel\Item</Filter>
     </ClCompile>
@@ -218,6 +221,12 @@
     </ClCompile>
     <ClCompile Include="light.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Fieldmanager.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="map_manager.cpp">
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +338,6 @@
     <ClInclude Include="map.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="map_manager.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="number.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
@@ -346,6 +352,12 @@
     </ClInclude>
     <ClInclude Include="scoreup.h">
       <Filter>ヘッダー ファイル\GameModel\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Fieldmanager.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="map_manager.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,6 +29,7 @@
 #include "map.h"
 #include "Shield.h"
 #include "scoreup.h"
+#include "Fieldmanager.h"
 //=============================================================================
 // 静的メンバ変数初期化
 //=============================================================================
@@ -77,9 +78,6 @@ HRESULT CGame::Init()
 	CManager::CreateCamera();
 	CManager::CreateLight();
 
-	//ステージ生成
-	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(500.0f, 500.0f, 500.0f));
-	
 	//デバックのためのアイテム
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
@@ -96,8 +94,8 @@ HRESULT CGame::Init()
 	//m_pPlayerControl = CPlayerControl::Create();
 	CManager::SetPlayerControl(CPlayerControl::Create());//情報ほしいのでマネージャーにセットしてほしいです
 	
-	//ミニマップ生成
-	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f));
+	//マップ作成（ここでミニマップ、管理処理も生成する）
+	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f),D3DXVECTOR3(1000.0f,1000.0f,1000.0f));
 	
 	return S_OK;
 }

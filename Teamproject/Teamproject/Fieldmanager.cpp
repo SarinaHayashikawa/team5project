@@ -13,18 +13,19 @@
 #include "renderer.h"
 #include "scene.h"
 #include "scene2D.h"
-#include "map_manager.h"
+#include "fieldmanager.h"
 #include "resource manager.h"
 #include "map.h"
 #include "locationpoint.h"
 #include "game.h"
 #include "player.h"
-#include "player control.h"
-#include "Fieldmanager.h"
+#include "floor.h"
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define MAP_LOCATION_VALUE (0.34f) //マップ表示の現在位置補正値
+#define MAP_SIZE (500.0f) //マッぷサイズ
+#define PLAYER_HIT_SIZE (5.0f) //マッぷサイズ
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -32,15 +33,14 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CMapManager::CMapManager(int nPriority) : CScene(nPriority)
+CFieldManager::CFieldManager(int nPriority) : CScene(nPriority)
 {
-	m_originPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CMapManager::~CMapManager()
+CFieldManager::~CFieldManager()
 {
 
 }
@@ -48,15 +48,14 @@ CMapManager::~CMapManager()
 //=============================================================================
 // 生成処理
 //=============================================================================
-CMapManager * CMapManager::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
+CFieldManager * CFieldManager::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 {
-	CMapManager *pMap = nullptr;
+	CFieldManager *pMap = nullptr;
 
-	pMap = new CMapManager;
+	pMap = new CFieldManager;
 	if (pMap != nullptr)
 	{
-		pMap->m_originPos = Pos;
-		pMap->m_MapSize = Size;
+		pMap->m_size = Size;
 		pMap->Init();
 	}
 	return pMap;
@@ -65,27 +64,18 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CMapManager::Init(void)
+HRESULT CFieldManager::Init(void)
 {
-	//ステージ生成
-	CFieldManager::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
-	//ミニマップ生成
-	CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
-	//プレイヤー位置の生成
-	m_pLocationPoint[0] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f),0);
-	//プレイヤー位置の生成
-	m_pLocationPoint[1] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f), 1);
-	//プレイヤー位置の生成
-	m_pLocationPoint[2] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f), 2);
-	//プレイヤー位置の生成
-	m_pLocationPoint[3] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f), 3);
+	//床生成
+	CFloor::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), D3DXVECTOR3(m_size.x, m_size.z, m_size.z));
+	m_originsize = m_size;//マップ最大のサイズを格納しておく
 	return S_OK;
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CMapManager::Uninit(void)
+void CFieldManager::Uninit(void)
 {
 	Release();
 }
@@ -93,20 +83,66 @@ void CMapManager::Uninit(void)
 //=============================================================================
 // 更新処理
 //=============================================================================
-void CMapManager::Update(void)
+void CFieldManager::Update(void)
 {
-	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
-	{
-		//プレイヤーの位置取得
-		D3DXVECTOR3 pos = CManager::GetPlayerControl()->GetPlayer(nCount)->GetPos();
-		//プレイヤーの現在位置をセット
-		m_pLocationPoint[nCount]->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
-	}
+	//端当たり判定
+	EdgeCollision();
 }
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CMapManager::Draw(void)
+void CFieldManager::Draw(void)
 {
-	
+
+}
+
+//=============================================================================
+// 端死亡処理
+//=============================================================================
+void CFieldManager::EdgeCollision(void)
+{
+	CScene* pTop[PRIORITY_MAX] = {};
+	CScene* pNext = nullptr;
+	D3DXVECTOR3 distance; //プレイヤーと敵の距離
+	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+	{
+		//リスト先頭取得
+		pTop[nCount] = *(CScene::GetTop() + nCount);
+	}
+
+	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+	{
+		if (pTop[nCount] != nullptr)
+		{
+			pNext = pTop[nCount];
+			while (pNext != nullptr)
+			{
+				//pNext(CScene)をCEnemyにダウンキャスト
+				CPlayer * pPlayer = dynamic_cast<CPlayer*> (pNext);
+				if (pPlayer != nullptr)
+				{
+					distance = pPlayer->GetPos();//マップの原点が０、０なのでこのままプレイヤーの位置入れる
+
+					//敵とプレイヤーの距離がそれぞれの半径の和より大きかったらマップからはみ出てる
+					if (powf(distance.x, 2) + powf(distance.z, 2)
+						>= pow(((m_size.x / 2) + PLAYER_HIT_SIZE), 2))
+					{
+						//死亡処理（マップ収縮２５％以下なら）
+						//それ以外はリスポーン
+						pPlayer->DamageHit();
+					}
+					
+				}
+				//次の対象を読み込む
+				pNext = pNext->GetNext();
+			}
+		}
+	}
+}
+
+//=============================================================================
+// 端死亡処理
+//=============================================================================
+void CFieldManager::NowEdgeCollision(void)
+{
 }

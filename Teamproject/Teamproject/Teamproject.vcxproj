@@ -150,6 +150,7 @@
     <ClCompile Include="ebi.cpp" />
     <ClCompile Include="egg parts.cpp" />
     <ClCompile Include="egg.cpp" />
+    <ClCompile Include="Fieldmanager.cpp" />
     <ClCompile Include="food base.cpp" />
     <ClCompile Include="billboard.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="ebi.h" />
     <ClInclude Include="egg parts.h" />
     <ClInclude Include="egg.h" />
+    <ClInclude Include="Fieldmanager.h" />
     <ClInclude Include="food base.h" />
     <ClInclude Include="billboard.h" />
     <ClInclude Include="camera.h" />
