@@ -166,6 +166,7 @@
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
+    <ClCompile Include="timer.cpp" />
     <ClCompile Include="tuna parts.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="tuna.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="map_manager.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="tuna parts.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="tuna.h" />

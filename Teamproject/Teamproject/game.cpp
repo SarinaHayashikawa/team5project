@@ -29,6 +29,7 @@
 #include "map.h"
 #include "Shield.h"
 #include "scoreup.h"
+#include "timer.h"
 //=============================================================================
 // 静的メンバ変数初期化
 //=============================================================================
@@ -88,7 +89,9 @@ HRESULT CGame::Init()
 	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CShield::Create(D3DXVECTOR3(-50.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SHIELD);
 	CScoreup::Create(D3DXVECTOR3(-60.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SCOREUP);
-	
+	CTimer::Create(TIMER_POS, TIMER_SIZE, START_MINUTES, START_SECONDS);
+
+
 	//カメラ設定
 	m_pCamera = CManager::GetCamera();
 	
