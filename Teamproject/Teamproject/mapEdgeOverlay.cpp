@@ -60,7 +60,6 @@ HRESULT CMapEdgeOverlay::Init(void)
 	LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(m_nTexture);
 
 	SetObjType(CScene::OBJTYPE_NONE);
-
 	CPolygon3d::Init();
 	
 	//テクスチャセット
@@ -110,7 +109,6 @@ void CMapEdgeOverlay::Draw(void)
 	CRenderer *pRenderer = CManager::GetRenderer();
 	//デバイスにレンダラーのデバイスを代入
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
-
 	//ステンシルテストを有効にする
 	pDevice->SetRenderState(D3DRS_STENCILENABLE, TRUE);
 	//深度テストの設定

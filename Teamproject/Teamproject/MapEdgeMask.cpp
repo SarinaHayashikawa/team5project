@@ -111,7 +111,7 @@ void CMapEdgeMask::Draw(void)
 	CRenderer *pRenderer = CManager::GetRenderer();
 	//デバイスにレンダラーのデバイスを代入
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
-
+	//アルファテスト
 	pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000001);
 	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);

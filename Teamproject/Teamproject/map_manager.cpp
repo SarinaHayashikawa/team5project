@@ -107,7 +107,6 @@ void CMapManager::Update(void)
 	m_MapSize.x -= 2.0f;
 	m_MapSize.y -= 2.0f;
 	m_MapSize.z -= 2.0f;
-
 	m_pMapEdgeMask->SetSize(m_MapSize);
 	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
 	{
