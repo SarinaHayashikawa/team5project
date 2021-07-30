@@ -16,6 +16,9 @@
 #include "MapEdgeOverlay.h"
 #include "resource manager.h"
 #include "MapEdgeMask.h"
+
+#define MAX_SCROLL (10) // スクロールカウント最大
+#define MAX_SCROLL_SPEED (0.001f)//スクロールのスピード
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -64,10 +67,10 @@ HRESULT CMapEdgeOverlay::Init(void)
 	
 	//テクスチャセット
 	D3DXVECTOR2 Tex[NUM_VERTEX];
-	Tex[0] = D3DXVECTOR2(0.0f, 0.0f);
-	Tex[1] = D3DXVECTOR2(1.0f, 0.0f);
-	Tex[2] = D3DXVECTOR2(0.0f, 1.0f);
-	Tex[3] = D3DXVECTOR2(1.0f, 1.0f);
+	Tex[0] = D3DXVECTOR2(m_nCountAnim * 0.001f, m_nCountAnim * 0.001f);
+	Tex[1] = D3DXVECTOR2(m_nCountAnim * 0.001f + 0.001f, m_nCountAnim * 0.001f);
+	Tex[2] = D3DXVECTOR2(m_nCountAnim * 0.001f, m_nCountAnim * 0.001f + 0.001f);
+	Tex[3] = D3DXVECTOR2(m_nCountAnim * 0.001f + 0.001f, m_nCountAnim * 0.001f + 0.001f);
 	SetTexture(Tex);
 
 	SetRot(D3DXVECTOR3(D3DXToRadian(-90.0f), D3DXToRadian(90.0f), D3DXToRadian(-90.0f)));
@@ -90,13 +93,18 @@ void CMapEdgeOverlay::Uninit(void)
 //=============================================================================
 void CMapEdgeOverlay::Update(void)
 {
+	m_nCountAnim++;
+	if (float(m_nCountAnim * MAX_SCROLL_SPEED) > 1.0f)
+	{
+		m_nCountAnim = 0;
+	}
 	CPolygon3d::Update();
 	//テクスチャセット
 	D3DXVECTOR2 Tex[NUM_VERTEX];
-	Tex[0] = D3DXVECTOR2(0.0f, 0.0f);
-	Tex[1] = D3DXVECTOR2(1.0f, 0.0f);
-	Tex[2] = D3DXVECTOR2(0.0f, 1.0f);
-	Tex[3] = D3DXVECTOR2(1.0f, 1.0f);
+	Tex[0] = D3DXVECTOR2(m_nCountAnim * MAX_SCROLL_SPEED, m_nCountAnim * MAX_SCROLL_SPEED);
+	Tex[1] = D3DXVECTOR2(5.0f + m_nCountAnim * MAX_SCROLL_SPEED, m_nCountAnim * MAX_SCROLL_SPEED);
+	Tex[2] = D3DXVECTOR2(m_nCountAnim * MAX_SCROLL_SPEED, 5.0f + m_nCountAnim * MAX_SCROLL_SPEED);
+	Tex[3] = D3DXVECTOR2(5.0f + m_nCountAnim * MAX_SCROLL_SPEED, 5.0f + m_nCountAnim * MAX_SCROLL_SPEED);
 	SetTexture(Tex);
 }
 
