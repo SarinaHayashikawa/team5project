@@ -98,6 +98,7 @@ void CMapEdgeOverlay::Update(void)
 	{
 		m_nCountAnim = 0;
 	}
+
 	CPolygon3d::Update();
 	//テクスチャセット
 	D3DXVECTOR2 Tex[NUM_VERTEX];
