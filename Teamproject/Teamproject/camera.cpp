@@ -326,44 +326,6 @@ void CCamera::SetPos(int nCamera, D3DXVECTOR3 pos)
 }
 
 //======================================================
-// プレイヤー追従処理
-//======================================================
-//void CCamera::PlayerFlattery(void)
-//{
-//	//シーン取得用
-//	CScene* pTop[PRIORITY_MAX] = {};
-//	//次チェックするシーンのポインタ
-//	CScene* pNext = NULL;
-//
-//	//topのアドレスを取得
-//	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
-//	{
-//		pTop[nCount] = *(CScene::GetTop() + nCount);
-//	}
-//
-//	//オブジェクト探査
-//	for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
-//	{
-//		if (pTop[nCount] != NULL)
-//		{
-//			pNext = pTop[nCount];
-//			//その描画優先度のオブジェクトがなくなるまでループ
-//			while (pNext != NULL)
-//			{
-//				if (pNext->GetObjType() == CScene::OBJTYPE_PLAYER)
-//				{
-//					
-//					m_pos = ((CPlayer*)pNext)->GetPos();
-//					return;
-//				}
-//				//次のオブジェクトのポインタを更新
-//				pNext = pNext->GetNext();
-//			}
-//		}
-//	}
-//}
-
-//======================================================
 //カメラ情報のセット
 //======================================================
 void CCamera::SetCameraView(D3DXVECTOR3 posV, D3DXVECTOR3 posR, float fInterpolation)
