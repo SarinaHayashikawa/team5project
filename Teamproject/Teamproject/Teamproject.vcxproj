@@ -166,6 +166,7 @@
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
+    <ClCompile Include="stage manager.cpp" />
     <ClCompile Include="tuna parts.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="tuna.cpp" />

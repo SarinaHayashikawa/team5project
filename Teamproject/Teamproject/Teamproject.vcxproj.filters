@@ -225,6 +225,9 @@
     <ClCompile Include="floor.cpp">
       <Filter>ソース ファイル\GameModel\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="stage manager.cpp">
+      <Filter>ソース ファイル\GameModel\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

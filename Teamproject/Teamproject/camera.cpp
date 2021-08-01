@@ -265,6 +265,42 @@ bool CCamera::SetUpViewport(int screen_id)
 }
 
 //======================================================
+// ビューポート(単体)設定
+//======================================================
+bool CCamera::SetUpViewport(void)
+{
+	// デバイスへのポインタ
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+
+	// ビューポートパラメータ
+	D3DVIEWPORT9 view_port;
+
+	// 画面のサイズ
+	m_WidowSize.Width = SCREEN_WIDTH;
+	m_WidowSize.Height = SCREEN_HEIGHT;
+	
+	// ビューポートの左上座標
+	view_port.X = (DWORD)0.0f;
+	view_port.Y = (DWORD)0.0f;
+
+	// ビューポートの幅
+	view_port.Width = (DWORD)m_WidowSize.Width;
+	// ビューポートの高さ
+	view_port.Height = (DWORD)m_WidowSize.Height;
+	// ビューポート深度設定
+	view_port.MinZ = 0.0f;
+	view_port.MaxZ = 1.0f;
+
+	// ビューポート設定
+	if (FAILED(pDevice->SetViewport(&view_port)))
+	{
+		return false;
+	}
+
+	return true;
+}
+
+//======================================================
 //向き取得
 //======================================================
 D3DXVECTOR3 CCamera::GetRot(void)

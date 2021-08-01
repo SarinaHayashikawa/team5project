@@ -27,9 +27,11 @@ public:
 	HRESULT Init(void);
 	void Uninit(void);
 	void Update(void);
-	void SetCamera(void);					//カメラによる描画
-	void SetCamera(int nCamera);			//カメラによる分割描画
-	bool SetUpViewport(int screen_id);		// ビューポート設定
+	void SetCamera(void);					// カメラによる描画
+	void SetCamera(int nCamera);			// カメラによる分割描画
+	bool SetUpViewport(int screen_id);		// ビューポート(複数)設定
+	bool SetUpViewport(void);				// ビューポート(単体)設定
+
 	D3DXVECTOR3 GetRot(void);
 	void SetRot(D3DXVECTOR3 rot);
 	void SetPos(int nCamera, D3DXVECTOR3 pos);
