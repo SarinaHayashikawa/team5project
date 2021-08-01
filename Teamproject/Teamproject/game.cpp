@@ -14,7 +14,7 @@
 #include "joystick.h"
 #include "game.h"
 #include "sound.h"
-#include "stage manager.h"
+#include "floor.h"
 #include "player.h"
 #include "ebi.h"
 #include "egg.h"
@@ -29,11 +29,9 @@
 #include "map.h"
 #include "Shield.h"
 #include "scoreup.h"
-
+#include "Fieldmanager.h"
 #include "manager.h"
-
 #include "keyboard.h"
-
 //=============================================================================
 // 静的メンバ変数初期化
 //=============================================================================
@@ -82,9 +80,6 @@ HRESULT CGame::Init()
 	CManager::CreateCamera();
 	CManager::CreateLight();
 
-	//ステージ生成
-	CStageManager::Create();
-	
 	//デバックのためのアイテム
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
@@ -98,10 +93,12 @@ HRESULT CGame::Init()
 	m_pCamera = CManager::GetCamera();
 	
 	//全てのプレイヤーの管理(プレイヤー4人の生成処理とプレイヤー関係のマネージャー)	
+	//m_pPlayerControl = CPlayerControl::Create();
 	CManager::SetPlayerControl(CPlayerControl::Create());//情報ほしいのでマネージャーにセットしてほしいです
 	
-	//ミニマップ生成
-	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f));
+
+	//マップ作成（ここでミニマップ、管理処理も生成する）
+	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f),D3DXVECTOR3(1000.0f,1000.0f,1000.0f));
 	
 	return S_OK;
 }
@@ -127,16 +124,7 @@ void CGame::Update(void)
 	//カメラにプレイヤーの位置を伝える
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
-		//プレイヤーの位置取得
-		D3DXVECTOR3 PlayerPos = CManager::GetPlayerControl()->GetPlayer(nPlayer)->GetPos();
-		//カメラに位置セット
-		m_pCamera->SetPos(nPlayer, PlayerPos);
-	}
-
-	//デバック画面遷移
-	if (pInputKeyboard->GetKeyTrigger(DIK_RETURN))
-	{
-		CManager::SetMode(CManager::MODE_TITLE);
+		m_pCamera->SetPos(nPlayer, CManager::GetPlayerControl()->GetPlayer(nPlayer)->GetPos());
 	}
 }
 

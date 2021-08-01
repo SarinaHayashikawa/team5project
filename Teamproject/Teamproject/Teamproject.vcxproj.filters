@@ -97,6 +97,12 @@
     <Filter Include="ヘッダー ファイル\GameModel\Stage">
       <UniqueIdentifier>{d48dda68-af50-4c39-8c62-d013260711b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Map">
+      <UniqueIdentifier>{47b751e3-7c93-4ad1-9e0c-f578e6af9207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Map">
+      <UniqueIdentifier>{8fd4991d-65ee-4304-ba77-8e71b6729091}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -195,9 +201,6 @@
     <ClCompile Include="map.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="map_manager.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="scoreup.cpp">
       <Filter>ソース ファイル\GameModel\Item</Filter>
     </ClCompile>
@@ -227,6 +230,20 @@
     </ClCompile>
     <ClCompile Include="stage manager.cpp">
       <Filter>ソース ファイル\GameModel\Stage</Filter>
+    </ClCompile>    <ClCompile Include="Fieldmanager.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="map_manager.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEdgeMask.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="mapEdgeOverlay.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEdgeMaskOut.cpp">
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -335,9 +352,6 @@
     <ClInclude Include="map.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="map_manager.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="number.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
@@ -358,6 +372,20 @@
     </ClInclude>
     <ClInclude Include="stage manager.h">
       <Filter>ヘッダー ファイル\GameModel\Stage</Filter>
+    </ClInclude>    <ClInclude Include="Fieldmanager.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="map_manager.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEdgeMask.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEdgeOverlay.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEdgeMaskOut.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

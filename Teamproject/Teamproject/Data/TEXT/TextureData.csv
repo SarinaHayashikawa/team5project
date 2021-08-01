@@ -1,4 +1,4 @@
-MAX_DATA,9,
+MAX_DATA,12,
 1,Data/TEXTURE/MAP/map.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
 11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
@@ -8,3 +8,6 @@ MAX_DATA,9,
 20,Data/TEXTURE/UI/number.png,数字
 21,Data/TEXTURE/UI/map.png,ミニマップ
 22,Data/TEXTURE/UI/locationpoint.png,現在地
+30,Data/TEXTURE/MAP/map_mask.png,マスクマップ
+31,Data/TEXTURE/MAP/map_area_out.png,エリア外のテクスチャ
+32,Data/TEXTURE/MAP/map_mask_edge.png,マップ外の円形クリッピング用
