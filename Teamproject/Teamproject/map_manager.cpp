@@ -24,13 +24,31 @@
 #include "MapEdgeMask.h"
 #include "MapEdgeOverlay.h"
 #include "MapEdgeMaskOut.h"
+#include "ebi.h"
+#include "egg.h"
+#include "ikura.h"
+#include "salmon.h"
+#include "tuna.h"
+#include <time.h>
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 #define MAP_LOCATION_VALUE (0.34f) //マップ表示の現在位置補正値
+#define MAX_SUSHI_SPAWN (100)		//餌のスポーンまでの最大時間
+
 //*****************************************************************************
-// 静的メンバ変数初期化
+// 静的メンバー変数初期化
 //*****************************************************************************
+int CMapManager::m_nProb[CFoodBase::TYPE_MAX] =
+{
+	20,				//ひとまずのデバック用の値
+	20,
+	20,
+	20,
+	20,
+};
+int CMapManager::m_nMaxProb = m_nProb[0] + m_nProb[1] + m_nProb[2] + m_nProb[3] + m_nProb[4];
 
 //=============================================================================
 // コンストラクタ
@@ -38,7 +56,10 @@
 CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 {
 	m_originPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_pMapEdgeMask = nullptr;
+	m_pMapEdgeMask	= nullptr;
+	m_nSushiSpawn	= 0;	// 寿司のスポーンする時間の初期化
+	m_SpawnCount	= 0;	// 寿司のスポーンカウントの初期化
+
 }
 
 //=============================================================================
@@ -115,6 +136,9 @@ void CMapManager::Update(void)
 		//プレイヤーの現在位置をセット
 		m_pLocationPoint[nCount]->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
 	}
+
+	//餌の生成処理
+	SushiSpawn();
 }
 //=============================================================================
 // 描画処理
@@ -122,4 +146,73 @@ void CMapManager::Update(void)
 void CMapManager::Draw(void)
 {
 	
+}
+
+//=============================================================================
+// 寿司のランダム生成処理関数
+//=============================================================================
+void CMapManager::SushiSpawn(void)
+{
+	//カウントダウン
+	m_SpawnCount++;
+	//カウントが一定に達したらランダムにスポーン
+	if (m_SpawnCount>m_nSushiSpawn)
+	{
+		//エリアの半径
+		int nRadius = 250;//(ココの数値を範囲制限の円の半径を取得)
+						  //中心値
+		D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
+
+		//ランダム角度
+		srand((unsigned int)time(NULL));			//ランダム関数の初期化
+		float fAngle = (float)(rand() % 360 + 1);	//ランダムで角度を決める
+
+		//ランダムな距離
+		int nDistance = rand() % nRadius;			//ランダムな距離を取得
+
+		//ランダムリスポーン位置
+		D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
+
+		//ランダムにどの寿司をスポーンさせるか決める
+		int nSpawn = rand() % m_nMaxProb;			//ランダムに値を取得
+
+		
+		int nProd = 0;//確率用の変数
+
+		//どの寿司がスポーンするか
+		for (int nSushi = 0; nSushi < CFoodBase::TYPE_MAX; nSushi++)
+		{
+			//確率を足してく
+			nProd += m_nProb[nSushi];
+			//確率の確認
+			if (nSpawn <= nProd)
+			{
+				//カウント初期化
+				m_SpawnCount = 0;
+				//ランダムに次のスポーン時間を決める
+				m_nSushiSpawn = rand() % MAX_SUSHI_SPAWN;
+
+				//寿司のスポーン生成
+				switch (nSushi)
+				{
+				case CFoodBase::TYPE_EBI:
+					CEbi::Create(random, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_EGG:
+					CEgg::Create(random, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_IKURA:
+					CIkura::Create(random, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_SALMON:
+					CSalmon::Create(random, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_TUNA:
+					CTuna::Create(random, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				}
+				return;
+			}
+		}
+	}
 }

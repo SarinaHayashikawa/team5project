@@ -6,6 +6,10 @@
 //=============================================================================
 #ifndef _MAP_MANAGER_H_
 #define _MAP_MANAGER_H_
+//=============================================================================
+// ヘッダーファイル
+//=============================================================================
+#include "food base.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -16,6 +20,7 @@
 //*****************************************************************************
 class CLocationPoint;
 class CMapEdgeMask;
+
 //*****************************************************************************
 // ヘッダファイルのインクルード
 //*****************************************************************************
@@ -32,10 +37,18 @@ public:
 	void Update(void);
 	void Draw(void);
 private:
-	D3DXVECTOR3 m_originPos;//マップの原点（ここを{0,0}とする）
+	void SushiSpawn(void);				// 寿司のランダム生成処理関数
+
+
+	D3DXVECTOR3 m_originPos;		//マップの原点（ここを{0,0}とする）
 	CLocationPoint * m_pLocationPoint[MAX_PLAYER];//現在位置
-	D3DXVECTOR3 m_MapSize; //mapのサイズ
-	CMapEdgeMask * m_pMapEdgeMask;//マスクポインタ
+	D3DXVECTOR3 m_MapSize;			//mapのサイズ
+	CMapEdgeMask * m_pMapEdgeMask;	//マスクポインタ
+
+	int		m_nSushiSpawn;						// 寿司のスポーンする時間
+	int		m_SpawnCount;						// 寿司のスポーンカウント
+	static int m_nProb[CFoodBase::TYPE_MAX];	// どの寿司が出てくるかの確率
+	static int m_nMaxProb;						// 最大確率
 };
 #endif // !_MAP_MANAGER_H_
 

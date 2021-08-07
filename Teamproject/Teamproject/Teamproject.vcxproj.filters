@@ -228,9 +228,7 @@
     <ClCompile Include="floor.cpp">
       <Filter>ソース ファイル\GameModel\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="stage manager.cpp">
-      <Filter>ソース ファイル\GameModel\Stage</Filter>
-    </ClCompile>    <ClCompile Include="Fieldmanager.cpp">
+    <ClCompile Include="Fieldmanager.cpp">
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="map_manager.cpp">
@@ -370,9 +368,7 @@
     <ClInclude Include="floor.h">
       <Filter>ヘッダー ファイル\GameModel\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="stage manager.h">
-      <Filter>ヘッダー ファイル\GameModel\Stage</Filter>
-    </ClInclude>    <ClInclude Include="Fieldmanager.h">
+    <ClInclude Include="Fieldmanager.h">
       <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="map_manager.h">

@@ -52,7 +52,8 @@ HRESULT CJoystick::Init(HINSTANCE hInstance, HWND hWnd)
 
 	hr = m_pDinput->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumJoysticksCallback, NULL, DIEDFL_FORCEFEEDBACK | DIEDFL_ATTACHEDONLY);
 	
-	if (FAILED(hr)) {
+	if (FAILED(hr)) 
+	{
 		MessageBox(hWnd, "Can't create Device.", "Error", MB_OK);
 		return FALSE;
 	}
