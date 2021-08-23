@@ -45,6 +45,7 @@ HWND CManager::m_hWnd = nullptr;
 CResource * CManager::m_pResource = nullptr;
 CScore * CManager::m_apScore[MAX_PLAYER] = {};
 CPlayerControl * CManager::m_pPlayerControl = nullptr;
+int CManager::m_nPlayerNumber = NULL;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -114,7 +115,6 @@ HRESULT CManager::Init(HINSTANCE hInsitance, HWND hWnd, bool bWindow)
 		m_pResource = new CResource;
 	}
 	m_pResource->Init();
-	//LoadAll();
 
 	SetMode(MODE_GAME);
 
@@ -280,6 +280,7 @@ void CManager::SetMode(MODE mode)
 		break;
 	}
 }
+
 //=============================================================================
 //  カメラ生成
 //=============================================================================
@@ -299,6 +300,7 @@ void CManager::CreateCamera(void)
 		}
 	}
 }
+
 //=============================================================================
 //  ライト生成
 //=============================================================================
@@ -354,4 +356,12 @@ void CManager::SetScore(CScore * pScore, int nPlayer)
 void CManager::SetPlayerControl(CPlayerControl * pPlayerControl)
 {
 	m_pPlayerControl = pPlayerControl;
+}
+
+//=============================================================================
+// プレイヤー人数セッター
+//=============================================================================
+void CManager::SetPlayerNumber(const int nNumber)
+{
+	m_nPlayerNumber = nNumber;
 }

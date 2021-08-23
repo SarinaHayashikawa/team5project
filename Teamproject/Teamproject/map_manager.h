@@ -39,11 +39,10 @@ public:
 private:
 	void SushiSpawn(void);				// 寿司のランダム生成処理関数
 
-
-	D3DXVECTOR3 m_originPos;		//マップの原点（ここを{0,0}とする）
-	CLocationPoint * m_pLocationPoint[MAX_PLAYER];//現在位置
-	D3DXVECTOR3 m_MapSize;			//mapのサイズ
-	CMapEdgeMask * m_pMapEdgeMask;	//マスクポインタ
+	D3DXVECTOR3 m_originPos;						//マップの原点（ここを{0,0}とする）
+	CLocationPoint * m_pLocationPoint[MAX_PLAYER];	//現在位置
+	D3DXVECTOR3 m_MapSize;							//mapのサイズ
+	CMapEdgeMask * m_pMapEdgeMask;					//マスクポインタ
 
 	int		m_nSushiSpawn;						// 寿司のスポーンする時間
 	int		m_SpawnCount;						// 寿司のスポーンカウント

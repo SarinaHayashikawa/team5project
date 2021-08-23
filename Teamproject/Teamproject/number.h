@@ -20,7 +20,7 @@ private:
 	LPDIRECT3DVERTEXBUFFER9   m_pVtxBuff;
 	int                       m_nPatternAnim;//テクスチャパターン
 	int                       m_nAlpha;//透明度
-	int                       m_bShow;//Drawするか
+	bool                       m_bShow;//Drawするか
 	const int m_nTexture = 20;		// テクスチャ番号
 };
 

@@ -29,7 +29,7 @@ public:
 	void ItemEffect(ITEM type ,CPlayer* pPlayer);		//アイテム効果関数
 
 private:
-	const int	m_nModel = 3;	// モデル番号	
+	const int	m_nShieldModel = 11;	// モデル番号	
 };
 
 #endif

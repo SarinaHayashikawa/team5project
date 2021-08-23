@@ -11,7 +11,7 @@
 //======================================================
 //マクロ定義
 //======================================================
-#define CAMERA_VIEW_RANGE (10000.0f)
+#define CAMERA_VIEW_RANGE (1000.0f)
 #define CAMERA_DISTANCE_FROM_PLAYER (100.0f)
 #define CAMERA_DISTANCE_FROM_PLAYER_STAND (200.0f)
 #define PLAYER_CAMERA_HEIGHT (20.0f) //プレイヤーの高さ

@@ -118,15 +118,6 @@ void CCamera::Update(void)
 		}
 	}
 
-	//if (m_bDebug == true)
-	//{
-	//	Move();
-	//}
-	//else
-	//{
-	//	//PlayerFlattery();
-	//}
-
 	for (int nCoutn = 0; nCoutn < MAX_PLAYER; nCoutn++)
 	{
 		//ˆÚ“®‚ÌŒvŽZ
@@ -142,8 +133,6 @@ void CCamera::Update(void)
 
 		//’ˆÓ“_‚ÌˆÚ“®ˆ—
 		m_posR[nCoutn] = RotateCenter;
-
-
 	}
 
 

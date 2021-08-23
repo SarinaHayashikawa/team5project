@@ -20,9 +20,9 @@
 // 静的メンバ変数の初期化
 //*****************************************************************************
 LPDIRECTINPUTDEVICE8 CJoystick::m_pJDevice[MAX_PLAYER] = 
-{NULL,NULL,NULL,NULL};
+{NULL,NULL/*,NULL,NULL*/};
 LPDIRECTINPUTEFFECT CJoystick::m_IpDIEffect[MAX_PLAYER] =
-{ NULL,NULL,NULL,NULL };
+{ NULL,NULL/*,NULL,NULL*/ };
 DIDEVCAPS CJoystick::m_diDevCaps;
 //=============================================================================
 // コンストラクタ
