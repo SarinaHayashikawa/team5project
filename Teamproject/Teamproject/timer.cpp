@@ -110,10 +110,56 @@ HRESULT CTimer::Init(void)
 void CTimer::Update(void)
 {
 	
+	//if(ゲーム中の場合)
+
+	//フレームのカウント
+	m_nCountF++;
+
+	if (m_nCountF == 60)
+	{
+		//フレームのカウントをリセット
+		m_nCountF = 0;
+		//秒のカウントを下げる
+		m_nSeconds--;
+	}
+
+	//描画0以下になったら
+	if (m_nSeconds <= -1)
+	{
+		//分のカウントが1以上の時
+		if (m_nMinutes >= 1)
+		{
+			// 秒のカウントを59に戻す
+			m_nSeconds = 59;
+
+			// 分のカウントを下げる
+			m_nMinutes--;
+		}
+	}
+	//タイムアップ　
+	if (m_pMINUtes && m_nSeconds <= -1)
+	{
+		m_nCountF = 0;
+		m_nMinutes = 0;
+		m_nSeconds = 0;
+
+		//タイムアップのフラグ
+		m_bTimeUp = true;
+
+		//ゲーム終了処理
+		//ゲーム中なら
+		//ゲームモードをおわりにする
+	}
+
+
+	// 数字の変更
+	int nRadix = 10;
+
 	for (int nCnt = 0; nCnt < MAX_SECONDS_DIGIT; nCnt++)
 	{
-		//タイマー秒数字設定
+		int nAnswer = m_nSeconds % (int)pow(nRadix, MAX_SECONDS_DIGIT - nCnt) / (int)pow(nRadix, MAX_SECONDS_DIGIT - nCnt - 1);
 
+		m_pSexonds[nCnt]->SetNumber(nAnswer);
 	}
 
 	//タイマー分の数字設定
