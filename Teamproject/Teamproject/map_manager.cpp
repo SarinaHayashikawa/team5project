@@ -20,10 +20,14 @@
 #include "game.h"
 #include "player.h"
 #include "player control.h"
+#include "Fieldmanager.h"
+#include "MapEdgeMask.h"
+#include "MapEdgeOverlay.h"
+#include "MapEdgeMaskOut.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define MAP_LOCATION_VALUE (0.55f) //マップ表示の現在位置補正値
+#define MAP_LOCATION_VALUE (0.34f) //マップ表示の現在位置補正値
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
@@ -34,6 +38,7 @@
 CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 {
 	m_originPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_pMapEdgeMask = nullptr;
 }
 
 //=============================================================================
@@ -47,7 +52,7 @@ CMapManager::~CMapManager()
 //=============================================================================
 // 生成処理
 //=============================================================================
-CMapManager * CMapManager::Create(D3DXVECTOR3 Pos)
+CMapManager * CMapManager::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 {
 	CMapManager *pMap = nullptr;
 
@@ -55,6 +60,7 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos)
 	if (pMap != nullptr)
 	{
 		pMap->m_originPos = Pos;
+		pMap->m_MapSize = Size;
 		pMap->Init();
 	}
 	return pMap;
@@ -65,7 +71,13 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos)
 //=============================================================================
 HRESULT CMapManager::Init(void)
 {
-	//マップ生成
+	//ステージ生成
+	CFieldManager::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
+	//ステージ生成（現在のフィールド）
+	m_pMapEdgeMask = CMapEdgeMask::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
+	//ステージ生成（フィールド外側）
+	CMapEdgeOverlay::Create(D3DXVECTOR3(0.0f, -49.0f, 0.0f), m_MapSize * 2.0f);
+	//ミニマップ生成
 	CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
 	//プレイヤー位置の生成
 	m_pLocationPoint[0] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f),0);
@@ -91,6 +103,11 @@ void CMapManager::Uninit(void)
 //=============================================================================
 void CMapManager::Update(void)
 {
+	//とりあえず収縮してるか確認する
+	m_MapSize.x -= 2.0f;
+	m_MapSize.y -= 2.0f;
+	m_MapSize.z -= 2.0f;
+	m_pMapEdgeMask->SetSize(m_MapSize);
 	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
 	{
 		//プレイヤーの位置取得

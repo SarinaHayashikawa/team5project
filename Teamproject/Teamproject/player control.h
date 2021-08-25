@@ -44,5 +44,5 @@ private:
 	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];	// プレイヤーの位置
 
 };
-#endif // !_BLOCK_H_
+#endif // !_PLAYER_CONTROL_H_
 

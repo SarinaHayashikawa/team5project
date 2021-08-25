@@ -237,6 +237,7 @@ void CManager::Draw(void)
 		// ゲームシーン以外の場合分割しない
 		if (m_mode!= MODE_GAME)
 		{
+			m_pCamera->SetUpViewport();
 			m_pCamera->SetCamera();
 			m_pRenderer->Draw();
 		}
@@ -248,7 +249,6 @@ void CManager::Draw(void)
 				m_pCamera->SetUpViewport(nCamera);
 				m_pCamera->SetCamera(nCamera);
 				m_pRenderer->Draw();
-
 			}
 		}
 	}

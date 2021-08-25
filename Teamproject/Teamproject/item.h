@@ -25,6 +25,7 @@ class CPlayer;
 class CItem : public CModel
 {
 public:
+
 	// ƒAƒCƒeƒ€‚Ìí—Ş
 	typedef enum
 	{
