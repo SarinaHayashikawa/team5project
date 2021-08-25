@@ -67,14 +67,14 @@ CPlayer::~CPlayer()
 //=============================================================================
 // 生成処理関数
 //=============================================================================
-CPlayer * CPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size)
+CPlayer * CPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size, int nModel)
 {
 	//メモリ確保
 	CPlayer* pPlayer = NULL;
 	pPlayer = new CPlayer;
 	//リソース確保
 	CResource* pResource = CManager::GetResource();
-	MODELDATA Model = pResource->ModelLoad(pPlayer->m_nModel);
+	MODELDATA Model = pResource->ModelLoad(nModel);
 
 	//NULLチェック
 	if (pPlayer != NULL)
@@ -99,9 +99,7 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size)
 //=============================================================================
 void CPlayer::Update(void)
 {
-	//キーボード入力の取得
-	CKeyboard* pInput = (CKeyboard*)CManager::GetInputKeyboard();
-
+	//状態によって処理の変更
 	switch (m_PlayerStats)
 	{
 
@@ -398,12 +396,6 @@ void CPlayer::Death(void)
 //=============================================================================
 void CPlayer::Move(void)
 {
-	//キーボード入力の取得
-	CKeyboard* pInput = (CKeyboard*)CManager::GetInputKeyboard();
-	//マウス入力取得
-	CMouse *pInputMouse = (CMouse*)CManager::GetInputMouse();
-	// コントローラーの取得
-	CJoystick* pJoystick = CManager::GetInputJoystick();
 
 	//位置取得
 	D3DXVECTOR3 pos = GetPos();
@@ -454,8 +446,6 @@ void CPlayer::Move(void)
 //=============================================================================
 void CPlayer::Rot(void)
 {
-	//マウス入力取得
-	CMouse *pInputMouse = (CMouse*)CManager::GetInputMouse();
 	//角度の移動量
 	float fRotMove = 0.0f;
 	//位置取得
@@ -533,7 +523,6 @@ void CPlayer::Invincible(void)
 			return;
 		}
 	}
-	
 }
 
 //=============================================================================

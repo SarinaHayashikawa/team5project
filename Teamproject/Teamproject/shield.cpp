@@ -32,7 +32,7 @@ CShield * CShield::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 
 	//Resourceの呼び出し
 	CResource* pResource = CManager::GetResource();
-	MODELDATA Model = pResource->ModelLoad(pShield->m_nModel);
+	MODELDATA Model = pResource->ModelLoad(pShield->m_nShieldModel);
 
 	//NULLチェック
 	if (pShield != NULL)

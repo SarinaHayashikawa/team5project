@@ -13,24 +13,40 @@
 #include "joystick.h"
 #include "manager.h"
 #include "player parts.h"
+#include "score.h"
 #include <time.h>
 
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SIZE			(7.0f)	// プレイヤーの当たり判定のサイズ
-#define PLAYER_DEATH		(30*3)	// プレイヤーが死亡時間
+#define PLAYER_SIZE				(7.0f)	// プレイヤーの当たり判定のサイズ
+#define PLAYER_DEATH			(30*3)	// プレイヤーが死亡時間
+#define NPC_AVOID				(100.0f)	// NPCの条件
+#define NPC_ITEM				(500.0f)	// NPCの条件
+#define NPC_SUSHI				(1000.0f)	// NPCの条件
+#define NPC_MAX_RANDOM_ROT		(100)	// ランダムに向く方向
+#define NPC_MAX_RANDOM			(100)	// ランダムに向く際の最大カウント
+#define NPC_MAX_TARGET_COUNT	(60*10)	// ターゲットカウントの最大数
+#define NPC_AVOID_BARRIER		(75)	// バリアをよける距離
+
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
-D3DXVECTOR3 CPlayerControl::m_PlayerPos[MAX_PLAYER] = 
+D3DXVECTOR3 CPlayerControl::m_PlayerPos[MAX_PLAYER] =
 {
 	D3DXVECTOR3(-50.0f, 0.0f, 0.0f),
 	D3DXVECTOR3(50.0f, 0.0f, 0.0f),
 	D3DXVECTOR3(-50.0f, 0.0f, -50.0f),
 	D3DXVECTOR3(50.0f, 0.0f, -50.0f)
 };
+D3DXVECTOR3 CPlayerControl::m_Score[MAX_PLAYER] =
+{
+	D3DXVECTOR3(150.0f, 30.0f, 0.0f),
+	D3DXVECTOR3(1250.0f, 30.0f, 0.0f),
+	D3DXVECTOR3(150.0f, 385.0f, -50.0f),
+	D3DXVECTOR3(1250.0f, 385.0f, -50.0f)
 
+};
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -39,8 +55,14 @@ CPlayerControl::CPlayerControl(int nPriority)
 	for (int nPlayer = 0; nPlayer<MAX_PLAYER; nPlayer++)
 	{
 		m_pPlayer[nPlayer] = nullptr;
+		m_pScore[nPlayer] = nullptr;
 		m_nRespawn[nPlayer] = 0;
 	}
+	for (int nNpc = 0; nNpc < MAX_NPC; nNpc++)
+	{
+		m_NpcData[nNpc] = { D3DXVECTOR3(0.0f,0.0f,0.0f),NPC_MAX_RANDOM ,NPC_MAX_TARGET_COUNT,false,nullptr,nullptr };
+	}
+	m_nNumberPlayer = 1;
 }
 
 //=============================================================================
@@ -74,7 +96,8 @@ HRESULT CPlayerControl::Init(void)
 {
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
-		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), m_nPlayerModel[nPlayer]);
+		m_pScore[nPlayer] = CScore::Create(m_Score[nPlayer], D3DXVECTOR3(30.0f,60.0f, 0.0f));
 	}
 	return S_OK;
 }
@@ -97,8 +120,18 @@ void CPlayerControl::Update(void)
 		//NULLチェック
 		if (m_pPlayer[nPlayer] != nullptr)
 		{
-			//プレイヤー一人ひとりの操作管理
-			PlayerControl(nPlayer);
+			//プレイヤーの人数
+			if (nPlayer < m_nNumberPlayer)
+			{
+				//プレイヤー、一人ひとりの操作管理
+				PlayerControl(nPlayer);
+			}
+			else
+			{
+				//NPCとして管理
+				NpcControl(nPlayer);
+			}
+
 			//プレイヤー同士の当たり判定
 			PlayerHit(nPlayer);
 			//プレイヤーのダメージ判定
@@ -107,6 +140,7 @@ void CPlayerControl::Update(void)
 			RespawnControl(nPlayer);
 		}
 	}
+
 }
 
 //=============================================================================
@@ -257,5 +291,306 @@ void CPlayerControl::PlayerControl(int nPlayer)
 	{
 		m_pPlayer[nPlayer]->Dash(false);
 	}
+}
 
+//=============================================================================
+// NPC操作関数
+//=============================================================================
+void CPlayerControl::NpcControl(int nNpc)
+{
+	//近くにあるものを見て条件にあう行動を決める(重要度が高いほど後に処理)
+	SushiProcessCriteria(nNpc);		// 寿司の距離を測る
+	ItemProcessCriteria(nNpc);		// アイテムの距離を測る
+	PlayerProcessCriteria(nNpc);	// プレイヤーの距離を測る
+	NpcRandomProbability(nNpc);		// たまにランダムに行動
+	TargetSwitching(nNpc);			// 移動時の停滞対策
+	NpcRandomCount(nNpc);			// ランダム移動処理
+	AvoidBarrier(nNpc);				// バリア除け処理
+
+	//それを引数に入れて渡す
+	m_pPlayer[nNpc]->RotControl(m_NpcData[nNpc - 1].m_TargetRot);
+}
+
+//=============================================================================
+// NPCとプレイヤーの関係処理関数
+//=============================================================================
+void CPlayerControl::PlayerProcessCriteria(int nNpc)
+{
+	//NULLチェック
+	if (m_pPlayer[nNpc] != nullptr)
+	{
+		//NPCの位置
+		D3DXVECTOR3 NPCPos = m_pPlayer[nNpc]->GetPos();
+		//距離の記録用変数
+		float fDistance = NPC_AVOID;
+
+		for (int nPlayerCount = 0; nPlayerCount < MAX_PLAYER; nPlayerCount++)
+		{
+			if (m_pPlayer[nPlayerCount] != nullptr
+				&& nNpc != nPlayerCount)
+			{
+				//相手プレイヤーの位置
+				D3DXVECTOR3 PlayerPos = m_pPlayer[nPlayerCount]->GetPos();
+				//NPCとプレイヤーの距離を計算
+				float RangeX = PlayerPos.x - NPCPos.x;
+				float RangeZ = PlayerPos.z - NPCPos.z;
+				float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
+
+				//距離が一定以上近いか
+				if (NPC_AVOID>Range)
+				{
+					//現在記録している距離より近いか
+					if (fDistance>Range)
+					{
+						//近い場合記録する
+						fDistance = Range;
+						//向きの記録
+						m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(-RangeX, -RangeZ, 0.0f);
+						//現在のターゲットを取得
+						m_NpcData[nNpc - 1].m_pTarget = m_pPlayer[nPlayerCount];
+					}
+				}
+			}
+		}
+	}
+}
+
+//=============================================================================
+// NPCとアイテムの関係処理関数
+//=============================================================================
+void CPlayerControl::ItemProcessCriteria(int nNpc)
+{
+	//NULLチェック
+	if (m_pPlayer[nNpc] != nullptr)
+	{
+		//シーン取得用
+		CScene* pTop[PRIORITY_MAX] = {};
+		//次チェックするシーンのポインタ
+		CScene* pNext = NULL;
+		//NPCの位置
+		D3DXVECTOR3 NPCPos = m_pPlayer[nNpc]->GetPos();
+		//距離の記録用変数
+		float fDistance = NPC_ITEM;
+
+		//topのアドレスを取得
+		for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+		{
+			pTop[nCount] = *(CScene::GetTop() + nCount);
+		}
+
+		//オブジェクト探査
+		for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+		{
+			if (pTop[nCount] != NULL)
+			{
+				pNext = pTop[nCount];
+				//その描画優先度のオブジェクトがなくなるまでループ
+				while (pNext != NULL)
+				{
+					if (pNext->GetObjType() == CScene::OBJTYPE_ITEM)
+					{
+						//アイテムの位置取得
+						D3DXVECTOR3 ItemPos = ((CPlayer*)pNext)->GetPos();
+						//NPCとアイテムの距離を計算
+						float RangeX = ItemPos.x - NPCPos.x;
+						float RangeZ = ItemPos.z - NPCPos.z;
+						float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
+
+						//特定の距離より近いか
+						if (NPC_ITEM > Range)
+						{
+							//現在記録している距離より近いか
+							if (fDistance > Range)
+							{
+								//近い場合記録する
+								fDistance = Range;
+								//向きの記録
+								m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(RangeX, RangeZ, 0.0f);
+								//現在のターゲットを取得
+								m_NpcData[nNpc - 1].m_pTarget = pNext;
+							}
+						}
+					}
+					//次のオブジェクトのポインタを更新
+					pNext = pNext->GetNext();
+				}
+			}
+		}
+	}
+}
+
+//=============================================================================
+// NPCと寿司の関係処理関数
+//=============================================================================
+void CPlayerControl::SushiProcessCriteria(int nNpc)
+{
+	//NULLチェック
+	if (m_pPlayer[nNpc] != nullptr)
+	{
+		//シーン取得用
+		CScene* pTop[PRIORITY_MAX] = {};
+		//次チェックするシーンのポインタ
+		CScene* pNext = NULL;
+		//NPCの位置
+		D3DXVECTOR3 NPCPos = m_pPlayer[nNpc]->GetPos();
+		//距離の記録用変数
+		float fDistance = NPC_SUSHI;
+
+		//topのアドレスを取得
+		for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+		{
+			pTop[nCount] = *(CScene::GetTop() + nCount);
+		}
+
+		//オブジェクト探査
+		for (int nCount = 0; nCount < PRIORITY_MAX; nCount++)
+		{
+			if (pTop[nCount] != NULL)
+			{
+				pNext = pTop[nCount];
+				//その描画優先度のオブジェクトがなくなるまでループ
+				while (pNext != NULL)
+				{
+					if (pNext->GetObjType() == CScene::OBJTYPE_SUSHI)
+					{
+						//寿司の位置取得
+						D3DXVECTOR3 SushiPos = ((CPlayer*)pNext)->GetPos();
+						//NPCと寿司の距離を計算
+						float RangeX = SushiPos.x - NPCPos.x;
+						float RangeZ = SushiPos.z - NPCPos.z;
+						float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
+
+						//一定の距離より近いか
+						if (NPC_SUSHI>Range)
+						{
+							//現在記録している距離より近いか
+							if (fDistance>Range)
+							{
+								//近い場合記録する
+								fDistance = Range;
+								//向きの記録
+								m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(RangeX, RangeZ, 0.0f);
+								//現在のターゲットを取得
+								m_NpcData[nNpc - 1].m_pTarget = pNext;
+							}
+						}
+					}
+					//次のオブジェクトのポインタを更新
+					pNext = pNext->GetNext();
+				}
+			}
+		}
+	}
+}
+
+//=============================================================================
+// 確率で向きをランダムに変更処理関数
+//=============================================================================
+void CPlayerControl::NpcRandomProbability(int nNpc)
+{
+	//ランダム関数の初期化
+	srand((unsigned int)time(NULL));
+	//ランダムに動く用の確率
+	int nRandom = (rand() % NPC_MAX_RANDOM);
+	//数値が10以下になった時
+	if (nRandom <= 10)
+	{
+		//ランダムに向き変更
+		NpcRandomControl(nNpc);
+	}
+}
+
+//=============================================================================
+// ランダム向き移動関数
+//=============================================================================
+void CPlayerControl::NpcRandomControl(int nNpc)
+{
+	//ランダム関数の初期化
+	srand((unsigned int)time(NULL));
+
+	//Xの数値
+	float fXRandom = (float)((rand() % NPC_MAX_RANDOM_ROT) - NPC_MAX_RANDOM_ROT/2);
+	//Yの数値
+	float fYRandom = (float)((rand() % NPC_MAX_RANDOM_ROT) - NPC_MAX_RANDOM_ROT/2);
+	//ランダムに設定
+	m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(fXRandom, fYRandom, 0.0f);
+
+}
+
+//=============================================================================
+// ターゲット切替関数
+//=============================================================================
+void CPlayerControl::TargetSwitching(int nNpc)
+{
+	//ターゲットが変わっていないか
+	if (m_NpcData[nNpc - 1].m_pTarget == m_NpcData[nNpc - 1].m_pOldTarget)
+	{
+		//変わっていないとカウントダウン
+		m_NpcData[nNpc - 1].m_nTargetCount--;
+	}
+	//変わった際の処理
+	else
+	{
+		//ターゲットを更新
+		m_NpcData[nNpc - 1].m_pOldTarget = m_NpcData[nNpc - 1].m_pTarget;
+		//カウントダウンの初期化
+		m_NpcData[nNpc - 1].m_nTargetCount = NPC_MAX_TARGET_COUNT;
+	}
+
+	//カウントダウンが0いかになったら
+	if (m_NpcData[nNpc - 1].m_nTargetCount<0)
+	{
+		m_NpcData[nNpc - 1].m_bRandomControl = true;
+		m_NpcData[nNpc - 1].m_nTargetCount = NPC_MAX_TARGET_COUNT;
+	}
+}
+
+//=============================================================================
+// ランダム向き移動(長時間)処理関数
+//=============================================================================
+void CPlayerControl::NpcRandomCount(int nNpc)
+{
+	//ランダム移動のスイッチが入っているか
+	if (m_NpcData[nNpc - 1].m_bRandomControl == true)
+	{
+		//カウントダウン
+		m_NpcData[nNpc - 1].m_nRandomCount--;
+
+		//ランダム移動
+		NpcRandomControl(nNpc);
+
+		//カウントが0になったら
+		if (m_NpcData[nNpc - 1].m_nRandomCount <= 0)
+		{
+			//カウントを初期化
+			m_NpcData[nNpc - 1].m_nRandomCount = NPC_MAX_RANDOM;
+			//スイッチを切る
+			m_NpcData[nNpc - 1].m_bRandomControl = false;
+			return;
+		}
+	}
+}
+
+//=============================================================================
+// バリアを避ける処理関数
+//=============================================================================
+void CPlayerControl::AvoidBarrier(int nNpc)
+{
+	//エリアの中心取得
+	D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//(ココの数値を範囲制限の円の中心を取得)
+	//エリアの半径
+	int nRadius = 250;									//(ココの数値を範囲制限の円の半径を取得)
+
+	//NPCの位置
+	D3DXVECTOR3 NpcPos = m_pPlayer[nNpc]->GetPos();
+	//NPCとバリアからの距離
+	float RangeX = NpcPos.x - centre.x;
+	float RangeZ = NpcPos.z - centre.z;
+	float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
+
+	if (Range >= PLAYER_SIZE + (float)((nRadius*2) - NPC_AVOID_BARRIER))
+	{
+		//向きの記録
+		m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(-RangeX, -RangeZ, 0.0f);
+	}
 }

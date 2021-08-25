@@ -170,6 +170,7 @@
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
+
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="tuna parts.cpp" />
     <ClCompile Include="score.cpp" />

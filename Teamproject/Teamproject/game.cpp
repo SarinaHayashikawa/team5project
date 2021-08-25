@@ -81,7 +81,7 @@ HRESULT CGame::Init()
 	CManager::CreateCamera();
 	CManager::CreateLight();
 
-	//デバックのためのアイテム
+	//デバックのためのアイテム生成
 	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
@@ -96,10 +96,8 @@ HRESULT CGame::Init()
 	m_pCamera = CManager::GetCamera();
 	
 	//全てのプレイヤーの管理(プレイヤー4人の生成処理とプレイヤー関係のマネージャー)	
-	//m_pPlayerControl = CPlayerControl::Create();
 	CManager::SetPlayerControl(CPlayerControl::Create());//情報ほしいのでマネージャーにセットしてほしいです
 	
-
 	//マップ作成（ここでミニマップ、管理処理も生成する）
 	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f),D3DXVECTOR3(1000.0f,1000.0f,1000.0f));
 	

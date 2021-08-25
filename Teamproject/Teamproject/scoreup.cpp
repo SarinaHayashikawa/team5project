@@ -31,7 +31,7 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 
 	//Resourceの呼び出し
 	CResource* pResource = CManager::GetResource();
-	MODELDATA Model = pResource->ModelLoad(pScoreup->m_nModel);
+	MODELDATA Model = pResource->ModelLoad(pScoreup->m_nScoreupModel);
 
 	//NULLチェック
 	if (pScoreup != NULL)

@@ -15,7 +15,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define MAX_PLAYER (4)
+
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
@@ -83,11 +83,13 @@ public:
 	static void SetScore(CScore * pScore, int nPlayer);
 	static void SetPlayerControl(CPlayerControl * pPlayerControl);
 	static CPlayerControl * GetPlayerControl(void) { return m_pPlayerControl; };
+	static void SetPlayerNumber(const int nNumber);								// プレイヤー人数セッター
+	static int	GetPlayerNumber(void) { return m_nPlayerNumber; }			// プレイヤー人数ゲッター
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
 	static CJoystick * m_pJoystick;
-	static CMouse * m_pMouse;
+	static CMouse *	m_pMouse;
 	static CSound * m_pSound;
 	static CCamera *m_pCamera;
 	static CLight *m_pLight;
@@ -98,8 +100,9 @@ private:
 	static CSelect * m_pSelect;
 	static CMapManager * m_pMapManager;
 	static HWND m_hWnd;
-	static CResource* m_pResource;		//リソースポインタ
-	static CScore * m_apScore[MAX_PLAYER];//プレイヤースコア
-	static CPlayerControl * m_pPlayerControl;//プレイヤー管理のポインタ
+	static CResource* m_pResource;				// リソースポインタ
+	static CScore * m_apScore[MAX_PLAYER];		// プレイヤースコア
+	static CPlayerControl * m_pPlayerControl;	// プレイヤー管理のポインタ
+	static int m_nPlayerNumber;					// プレイヤーの人数
 };
 #endif

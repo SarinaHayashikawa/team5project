@@ -20,7 +20,7 @@ class CPlayerParts;
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define MAX_PARTS (20)	//最大パーツ数
+#define MAX_PARTS (50)	//最大パーツ数
 
 //=============================================================================
 //クラス定義
@@ -38,11 +38,11 @@ public:
 		PLAYER_STATS_DEATH		// 死
 	}PLAYER_STATS;
 
-	static CPlayer* Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size);	//生成処理
+	static CPlayer* Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size,int nModel);	//生成処理
 
 	void			Update(void);
 	void			AddParts(CFoodBase::FOOD_TYPE FoodType);		// パーツ追加（食べ物を食べた後の追加パーツ）処理関数
-	void			RotControl(D3DXVECTOR3 Control);				// コントローラーでの操作
+	virtual void	RotControl(D3DXVECTOR3 Control);				// コントローラーでの操作
 	void			Dash(bool bDash);								// ダッシュ状態に移行
 	void			DamageHit(void);								// プレイヤーがダメージを受けるモノにぶつかった際の処理
 	void			Repel(CScene3d* Player);						// はじかれる処理
@@ -55,18 +55,18 @@ public:
 	void			SetStats(const PLAYER_STATS Stats) { m_PlayerStats = Stats; }	// プレイヤー状態セッター
 	PLAYER_STATS	GetStats(void) { return m_PlayerStats; }						// プレイヤー状態ゲッター
 
-private:
-
 	void			Death(void);							// 死亡処理
-	void			Move(void);								// 移動処理
-	void			Rot(void);								// 向き処理
 	void			RepelMove(void);						// はじかれ移動処理
 	void			Invincible(void);						// 無敵処理
 	void			SwitchedInvincible(int nInvincible);	// 無敵状態に移行
-	void			Flashing(void);							// 点滅処理
-	void			FlashingStop(void);						// 点滅ストップ処理
+	void			Move(void);								// 移動処理
+	void			Rot(void);								// 向き処理
 
-	const int		m_nModel = 1;			// モデル番号
+private:
+
+	void			Flashing(void);			// 点滅処理
+	void			FlashingStop(void);		// 点滅ストップ処理
+
 	PLAYER_STATS	m_PlayerStats;			// プレイヤーステータス
 	int				m_nLife;				// ライフ
 	D3DXVECTOR3		m_RotMove;				// 向きの移動量
