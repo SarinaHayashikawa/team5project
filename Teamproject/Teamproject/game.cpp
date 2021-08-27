@@ -50,6 +50,7 @@ CGame::CGame()
 	m_nGameCount	= 0;
 	m_nGameCount = 0;
 }
+
 //=============================================================================
 // デストラクタ
 //=============================================================================
@@ -126,6 +127,12 @@ void CGame::Update(void)
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
 		m_pCamera->SetPos(nPlayer, CManager::GetPlayerControl()->GetPlayer(nPlayer)->GetPos());
+	}
+
+	//デバック
+	if (pInputKeyboard->GetKeyTrigger(DIK_RETURN))
+	{
+		CManager::SetMode(CManager::MODE_RESULT);
 	}
 }
 

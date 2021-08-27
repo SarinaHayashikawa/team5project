@@ -18,6 +18,7 @@
 #include "joystick.h"
 #include "title.h"
 #include "game.h"
+#include "result.h"
 #include "camera.h"
 #include "light.h"
 #include "resource manager.h"
@@ -34,6 +35,7 @@ CJoystick * CManager::m_pJoystick = nullptr;
 CMouse * CManager::m_pMouse	= nullptr;
 CSound * CManager::m_pSound = nullptr;
 CGame * CManager::m_pGame = nullptr;
+CResult * CManager::m_pResult = nullptr;
 CTitle * CManager::m_pTitle = nullptr;
 CSelect * CManager::m_pSelect = nullptr;
 CCamera *CManager::m_pCamera = nullptr;
@@ -277,6 +279,9 @@ void CManager::SetMode(MODE mode)
 		break;
 	case MODE_GAME:
 		m_pGame = CGame::Create();
+		break;
+	case MODE_RESULT:
+		m_pResult = CResult::Create();
 		break;
 	}
 }

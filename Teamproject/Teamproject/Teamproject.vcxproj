@@ -163,6 +163,7 @@
     <ClCompile Include="MapEdgeMaskOut.cpp" />
     <ClCompile Include="mapEdgeOverlay.cpp" />
     <ClCompile Include="player control.cpp" />
+    <ClCompile Include="result.cpp" />
     <ClCompile Include="salmon parts.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="locationpoint.cpp" />
@@ -170,7 +171,6 @@
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
-
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="tuna parts.cpp" />
     <ClCompile Include="score.cpp" />
@@ -194,6 +194,7 @@
     <ClCompile Include="shield.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="winner player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ebi parts.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="MapEdgeMaskOut.h" />
     <ClInclude Include="MapEdgeOverlay.h" />
     <ClInclude Include="player control.h" />
+    <ClInclude Include="result.h" />
     <ClInclude Include="salmon parts.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="locationpoint.h" />
@@ -243,6 +245,7 @@
     <ClInclude Include="shield.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="winner player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

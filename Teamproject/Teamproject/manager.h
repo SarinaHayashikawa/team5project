@@ -36,7 +36,7 @@ class CSelect;
 class CResource;
 class CScore;
 class CPlayerControl;
-
+class CResult;
 //*****************************************************************************
 // ç\ë¢ëÃíËã`
 //*****************************************************************************
@@ -96,6 +96,7 @@ private:
 	static CPlayer * m_pPlayer;
 	static MODE m_mode;
 	static CGame * m_pGame;
+	static CResult* m_pResult;
 	static CTitle * m_pTitle;
 	static CSelect * m_pSelect;
 	static CMapManager * m_pMapManager;

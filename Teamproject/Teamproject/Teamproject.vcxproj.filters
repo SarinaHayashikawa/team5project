@@ -103,6 +103,12 @@
     <Filter Include="ヘッダー ファイル\Map">
       <UniqueIdentifier>{8fd4991d-65ee-4304-ba77-8e71b6729091}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Result">
+      <UniqueIdentifier>{d4446897-d02d-479d-9897-aba408f55d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Result">
+      <UniqueIdentifier>{9ef27783-4eab-49ff-bf8e-14fffcaaf957}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -244,7 +250,13 @@
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\GameSceue</Filter>
+    </ClCompile>
+    <ClCompile Include="winner player.cpp">
+      <Filter>ソース ファイル\GameModel\Result</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -387,7 +399,13 @@
       <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="timer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>ヘッダー ファイル\GameSceue</Filter>
+    </ClInclude>
+    <ClInclude Include="winner player.h">
+      <Filter>ヘッダー ファイル\GameModel\Result</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
