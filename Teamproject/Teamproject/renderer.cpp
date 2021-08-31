@@ -198,6 +198,7 @@ LPDIRECT3DDEVICE9 CRenderer::GetDevice(void)
 	return m_pD3DDevice;
 }
 
+
 #ifdef _DEBUG
 //=============================================================================
 // FPSï`âÊä÷êî

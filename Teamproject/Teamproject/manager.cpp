@@ -252,6 +252,7 @@ void CManager::Draw(void)
 				m_pCamera->SetCamera(nCamera);
 				m_pRenderer->Draw();
 			}
+
 		}
 	}
 }
@@ -355,6 +356,7 @@ void CManager::SetScore(CScore * pScore, int nPlayer)
 {
 	m_apScore[nPlayer] = pScore;
 }
+
 //=============================================================================
 //  プレイヤー管理ポインタセット
 //=============================================================================

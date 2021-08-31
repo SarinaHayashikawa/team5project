@@ -39,13 +39,15 @@ public:
 	void	Draw(void);					// 描画処理関数
 
 	CPlayer * GetPlayer(int nPlayer) { return m_pPlayer[nPlayer]; }	// プレイヤーゲッター関数
+
 private:
 
 	void RespawnControl(int nPlayer);		// プレイヤーのリスポーン
 	void DamageHit(int nPlayer);			// 他のプレイヤーの当たった際のダメージ処理
 	void PlayerHit(int nPlayer);			// プレイヤーのヒット処理
 	void PlayerControl(int nPlayer);		// プレイヤー操作関数
-	
+	void PlayerScore(int nPlayer);			// プレイヤーのスコア処理
+
 	void NpcControl(int nNpc);				// NPC操作関数
 	void PlayerProcessCriteria(int nNpc);	// NPCとプレイヤーの関係処理
 	void ItemProcessCriteria(int nNpc);		// NPCとアイテムの関係処理
@@ -70,9 +72,7 @@ private:
 
 	CPlayer*		m_pPlayer[MAX_PLAYER];				// プレイヤーポインタ
 	int				m_nRespawn[MAX_PLAYER];				// プレイヤーのリスポーンカウント
-	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];	// プレイヤーの位置
-	static D3DXVECTOR3 m_Score[MAX_PLAYER];		// スコアの位置
-	CScore*			m_pScore[MAX_PLAYER];				// スコアポインタ
+	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];			// プレイヤーの位置
 	int				m_nNumberPlayer;					// プレイヤーの人数
 	NPC_DATA		m_NpcData[MAX_NPC];					// NPCの情報
 };

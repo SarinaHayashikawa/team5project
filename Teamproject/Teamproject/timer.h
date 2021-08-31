@@ -30,12 +30,13 @@ class CNumber;
 #define MOOD2_SECONDS 30	//30秒モード開始秒数
 #define MOOD2_MINUTES 00	//30秒モード開始分
 
-
 // タイマーの位置とサイズ
 #define TIMER_POS D3DXVECTOR3(SCREEN_WIDTH / 2 + 55,SCREEN_HEIGHT - 45.0f,0.0f)
 #define TIMER_SIZE D3DXVECTOR3(40.0f,50.0f,0.0f)
 
-
+//=============================================================================
+// クラス定義
+//=============================================================================
 class CTimer :public CScene
 {
 public:
@@ -49,13 +50,12 @@ public:
 	void Draw(void);
 
 	//ゲッター
-	static bool GetTimeUp(void) { return m_bTimeUp; }	//時間切れ所得関数
-
+	bool GetTimeUp(void) { return m_bTimeUp; }	//時間切れ所得関数
 	//セッター
 	void SetTimer(int Min, int Sec);	//制限時間の設定
 	
 private:
-	static bool m_bTimeUp;
+	bool m_bTimeUp;
 	CNumber *m_pMINUtes;						//分のポインター
 	CNumber *m_pSexonds[MAX_SECONDS_DIGIT];		//秒のポインター
 	int m_nSeconds;								//分カウント

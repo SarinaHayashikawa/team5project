@@ -40,6 +40,7 @@ public:
 	static CScore * Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size);
 	void SetScore(int nScore);
 	void AddScore(int nValue);
+	int GetScore(void) { return m_nScore; }
 
 private:
 	CNumber                           *m_apNumber[MAX_DIGITS];//ナンバー（最大桁数分）
