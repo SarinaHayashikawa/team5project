@@ -28,6 +28,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SetSize(D3DXVECTOR3 Size);
 private:
 	void SushiSpawn(void);				// õi‚Ìƒ‰ƒ“ƒ_ƒ€¶¬ˆ—ŠÖ”
 
