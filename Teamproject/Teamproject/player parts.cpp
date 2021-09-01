@@ -21,7 +21,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CPlayerParts::CPlayerParts(int nPriority)
+CPlayerParts::CPlayerParts(int nPriority):CBillboard(nPriority)
 {
 	m_pParent	= NULL;							//親パーツのポインタ初期化
 	m_Move		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);//移動量初期化

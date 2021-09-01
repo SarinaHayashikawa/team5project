@@ -40,7 +40,7 @@ class CNumber;
 class CTimer :public CScene
 {
 public:
-	CTimer();
+	CTimer(int nPriority = 8);
 	~CTimer();
 
 	static CTimer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int Min,int Sec);

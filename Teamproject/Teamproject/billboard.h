@@ -18,7 +18,7 @@
 class CBillboard :public CScene3d
 {
 public:
-	CBillboard();
+	CBillboard(int nPriority);
 	virtual ~CBillboard();
 
 	virtual HRESULT Init(void);		// ‰Šú‰»ˆ—

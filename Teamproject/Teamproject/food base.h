@@ -18,7 +18,7 @@
 class CFoodBase :public CBillboard
 {
 public:
-	CFoodBase();
+	CFoodBase(int nPriority=3);
 	~CFoodBase();
 	typedef enum		//フードタイプ
 	{
