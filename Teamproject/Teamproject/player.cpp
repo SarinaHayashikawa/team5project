@@ -25,7 +25,7 @@
 #include "ikura.h"
 #include "salmon.h"
 #include "tuna.h"
-
+#include "ShieldEffect.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -378,6 +378,11 @@ void CPlayer::ShieldGet(void)
 		//取得状態のためtrueに変更
 		m_bShield = true;
 		//見た目に変化？
+
+		D3DXVECTOR3 pos = GetPos();
+
+		CShieldEffect::Create(pos, D3DXVECTOR3(22.5f, 22.5f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125));
+
 		
 	}
 

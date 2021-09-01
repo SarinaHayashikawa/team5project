@@ -14,6 +14,7 @@
 #include "renderer.h"
 #include "game.h"
 #include "number.h"
+#include "scene.h"
 
 //=============================================================================
 // マクロ定義
@@ -30,7 +31,7 @@ bool CTimer::m_bTimeUp = false;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CTimer::CTimer()
+CTimer::CTimer(int nPriority) : CScene(nPriority)
 {
 	m_nCountF = 0;
 	m_nMinutes = 0;

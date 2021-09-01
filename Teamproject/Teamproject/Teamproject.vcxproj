@@ -170,7 +170,7 @@
     <ClCompile Include="map_manager.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
-
+    <ClCompile Include="ShieldEffect.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="tuna parts.cpp" />
     <ClCompile Include="score.cpp" />
@@ -220,6 +220,7 @@
     <ClInclude Include="map_manager.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
+    <ClInclude Include="ShieldEffect.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="tuna parts.h" />
     <ClInclude Include="score.h" />
