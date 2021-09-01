@@ -57,6 +57,7 @@ CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 {
 	m_originPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_pMapEdgeMask	= nullptr;
+	m_pFieldManager = nullptr;
 	m_nSushiSpawn	= 0;	// 寿司のスポーンする時間の初期化
 	m_SpawnCount	= 0;	// 寿司のスポーンカウントの初期化
 
@@ -93,7 +94,7 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 HRESULT CMapManager::Init(void)
 {
 	//ステージ生成
-	CFieldManager::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
+	m_pFieldManager = CFieldManager::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
 	//ステージ生成（現在のフィールド）
 	m_pMapEdgeMask = CMapEdgeMask::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
 	//ステージ生成（フィールド外側）
@@ -125,10 +126,12 @@ void CMapManager::Uninit(void)
 void CMapManager::Update(void)
 {
 	//とりあえず収縮してるか確認する
-	m_MapSize.x -= 2.0f;
-	m_MapSize.y -= 2.0f;
-	m_MapSize.z -= 2.0f;
+	m_MapSize.x -= 0.2f;
+	m_MapSize.y -= 0.2f;
+	m_MapSize.z -= 0.2f;
+	//サイズセット
 	m_pMapEdgeMask->SetSize(m_MapSize);
+	m_pFieldManager->SetSize(m_MapSize);
 	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
 	{
 		//プレイヤーの位置取得

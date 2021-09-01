@@ -9,5 +9,5 @@ MAX_DATA,12,
 21,Data/TEXTURE/UI/map.png,ミニマップ
 22,Data/TEXTURE/UI/locationpoint.png,現在地
 30,Data/TEXTURE/MAP/map_mask.png,マスクマップ
-31,Data/TEXTURE/MAP/map_area_out.png,エリア外のテクスチャ
+31,Data/TEXTURE/MAP/syukusyou.png,エリア外のテクスチャ
 32,Data/TEXTURE/MAP/map_mask_edge.png,マップ外の円形クリッピング用

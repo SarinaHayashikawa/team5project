@@ -20,6 +20,7 @@
 //*****************************************************************************
 class CLocationPoint;
 class CMapEdgeMask;
+class CFieldManager;
 
 //*****************************************************************************
 // ヘッダファイルのインクルード
@@ -36,6 +37,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	
 private:
 	void SushiSpawn(void);				// 寿司のランダム生成処理関数
 
@@ -43,7 +45,7 @@ private:
 	CLocationPoint * m_pLocationPoint[MAX_PLAYER];	//現在位置
 	D3DXVECTOR3 m_MapSize;							//mapのサイズ
 	CMapEdgeMask * m_pMapEdgeMask;					//マスクポインタ
-
+	CFieldManager * m_pFieldManager;				//フィールドポインタ
 	int		m_nSushiSpawn;						// 寿司のスポーンする時間
 	int		m_SpawnCount;						// 寿司のスポーンカウント
 	static int m_nProb[CFoodBase::TYPE_MAX];	// どの寿司が出てくるかの確率

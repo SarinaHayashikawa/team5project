@@ -30,6 +30,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void SetSize(D3DXVECTOR3 Size);
 private:
 	void EdgeCollision(void);
 	void NowEdgeCollision(void);
