@@ -381,7 +381,7 @@ void CPlayer::ShieldGet(void)
 
 		D3DXVECTOR3 pos = GetPos();
 
-		CShieldEffect::Create(pos, D3DXVECTOR3(22.5f, 22.5f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125));
+		CShieldEffect::Create(pos, D3DXVECTOR3(22.5f, 22.5f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125),this);
 
 		
 	}

@@ -18,7 +18,7 @@
 class CSalmon :public CFoodBase
 {
 public:
-	CSalmon();
+	CSalmon(int nPriority = 3);
 	static CSalmon * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
 
 private:

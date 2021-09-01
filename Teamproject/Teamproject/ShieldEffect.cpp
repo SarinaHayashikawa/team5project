@@ -26,18 +26,15 @@
 //=============================================================================
 //静的メンバー変数宣言
 //=============================================================================
-LPDIRECT3DTEXTURE9 CShieldEffect::m_pTexture = nullptr;
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CShieldEffect::CShieldEffect(int nPriority)
+CShieldEffect::CShieldEffect(int nPriority) :CBillboard(nPriority)
 {
-	m_pVtxBuff = NULL;
 	m_Alpha = 0;
 	m_bUse = true;
 }
-
 
 //=============================================================================
 // デストラクタ
@@ -46,7 +43,10 @@ CShieldEffect::~CShieldEffect()
 {
 }
 
-CShieldEffect * CShieldEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOLOR Col)
+//=============================================================================
+// 生成関数
+//=============================================================================
+CShieldEffect * CShieldEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOLOR Col, CPlayer* pPlayer)
 {
 	CShieldEffect *pShieldEffect = NULL;
 
@@ -62,7 +62,9 @@ CShieldEffect * CShieldEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOL
 		pShieldEffect->SetSize(size);
 		pShieldEffect->SetColor(Col);
 		pShieldEffect->BindTexture(Texture);
+		pShieldEffect->m_pPlayer = pPlayer;
 		pShieldEffect->Init();
+
 	}
 
 
@@ -70,22 +72,16 @@ CShieldEffect * CShieldEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOL
 }
 
 
-
+//=============================================================================
+// 更新処理関数
+//=============================================================================
 void CShieldEffect::Update(void)
 {
 
 	//位置取得
 	D3DXVECTOR3 pos = GetPos();
 
-
-	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
-	{
-		//プレイヤーの位置取得
-		D3DXVECTOR3 PlayerPos = CManager::GetPlayerControl()->GetPlayer(nCount)->GetPos();
-		//プレイヤーの現在位置をセット
-		pos = PlayerPos;
-	}
-	
+	pos = m_pPlayer->GetPos();
 
 	SetPos(pos);
 

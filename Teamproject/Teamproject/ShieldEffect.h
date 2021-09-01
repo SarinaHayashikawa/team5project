@@ -29,23 +29,22 @@
 class CShieldEffect :public CBillboard
 {
 public:
-	CShieldEffect(int nPriority = 4);
+	CShieldEffect(int nPriority = 5);
 	~CShieldEffect();
 
-	static CShieldEffect *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOLOR Col);
+	static CShieldEffect *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOLOR Col, CPlayer* pPlayer);
 	void Update(void);
 
 
 
 
 private:
-	static LPDIRECT3DTEXTURE9	m_pTexture;		//テクスチャーのポインター
-	LPDIRECT3DVERTEXBUFFER9		m_pVtxBuff;		//頂点バッファへのポインタ
-	D3DXVECTOR3					m_Pos;			//位置
-	D3DXVECTOR3					m_Size;			//大きさ
+	CPlayer *					m_pPlayer;
+	
 	int							m_Alpha;		//透明度
 	bool						m_bUse;			//使うか使わないか
 	const int					m_nTexture = 40;// テクスチャ番号
+	
 
 };
 

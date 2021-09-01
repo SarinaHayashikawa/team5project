@@ -15,7 +15,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CBillboard::CBillboard()
+CBillboard::CBillboard(int nPriority) : CScene3d(nPriority)
 {
 	m_pTexture	= NULL;
 	m_pVtxBuff	= NULL;

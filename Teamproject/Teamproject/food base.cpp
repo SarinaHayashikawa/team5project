@@ -18,7 +18,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CFoodBase::CFoodBase()
+CFoodBase::CFoodBase(int nPriority) : CBillboard(nPriority)
 {
 	SetObjType(OBJTYPE_SUSHI);								// オブジェクトタイプ設定
 	m_nPoint = 0;
