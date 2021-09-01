@@ -31,7 +31,7 @@ class CNumber;
 #define MOOD2_MINUTES 00	//30秒モード開始分
 
 // タイマーの位置とサイズ
-#define TIMER_POS D3DXVECTOR3(SCREEN_WIDTH / 2 + 55,SCREEN_HEIGHT - 45.0f,0.0f)
+#define TIMER_POS D3DXVECTOR3(SCREEN_WIDTH / 2 - 50.0f,50.0f,0.0f)
 #define TIMER_SIZE D3DXVECTOR3(40.0f,50.0f,0.0f)
 
 //=============================================================================
