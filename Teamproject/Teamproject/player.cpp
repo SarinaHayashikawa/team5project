@@ -34,7 +34,9 @@
 #define PLAYER_ROT_SPEED	(10.0f)	// プレイヤーの振り向き速度(後で変更)
 #define PLAYER_REPEL		(15.0f)	// プレイヤーがはじかれる距離
 #define PLAYER_REPEL_FRAME	(10.0f)	// プレイヤーのはじかれた際のフレーム
-#define PLAYER_INVINCIBLE	(30*2)	// プレイヤーの無敵時間
+#define PLAYER_INVINCIBLE	(30*3)	// プレイヤーの無敵時間
+#define PLAYER_DASH_DEMERIT	(30*4)	// プレイヤーのダッシュ時のデメリットカウント
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -46,6 +48,7 @@ CPlayer::CPlayer(int nPriority)
 	m_nFlashing			 = 0;								// 死亡時のカウントフレーム値　の初期化
 	m_nInvinciFrameCount = 0;								// 無敵状態のフレームカウントの初期化
 	m_MaxInvinciCount	 = 0;								// 無敵状態の最大数の初期化
+	m_fDashDemeritCoutn	 = 0;								// 加速時のデメリットカウントの初期化
 	m_fDashCoutn	= 0;									// 加速値の初期化
 	m_nParts		= 0;									// パーツ数の初期化
 	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
@@ -54,7 +57,11 @@ CPlayer::CPlayer(int nPriority)
 	m_bShield		= false;								// アイテムシールドスイッチの初期化
 	m_RotMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向きの移動量の初期化
 	m_RepelMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// はじかれた際の移動量の初期化
-	memset(m_pParts, NULL, sizeof(m_pParts[MAX_PARTS]));	// パーツポインタの初期化
+
+	for (int nParts = 0; nParts < MAX_PARTS; nParts++)
+	{
+		m_pParts[nParts] = nullptr;
+	}
 }
 //=============================================================================
 // デストラクタ
@@ -108,6 +115,8 @@ void CPlayer::Update(void)
 		Move();
 		//角度処理
 		Rot();
+		//ダッシュ時のデメリット処理
+		DashDemerit();
 		break;
 
 	case PLAYER_STATS_REPEL:	//はじかれている場合
@@ -210,7 +219,6 @@ void CPlayer::RotControl(D3DXVECTOR3 Control)
 //=============================================================================
 void CPlayer::Dash(bool bDash)
 {
-
 	m_bDashSwitch = bDash;
 }
 
@@ -542,6 +550,61 @@ void CPlayer::SwitchedInvincible(int nInvincible)
 		m_MaxInvinciCount = nInvincible;
 		//無敵スイッチオン
 		m_bInvincible = true;
+	}
+}
+
+//=============================================================================
+// ダッシュ時のデメリット処理関数
+//=============================================================================
+void CPlayer::DashDemerit(void)
+{
+	//ダッシュ状態チェック
+	if (m_bDashSwitch)
+	{
+		//餌を落とす
+		if (m_fDashDemeritCoutn == 0)
+		{
+			if (m_pParts[m_nParts-1] != nullptr)
+			{
+				//パーツの位置取得
+				D3DXVECTOR3 PartsPos = m_pParts[m_nParts - 1]->GetPos();
+				switch (m_pParts[m_nParts - 1]->GetType())
+				{
+				case CFoodBase::TYPE_EBI:
+					CEbi::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_EGG:
+					CEgg::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_IKURA:
+					CIkura::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_SALMON:
+					CSalmon::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				case CFoodBase::TYPE_TUNA:
+					CTuna::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+					break;
+				}
+
+				m_pParts[m_nParts - 1]->Uninit();
+				m_pParts[m_nParts - 1] = nullptr;
+				m_nParts -= 1;
+
+			}
+		}
+		//カウントアップ
+		m_fDashDemeritCoutn++;
+
+		//一定までカウントしたら
+		if (m_fDashDemeritCoutn>PLAYER_DASH_DEMERIT)
+		{
+			m_fDashDemeritCoutn = 0;
+		}
+	}
+	else
+	{
+		m_fDashDemeritCoutn = 0;
 	}
 }
 

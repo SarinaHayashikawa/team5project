@@ -36,7 +36,6 @@ public:
 	void Update(void);
 	void Draw(void);
 	LPDIRECT3DDEVICE9 GetDevice(void);		// デバイスの取得関数
-
 private:
 	void DrawFPS(void);
 	LPDIRECT3D9 m_pD3D;

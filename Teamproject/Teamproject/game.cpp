@@ -41,6 +41,14 @@ bool CGame::m_bPlayerUse = true;
 bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
 CCamera* CGame::m_pCamera = nullptr;
+D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
+{
+	D3DXVECTOR3(150.0f, 30.0f, 0.0f),
+	D3DXVECTOR3(1250.0f, 30.0f, 0.0f),
+	D3DXVECTOR3(150.0f, 385.0f, -50.0f),
+	D3DXVECTOR3(1250.0f, 385.0f, -50.0f)
+
+};
 
 //=============================================================================
 // コンストラクタ
@@ -48,9 +56,12 @@ CCamera* CGame::m_pCamera = nullptr;
 CGame::CGame()
 {
 	m_pPlayerControl = nullptr;
+	m_pTimer = nullptr;
 	m_nGameCount	= 0;
 	m_nGameCount = 0;
+
 }
+
 //=============================================================================
 // デストラクタ
 //=============================================================================
@@ -90,7 +101,13 @@ HRESULT CGame::Init()
 	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CShield::Create(D3DXVECTOR3(-55.0f, 0.0f, -40.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SHIELD);
 	CScoreup::Create(D3DXVECTOR3(-60.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SCOREUP);
-	CTimer::Create(TIMER_POS, TIMER_SIZE, MOOD1_MINUTES, MOOD1_SECONDS);
+	//タイム生成
+	m_pTimer = CTimer::Create(TIMER_POS, TIMER_SIZE, MOOD1_MINUTES, MOOD1_SECONDS);
+	//スコア生成
+	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
+	{
+		CManager::SetScore(CScore::Create(m_Score[nPlayer], D3DXVECTOR3(30.0f, 60.0f, 0.0f)), nPlayer);
+	}
 	
 	//カメラ設定
 	m_pCamera = CManager::GetCamera();
@@ -127,6 +144,15 @@ void CGame::Update(void)
 	{
 		m_pCamera->SetPos(nPlayer, CManager::GetPlayerControl()->GetPlayer(nPlayer)->GetPos());
 	}
+
+	//制限時間を過ぎた際の処理
+	GameOut();
+
+	//デバック
+	if (pInputKeyboard->GetKeyTrigger(DIK_RETURN))
+	{
+		CManager::SetMode(CManager::MODE_RESULT);
+	}
 }
 
 //=============================================================================
@@ -134,4 +160,17 @@ void CGame::Update(void)
 //=============================================================================
 void CGame::Draw(void)
 {
+}
+
+//=============================================================================
+// ゲーム終了時の処理
+//=============================================================================
+void CGame::GameOut(void)
+{
+	//制限時間が来たら
+	if (m_pTimer->GetTimeUp() == true)
+	{
+		//画面遷移
+		CManager::SetMode(CManager::MODE_RESULT);
+	}
 }

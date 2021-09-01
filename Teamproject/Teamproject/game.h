@@ -24,7 +24,7 @@ class CLight;
 class CPlayer;
 class CScore;
 class CPlayerControl;
-
+class CTimer;
 //=============================================================================
 //マネージャークラス
 //=============================================================================
@@ -38,6 +38,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void GameOut(void);
 
 	CScene2D * GetScene(void) { return m_pScene; };
 	CGame * GetManager(void) { return this; };
@@ -51,6 +52,8 @@ private:
 	int			m_nGameCount;			//ゲームカウント
 	CPlayerControl* m_pPlayerControl;	//プレイヤーコントロールポインタ
 	static CCamera*	m_pCamera;			//カメラポインタ
+	CTimer*		m_pTimer;
+	static D3DXVECTOR3 m_Score[MAX_PLAYER];		// スコアの位置
 
 	static bool		m_bPlayerUse;				//プレイヤーが使われているか
 	static bool		m_bIsStopUpdate;			//アップデート停止しているか

@@ -103,6 +103,24 @@
     <Filter Include="ヘッダー ファイル\Map">
       <UniqueIdentifier>{8fd4991d-65ee-4304-ba77-8e71b6729091}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Result">
+      <UniqueIdentifier>{d4446897-d02d-479d-9897-aba408f55d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Result">
+      <UniqueIdentifier>{9ef27783-4eab-49ff-bf8e-14fffcaaf957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI\ResultUI">
+      <UniqueIdentifier>{05e175a8-1aab-45ef-89de-79fd5eba2268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI\ResultUI">
+      <UniqueIdentifier>{78a15548-95d3-475e-9e6e-d41d4c58e091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameModel\Effect">
+      <UniqueIdentifier>{e8cd4c09-cb4d-4606-a816-808f5f370085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameModel\Effect">
+      <UniqueIdentifier>{481a81a5-f4db-4fa6-bca6-3914aae58ff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -244,6 +262,21 @@
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\GameSceue</Filter>
+    </ClCompile>
+    <ClCompile Include="winner player.cpp">
+      <Filter>ソース ファイル\GameModel\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="result effect.cpp">
+      <Filter>ソース ファイル\GameModel\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="winner.cpp">
+      <Filter>ソース ファイル\UI\ResultUI</Filter>
+    </ClCompile>
+    <ClCompile Include="effect sushi.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ShieldEffect.cpp">
@@ -390,7 +423,22 @@
       <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="timer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>ヘッダー ファイル\GameSceue</Filter>
+    </ClInclude>
+    <ClInclude Include="winner player.h">
+      <Filter>ヘッダー ファイル\GameModel\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="winner.h">
+      <Filter>ヘッダー ファイル\UI\ResultUI</Filter>
+    </ClInclude>
+    <ClInclude Include="result effect.h">
+      <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="effect sushi.h">
+      <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
     </ClInclude>
     <ClInclude Include="ShieldEffect.h">
       <Filter>ヘッダー ファイル</Filter>

@@ -25,7 +25,6 @@
 //=============================================================================
 //Ã“Iƒƒ“ƒo[•Ï”éŒ¾
 //=============================================================================
-bool CTimer::m_bTimeUp = false;
 
 
 //=============================================================================
@@ -36,7 +35,7 @@ CTimer::CTimer(int nPriority) : CScene(nPriority)
 	m_nCountF = 0;
 	m_nMinutes = 0;
 	m_nSeconds = 0;
-
+	m_bTimeUp = false;
 
 	for (int nCnt = 0; nCnt < MAX_SECONDS_DIGIT; nCnt++)
 	{
@@ -89,8 +88,6 @@ CTimer * CTimer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int Min, int Sec)
 //=============================================================================
 HRESULT CTimer::Init(void)
 {
-
-
 	//•ª‚Ì¶¬
 	m_pMINUtes = CNumber::Create(m_Pos, m_Size.x, m_Size.y);
 	

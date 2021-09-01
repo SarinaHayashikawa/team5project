@@ -23,7 +23,7 @@ CScore::CScore(int nPriority) : CScene(nPriority)
 	memset(m_apNumber, 0, sizeof(m_apNumber));
 	m_Pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Size = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
-	m_nScore = 1234;
+	m_nScore = 0;
 }
 
 //=============================================================================

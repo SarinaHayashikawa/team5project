@@ -63,7 +63,7 @@ public:
 	void			Rot(void);								// 向き処理
 
 private:
-
+	void			DashDemerit(void);
 	void			Flashing(void);			// 点滅処理
 	void			FlashingStop(void);		// 点滅ストップ処理
 
@@ -78,6 +78,7 @@ private:
 	int				m_MaxInvinciCount;		// 無敵状態の最大カウント数
 	bool			m_bShield;				// アイテムのシールドスイッチ（持っているか）
 	float			m_fDashCoutn;			// 加速値
+	float			m_fDashDemeritCoutn;	// 加速時のデメリットカウント
 	bool			m_bDashSwitch;			// 加速切替スイッチ
 	int				m_nParts;				// パーツ数
 	CPlayerParts*	m_pParts[MAX_PARTS];	// パーツポインタ

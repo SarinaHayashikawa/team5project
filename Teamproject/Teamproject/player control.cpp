@@ -8,10 +8,10 @@
 //=============================================================================
 //インクルードファイル
 //=============================================================================
+#include "manager.h"
 #include "player control.h"
 #include "player.h"
 #include "joystick.h"
-#include "manager.h"
 #include "player parts.h"
 #include "score.h"
 #include <time.h>
@@ -39,14 +39,6 @@ D3DXVECTOR3 CPlayerControl::m_PlayerPos[MAX_PLAYER] =
 	D3DXVECTOR3(-50.0f, 0.0f, -50.0f),
 	D3DXVECTOR3(50.0f, 0.0f, -50.0f)
 };
-D3DXVECTOR3 CPlayerControl::m_Score[MAX_PLAYER] =
-{
-	D3DXVECTOR3(150.0f, 30.0f, 0.0f),
-	D3DXVECTOR3(1250.0f, 30.0f, 0.0f),
-	D3DXVECTOR3(150.0f, 385.0f, -50.0f),
-	D3DXVECTOR3(1250.0f, 385.0f, -50.0f)
-
-};
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -55,7 +47,6 @@ CPlayerControl::CPlayerControl(int nPriority)
 	for (int nPlayer = 0; nPlayer<MAX_PLAYER; nPlayer++)
 	{
 		m_pPlayer[nPlayer] = nullptr;
-		m_pScore[nPlayer] = nullptr;
 		m_nRespawn[nPlayer] = 0;
 	}
 	for (int nNpc = 0; nNpc < MAX_NPC; nNpc++)
@@ -97,7 +88,6 @@ HRESULT CPlayerControl::Init(void)
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
 		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), m_nPlayerModel[nPlayer]);
-		m_pScore[nPlayer] = CScore::Create(m_Score[nPlayer], D3DXVECTOR3(30.0f,60.0f, 0.0f));
 	}
 	return S_OK;
 }
@@ -138,6 +128,8 @@ void CPlayerControl::Update(void)
 			DamageHit(nPlayer);
 			//リスポーン処理
 			RespawnControl(nPlayer);
+			//スコア管理
+			PlayerScore(nPlayer);
 		}
 	}
 
@@ -285,12 +277,33 @@ void CPlayerControl::PlayerControl(int nPlayer)
 	//プレイヤーの加速操作
 	if (pJoystick->GetJoystickPress(JS_A, nPlayer))
 	{
-		m_pPlayer[nPlayer]->Dash(true);
+		//パーツ数が0以上
+		if (m_pPlayer[nPlayer]->GetPartsCount()>0)
+		{
+			m_pPlayer[nPlayer]->Dash(true);
+		}
+		else
+		{
+			m_pPlayer[nPlayer]->Dash(false);
+		}
 	}
 	else
 	{
 		m_pPlayer[nPlayer]->Dash(false);
 	}
+}
+
+//=============================================================================
+// プレイヤーのスコア処理関数
+//=============================================================================
+void CPlayerControl::PlayerScore(int nPlayer)
+{
+	//スコアポインタ取得
+	CScore* pScore = CManager::GetScore(nPlayer);
+	
+	//スコアセット
+	pScore->SetScore(m_pPlayer[nPlayer]->GetPartsCount());
+	
 }
 
 //=============================================================================
@@ -593,4 +606,5 @@ void CPlayerControl::AvoidBarrier(int nNpc)
 		//向きの記録
 		m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(-RangeX, -RangeZ, 0.0f);
 	}
+
 }

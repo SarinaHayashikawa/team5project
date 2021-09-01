@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="ebi parts.cpp" />
     <ClCompile Include="ebi.cpp" />
+    <ClCompile Include="effect sushi.cpp" />
     <ClCompile Include="egg parts.cpp" />
     <ClCompile Include="egg.cpp" />
     <ClCompile Include="Fieldmanager.cpp" />
@@ -163,6 +164,8 @@
     <ClCompile Include="MapEdgeMaskOut.cpp" />
     <ClCompile Include="mapEdgeOverlay.cpp" />
     <ClCompile Include="player control.cpp" />
+    <ClCompile Include="result effect.cpp" />
+    <ClCompile Include="result.cpp" />
     <ClCompile Include="salmon parts.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="locationpoint.cpp" />
@@ -194,10 +197,13 @@
     <ClCompile Include="shield.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="winner player.cpp" />
+    <ClCompile Include="winner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ebi parts.h" />
     <ClInclude Include="ebi.h" />
+    <ClInclude Include="effect sushi.h" />
     <ClInclude Include="egg parts.h" />
     <ClInclude Include="egg.h" />
     <ClInclude Include="Fieldmanager.h" />
@@ -213,6 +219,8 @@
     <ClInclude Include="MapEdgeMaskOut.h" />
     <ClInclude Include="MapEdgeOverlay.h" />
     <ClInclude Include="player control.h" />
+    <ClInclude Include="result effect.h" />
+    <ClInclude Include="result.h" />
     <ClInclude Include="salmon parts.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="locationpoint.h" />
@@ -244,6 +252,8 @@
     <ClInclude Include="shield.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="winner player.h" />
+    <ClInclude Include="winner.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
