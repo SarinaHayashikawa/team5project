@@ -53,7 +53,7 @@ CPlayerControl::CPlayerControl(int nPriority)
 	{
 		m_NpcData[nNpc] = { D3DXVECTOR3(0.0f,0.0f,0.0f),NPC_MAX_RANDOM ,NPC_MAX_TARGET_COUNT,false,nullptr,nullptr };
 	}
-	m_nNumberPlayer = 1;
+	m_nNumberPlayer = 0;
 }
 
 //=============================================================================
@@ -127,7 +127,7 @@ void CPlayerControl::Update(void)
 			//プレイヤーのダメージ判定
 			DamageHit(nPlayer);
 			//リスポーン処理
-			RespawnControl(nPlayer);
+			//RespawnControl(nPlayer);
 			//スコア管理
 			PlayerScore(nPlayer);
 		}
