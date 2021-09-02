@@ -29,7 +29,7 @@ class CEffectSushi;
 class CResultEffect : public CScene
 {
 public:
-	CResultEffect(int nPriority = 3);
+	CResultEffect(int nnPriority = 0);
 	~CResultEffect();
 	static CResultEffect *Create();	// 生成処理関数
 	HRESULT	Init(void);				// 初期化処理関数
@@ -42,7 +42,8 @@ private:
 	void	MoveSushi(void);	//寿司の移動処理
 	void	Offscreen(void);	//寿司の画面外処理
 
-	CEffectSushi * m_pSushi[MAX_SUSHI_EFFECT];	// 寿司のポインタ
-	int m_nSushiCount;						// 寿司の数
+	int				m_nSpawnCount;				// 寿司出現までのカウント
+	CEffectSushi *	m_pSushi[MAX_SUSHI_EFFECT];	// 寿司のポインタ
+	int				m_nSushiCount;				// 寿司の数
 };
 #endif // !_RESULT_EFFECT_H_

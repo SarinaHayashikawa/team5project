@@ -28,14 +28,12 @@ public:
 		TYPE_MAX
 	}FOOD_TYPE;
 
-	CEffectSushi(int nPriority = 8);
+	CEffectSushi(int nPriority = 0);
 	~CEffectSushi();
 
 	static CEffectSushi *Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size, int nType);
-
+	void				 Draw(void);
 private:
 	const int	m_nEffectSushiTexture[TYPE_MAX] = {10,11,12,13,14};	//テクスチャ番号
-	
-
 };
 #endif // !_EFFECT_SUSHI_H_

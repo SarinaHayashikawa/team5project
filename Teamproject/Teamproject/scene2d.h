@@ -32,6 +32,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+
 	void BindTexture(LPDIRECT3DTEXTURE9 pTexture);
 	void SetPos(D3DXVECTOR3 Pos);
 	void SetSize(D3DXVECTOR3 Size);

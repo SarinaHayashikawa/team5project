@@ -62,10 +62,10 @@ HRESULT CResult::Init(void)
 	CManager::CreateLight();
 
 	//勝者モデルの表示
-	CWinnerPlayer::Create(D3DXVECTOR3(0.0f,0.0f,0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f),1);
-	
+	CWinnerPlayer::Create(D3DXVECTOR3(0.0f, 80.0f, -5.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1);
+
 	//勝利UI
-	CWinner::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4, 0.0f), D3DXVECTOR3(1000.0f, 350.0f, 0.0f));
+	CWinner::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5, 0.0f), D3DXVECTOR3(1000.0f, 350.0f, 0.0f));
 	//スコア
 
 	//皿を上から降らす

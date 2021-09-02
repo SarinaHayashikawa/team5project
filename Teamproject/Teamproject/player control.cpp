@@ -53,7 +53,7 @@ CPlayerControl::CPlayerControl(int nPriority)
 	{
 		m_NpcData[nNpc] = { D3DXVECTOR3(0.0f,0.0f,0.0f),NPC_MAX_RANDOM ,NPC_MAX_TARGET_COUNT,false,nullptr,nullptr };
 	}
-	m_nNumberPlayer = 0;
+	m_nNumberPlayer = 1;
 }
 
 //=============================================================================

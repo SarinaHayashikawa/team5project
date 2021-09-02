@@ -13,7 +13,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CWinnerPlayer::CWinnerPlayer(int nPriority)
+CWinnerPlayer::CWinnerPlayer(int nPriority) :CModel(nPriority)
 {
 }
 

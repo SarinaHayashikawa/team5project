@@ -16,23 +16,23 @@
 #include "salmon.h"
 #include "tuna.h"
 #include "effect sushi.h"
-
 #include <time.h>
 
 //=============================================================================
 // マクロ定義
 //=============================================================================
+#define MAX_SPAWN_COUNT (60*1)	//寿司生成のカウント
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CResultEffect::CResultEffect(int nPriority)
+CResultEffect::CResultEffect(int nPriority):CScene(nPriority)
 {
 	for (int nSushi = 0; nSushi < MAX_SUSHI_EFFECT; nSushi++)
 	{
 		m_pSushi[nSushi] = nullptr;
 	}
-	
+	m_nSpawnCount = 0;
 	m_nSushiCount = 0;
 }
 
@@ -105,13 +105,10 @@ void CResultEffect::Draw(void)
 //=============================================================================
 void CResultEffect::RandomSpawn(void)
 {
-	//ランダム関数の初期化
-	srand((unsigned int)time(NULL));
-	//ランダムに数値取得
-	int nRandom = (rand() % 10);
-
+	//カウントアップ
+	m_nSpawnCount++;
 	//取得した数値が１より下の場合
-	if (nRandom<5)
+	if (m_nSpawnCount>MAX_SPAWN_COUNT)
 	{
 		//生成位置
 		D3DXVECTOR3 pos;
@@ -126,12 +123,15 @@ void CResultEffect::RandomSpawn(void)
 		{
 			if (m_pSushi[nSushi] == NULL)
 			{
+
 				//寿司のスポーン生成
 				m_pSushi[nSushi] = CEffectSushi::Create(pos, D3DXVECTOR3(100.0f, 100.0f, 0.0f), nSushiType);
 				
 				//現在の寿司の数をプラス
 				m_nSushiCount += 1;
-				
+
+				//数値の初期化
+				m_nSpawnCount = 0;
 				return;
 			}
 		}
@@ -170,7 +170,7 @@ void CResultEffect::Offscreen(void)
 			//位置取得
 			D3DXVECTOR3 pos = m_pSushi[nSushi]->GetPos();
 			//画面外に出ているか
-			if (pos.y>SCREEN_HEIGHT + 20)
+			if (pos.y>SCREEN_HEIGHT + 40)
 			{
 				//画面外にいる時に消去
 				m_pSushi[nSushi]->Uninit();

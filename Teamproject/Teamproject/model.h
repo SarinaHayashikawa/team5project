@@ -10,7 +10,6 @@
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "main.h"
 #include "scene3d.h"
 
 //=============================================================================
@@ -33,8 +32,8 @@ public:
 		D3DXMATRIX mtxWorld;                          // ワールド情報
 	} MODELDATA;
 
-    CModel();
-    virtual ~CModel();
+	CModel(int nPriority = 3);
+	virtual ~CModel();
     virtual void	Draw(void);
     
 	MODELDATA	GetModelData(void);					// モデルデータゲッター

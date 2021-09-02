@@ -80,6 +80,7 @@ HRESULT CMapManager::Init(void)
     CMapEdgeOverlay::Create(D3DXVECTOR3(0.0f, -49.0f, 0.0f), m_MapSize * 2.0f);
     //ミニマップ生成
     CMap::Create(m_originPos,D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT,0.0f));
+
     //プレイヤー位置の生成
     m_pLocationPoint[0] = CLocationPoint::Create(m_originPos, D3DXVECTOR3(20.0f, 20.0f, 0.0f),0);
     //プレイヤー位置の生成
