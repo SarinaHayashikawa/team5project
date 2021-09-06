@@ -45,6 +45,9 @@ private:
 	D3DXVECTOR3 m_MapSize;							//mapのサイズ
 	CMapEdgeMask * m_pMapEdgeMask;					//マスクポインタ
 	CFieldManager * m_pFieldManager;				//フィールドポインタ
+	int m_nTimeFrame;								//現在時間
+	int m_nShrinkCount;								//収縮した回数
+	bool m_bShirnk;									//収縮中か
 };
 #endif // !_MAP_MANAGER_H_
 
