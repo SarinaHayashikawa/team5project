@@ -90,43 +90,6 @@ void CBillboard::Uninit(void)
 	Release();
 }
 
-//=============================================================================
-// 更新処理関数
-//=============================================================================
-void CBillboard::Update(void)
-{
-	// 頂点情報
-	VERTEX_3D *pVtx;
-	//大きさ取得
-	D3DXVECTOR3 size = GetSize();
-
-	// 頂点バッファをロックし、頂点情報へのポインタを取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	pVtx[0].pos = D3DXVECTOR3(-size.x / 2, size.y / 2, +size.z / 2);
-	pVtx[1].pos = D3DXVECTOR3(size.x / 2, size.y / 2, +size.z / 2);
-	pVtx[2].pos = D3DXVECTOR3(-size.x / 2, -size.y / 2, +size.z / 2);
-	pVtx[3].pos = D3DXVECTOR3(size.x / 2, -size.y / 2, +size.z / 2);
-
-	pVtx[0].nor = D3DXVECTOR3(0, 0, -1);
-	pVtx[1].nor = D3DXVECTOR3(0, 0, -1);
-	pVtx[2].nor = D3DXVECTOR3(0, 0, -1);
-	pVtx[3].nor = D3DXVECTOR3(0, 0, -1);
-
-	pVtx[0].col = m_col;
-	pVtx[1].col = m_col;
-	pVtx[2].col = m_col;
-	pVtx[3].col = m_col;
-
-	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(0.0f, 1.0f);
-	pVtx[2].tex = D3DXVECTOR2(1.0f, 0.0f);
-	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
-
-	// 頂点バッファをアンロックする
-	m_pVtxBuff->Unlock();
-
-}
 
 //=============================================================================
 // 描画処理関数
@@ -140,6 +103,7 @@ void CBillboard::Draw(void)
 	D3DXMATRIX	 mtxRot, mtxTrans;	// 行列計算用のマトリクス
 	D3DMATERIAL9 matDef;			// マテリアル用
 	D3DXVECTOR3  pos = GetPos();	// 位置取得
+	
 	//テクスチャセット
 	pDevice->SetTexture(0, m_pTexture);
 	//アルファテスト有効
@@ -176,8 +140,7 @@ void CBillboard::Draw(void)
 	matDef.Ambient.r = m_col.r;
 	matDef.Ambient.g = m_col.g;
 	matDef.Ambient.b = m_col.b;
-	matDef.Ambient.a = m_col.a;
-	//マテリアルセット
+	matDef.Ambient.a = m_col.a;	//マテリアルセット
 	pDevice->SetMaterial(&matDef);
 
 	//ポリゴン描画

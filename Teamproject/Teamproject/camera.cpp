@@ -32,6 +32,13 @@
 //======================================================
 // 静的メンバ変数の初期化
 //======================================================
+D3DXVECTOR2 CCamera::m_offset[MAX_PLAYER] =
+{
+	D3DXVECTOR2(0.0f, 0.0f),
+	D3DXVECTOR2(SCREEN_WIDTH / 2.0f, 0.0f),
+	D3DXVECTOR2(0.0f, SCREEN_HEIGHT / 2.0f),
+	D3DXVECTOR2(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f),
+};
 
 //======================================================
 //コンストラクタ
@@ -43,7 +50,6 @@ CCamera::CCamera()
 		m_posV[nCoutn] = D3DXVECTOR3(0.0f, 100.0f, 0.0f);
 		m_posR[nCoutn] = m_posV[nCoutn] + D3DXVECTOR3(0.0f, 0.0f, 500.0f);
 		m_pos[nCoutn] = m_posV[nCoutn];
-
 	}
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_rot = D3DXVECTOR3(45.0f, 180.0f, 0.0f);
@@ -81,7 +87,6 @@ HRESULT CCamera::Init(void)
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	//カメラの向き設定
 	m_rot = D3DXVECTOR3(89.0f, 180.0f, 0.0f);
-
 	//マネージャーにカメラ情報を保存
 	CManager::BindCamera(this);
 	return S_OK;
@@ -148,10 +153,8 @@ void CCamera::Update(void)
 		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance,
 			sinf(D3DXToRadian(m_rot.x)) * m_fDistance,
 			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance);
-
 	//注意点の移動処理
 	m_posR = RotateCenter;
-
 #endif
 
 }
@@ -185,7 +188,7 @@ void CCamera::SetCamera(int nCamera)
 {
 	//デバイスへのポインタ
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-
+	
 	//ビューマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxView);
 	//ビューマトリックスの作成
@@ -223,18 +226,10 @@ bool CCamera::SetUpViewport(int screen_id)
 		m_WidowSize.Height = SCREEN_HEIGHT / 2.0f;
 	}
 
-	//画面の位置
-	D3DXVECTOR2 offset[] =
-	{
-		D3DXVECTOR2(0.0f, 0.0f),
-		D3DXVECTOR2(SCREEN_WIDTH / 2.0f, 0.0f),
-		D3DXVECTOR2(0.0f, SCREEN_HEIGHT / 2.0f),
-		D3DXVECTOR2(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f),
-	};
 
 	// ビューポートの左上座標
-	view_port.X = (DWORD)offset[screen_id].x;
-	view_port.Y = (DWORD)offset[screen_id].y;
+	view_port.X = (DWORD)m_offset[screen_id].x;
+	view_port.Y = (DWORD)m_offset[screen_id].y;
 
 	// ビューポートの幅
 	view_port.Width = (DWORD)m_WidowSize.Width;
@@ -304,7 +299,6 @@ void CCamera::SetRot(D3DXVECTOR3 rot)
 {
 	m_rot = rot;
 }
-
 
 //======================================================
 // 位置セッター

@@ -11,7 +11,7 @@
 //======================================================
 //マクロ定義
 //======================================================
-#define CAMERA_VIEW_RANGE (1000.0f)
+#define CAMERA_VIEW_RANGE (500.0f)
 #define CAMERA_DISTANCE_FROM_PLAYER (100.0f)
 #define CAMERA_DISTANCE_FROM_PLAYER_STAND (200.0f)
 #define PLAYER_CAMERA_HEIGHT (20.0f) //プレイヤーの高さ
@@ -29,6 +29,7 @@ public:
 	void Update(void);
 	void SetCamera(void);					// カメラによる描画
 	void SetCamera(int nCamera);			// カメラによる分割描画
+
 	bool SetUpViewport(int screen_id);		// ビューポート(複数)設定
 	bool SetUpViewport(void);				// ビューポート(単体)設定
 
@@ -47,6 +48,7 @@ private:
 		float Width;	// 位置
 		float Height;	// 注視点
 	}WindowSize;
+
 	WindowSize m_WidowSize;
 	void SetCameraView(D3DXVECTOR3 posV, D3DXVECTOR3 posR, float fInterpolation);
 	D3DXVECTOR3 m_posV[MAX_PLAYER];            // カメラの座標
@@ -56,19 +58,18 @@ private:
 	D3DXMATRIX m_mtxView;          // ビューマトリックス
 	D3DXVECTOR3 m_RotateCenter;    // カメラの回転中心座標
 	float m_fDistance;             // 視点-注意点の距離
-	D3DXVECTOR3 m_pos[MAX_PLAYER];				// 位置
+	D3DXVECTOR3 m_pos[MAX_PLAYER];	// 位置
 	D3DXVECTOR3 m_rot;
 	D3DXVECTOR3 m_posVDest;         // カメラの座標(差)
 	D3DXVECTOR3 m_posRDest;         // 注視点の座標(差)
 	bool m_bIsFollowPlayer;			// プレイヤーに追従するか
 	float m_fInterpolation;			// カメラ補間スピード
-
+	static D3DXVECTOR2 m_offset[MAX_PLAYER];//画面の位置
 
 #ifdef _DEBUG						   
 	float		m_fMoveRot;			// 移動する向き
 	bool		m_bDebug;			// デバック状態
 #endif
-
 };
 
 #endif

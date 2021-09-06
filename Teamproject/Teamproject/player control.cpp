@@ -19,15 +19,15 @@
 //=============================================================================
 // マクロ定義
 //=============================================================================
-#define PLAYER_SIZE				(7.0f)	// プレイヤーの当たり判定のサイズ
-#define PLAYER_DEATH			(30*3)	// プレイヤーが死亡時間
-#define NPC_AVOID				(100.0f)	// NPCの条件
-#define NPC_ITEM				(500.0f)	// NPCの条件
-#define NPC_SUSHI				(1000.0f)	// NPCの条件
-#define NPC_MAX_RANDOM_ROT		(100)	// ランダムに向く方向
-#define NPC_MAX_RANDOM			(100)	// ランダムに向く際の最大カウント
-#define NPC_MAX_TARGET_COUNT	(60*10)	// ターゲットカウントの最大数
-#define NPC_AVOID_BARRIER		(75)	// バリアをよける距離
+#define PLAYER_SIZE				(7.0f)		// プレイヤーの当たり判定のサイズ
+#define PLAYER_DEATH			(30*3)		// プレイヤーが死亡時間
+#define NPC_AVOID				(80.0f)		// NPCのプレイヤー回避条件
+#define NPC_ITEM				(500.0f)	// NPCのアイテム優先条件
+#define NPC_SUSHI				(2000.0f)	// NPCの寿司優先条件
+#define NPC_MAX_RANDOM_ROT		(100)		// ランダムに向く方向
+#define NPC_MAX_RANDOM			(50)		// ランダムに向く際の最大カウント
+#define NPC_MAX_TARGET_COUNT	(60*10)		// ターゲットカウントの最大数
+#define NPC_AVOID_BARRIER		(75)		// バリアをよける距離
 
 //*****************************************************************************
 // 静的メンバ変数初期化
@@ -49,6 +49,8 @@ CPlayerControl::CPlayerControl(int nPriority)
 		m_pPlayer[nPlayer] = nullptr;
 		m_nRespawn[nPlayer] = 0;
 	}
+	m_bRespawn = true;
+
 	for (int nNpc = 0; nNpc < MAX_NPC; nNpc++)
 	{
 		m_NpcData[nNpc] = { D3DXVECTOR3(0.0f,0.0f,0.0f),NPC_MAX_RANDOM ,NPC_MAX_TARGET_COUNT,false,nullptr,nullptr };
@@ -143,12 +145,28 @@ void CPlayerControl::Draw(void)
 }
 
 //=============================================================================
+// プレイヤー人数セッター処理関数
+//=============================================================================
+void CPlayerControl::SetNumberPlayer(int nNumber)
+{
+	m_nNumberPlayer = nNumber;
+}
+
+//=============================================================================
+// リスポーンスイッチセッター処理関数
+//=============================================================================
+void CPlayerControl::SetRespawn(bool Respawn)
+{
+	m_bRespawn = Respawn;
+}
+
+//=============================================================================
 // プレイヤーのリスポーン処理関数
 //=============================================================================
 void CPlayerControl::RespawnControl(int nPlayer)
 {
 	//プレイヤーの状態が死んでいる状態なのか
-	if (m_pPlayer[nPlayer]->GetStats()== CPlayer::PLAYER_STATS_DEATH)
+	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_DEATH&&m_bRespawn == true)
 	{//死んでいたら
 
 		//リスポーンカウント
@@ -541,6 +559,7 @@ void CPlayerControl::TargetSwitching(int nNpc)
 		//変わっていないとカウントダウン
 		m_NpcData[nNpc - 1].m_nTargetCount--;
 	}
+
 	//変わった際の処理
 	else
 	{
@@ -551,7 +570,7 @@ void CPlayerControl::TargetSwitching(int nNpc)
 	}
 
 	//カウントダウンが0いかになったら
-	if (m_NpcData[nNpc - 1].m_nTargetCount<0)
+	if (m_NpcData[nNpc - 1].m_nTargetCount <= 0)
 	{
 		m_NpcData[nNpc - 1].m_bRandomControl = true;
 		m_NpcData[nNpc - 1].m_nTargetCount = NPC_MAX_TARGET_COUNT;

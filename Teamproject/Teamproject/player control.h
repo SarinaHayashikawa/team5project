@@ -39,6 +39,8 @@ public:
 	void	Draw(void);					// 描画処理関数
 
 	CPlayer * GetPlayer(int nPlayer) { return m_pPlayer[nPlayer]; }	// プレイヤーゲッター関数
+	void	SetNumberPlayer(int nNumber);							// プレイヤー人数取得
+	void	SetRespawn(bool Respawn);								// リスポーンスイッチセッター
 
 private:
 
@@ -74,6 +76,7 @@ private:
 	int				m_nRespawn[MAX_PLAYER];				// プレイヤーのリスポーンカウント
 	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];			// プレイヤーの位置
 	int				m_nNumberPlayer;					// プレイヤーの人数
+	bool			m_bRespawn;							// プレイヤーリスポーンスイッチ
 	NPC_DATA		m_NpcData[MAX_NPC];					// NPCの情報
 };
 #endif // !_PLAYER_CONTROL_H_

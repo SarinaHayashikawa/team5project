@@ -33,9 +33,7 @@ public:
 
 	static CFloor * Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size);
 	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+
 private:
 	int							m_nPatternAnim;			// アニメーションパターン
 	int							m_nCountAnim;			// アニメーションパターン

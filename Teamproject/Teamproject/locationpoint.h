@@ -23,9 +23,7 @@ public:
 
 	static CLocationPoint *Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size,int number);
 	HRESULT Init(void);
-	void Uninit(void);
 	void Update(void);
-	void Draw(void);
 private:
 	int                     m_nPatternAnim; //アニメーションパターン
 	int                     m_nCountAnim; //アニメーションパターン

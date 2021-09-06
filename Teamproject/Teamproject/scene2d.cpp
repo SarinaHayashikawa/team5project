@@ -153,36 +153,22 @@ void CScene2d::Update(void)
 	//頂点座標の設定
 	pVtx[0].pos.x = m_Pos.x - cosf(m_fAngle - m_Rot.z) * m_fLength * m_fScale;
 	pVtx[0].pos.y = m_Pos.y - sinf(m_fAngle - m_Rot.z) * m_fLength * m_fScale;
-	pVtx[0].pos.z = 0.0f;
 
 	pVtx[1].pos.x = m_Pos.x + cosf(m_fAngle + m_Rot.z) * m_fLength * m_fScale;
 	pVtx[1].pos.y = m_Pos.y - sinf(m_fAngle + m_Rot.z) * m_fLength * m_fScale;
-	pVtx[1].pos.z = 0.0f;
 
 	pVtx[2].pos.x = m_Pos.x - cosf(m_fAngle + m_Rot.z) * m_fLength * m_fScale;
 	pVtx[2].pos.y = m_Pos.y + sinf(m_fAngle + m_Rot.z) * m_fLength * m_fScale;
-	pVtx[2].pos.z = 0.0f;
 
 	pVtx[3].pos.x = m_Pos.x + cosf(m_fAngle - m_Rot.z) * m_fLength * m_fScale;
 	pVtx[3].pos.y = m_Pos.y + sinf(m_fAngle - m_Rot.z) * m_fLength * m_fScale;
-	pVtx[3].pos.z = 0.0f;
-
-	pVtx[0].rhw = 1.0f;
-	pVtx[1].rhw = 1.0f;
-	pVtx[2].rhw = 1.0f;
-	pVtx[3].rhw = 1.0f;
-
-	// 頂点カラーの設定
-	pVtx[0].col = m_Col;
-	pVtx[1].col = m_Col;
-	pVtx[2].col = m_Col;
-	pVtx[3].col = m_Col;
 
 	// テクスチャ座標の設定
 	pVtx[0].tex = m_aTex[0];
 	pVtx[1].tex = m_aTex[1];
 	pVtx[2].tex = m_aTex[2];
 	pVtx[3].tex = m_aTex[3];
+
 
 	//頂点バッファのアンロック
 	m_pVtxBuff->Unlock();

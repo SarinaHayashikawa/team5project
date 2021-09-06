@@ -23,7 +23,6 @@ public:
 
 	virtual HRESULT Init(void);		// 初期化処理
 	virtual void Uninit(void);		// 終了処理
-	virtual void Update(void);		// 更新処理
 	virtual void Draw(void);		// 描画処理
 
 	void SetColor(D3DXCOLOR col);						// カラーセッター
