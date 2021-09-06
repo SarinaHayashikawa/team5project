@@ -47,12 +47,13 @@ public:
 	static void SetIsStopUpdate(bool bIsStopUpdate) { m_bIsStopUpdate = bIsStopUpdate; };
 	static bool GetIsStopUpdateContinue(void) { return m_bIsStopUpdateContinue; };
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
+	static CTimer * GetTimer(void) { return m_pTimer; };
 private:
 	CScene2D*	m_pScene;				//シーンポインタ
 	int			m_nGameCount;			//ゲームカウント
 	CPlayerControl* m_pPlayerControl;	//プレイヤーコントロールポインタ
 	static CCamera*	m_pCamera;			//カメラポインタ
-	CTimer*		m_pTimer;
+	static CTimer*		m_pTimer;
 	static D3DXVECTOR3 m_Score[MAX_PLAYER];		// スコアの位置
 
 	static bool		m_bPlayerUse;				//プレイヤーが使われているか

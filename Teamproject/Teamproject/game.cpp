@@ -41,6 +41,7 @@ bool CGame::m_bPlayerUse = true;
 bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
 CCamera* CGame::m_pCamera = nullptr;
+CTimer* CGame::m_pTimer = nullptr;
 D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 {
 	D3DXVECTOR3(150.0f, 30.0f, 0.0f),
@@ -56,7 +57,6 @@ D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 CGame::CGame()
 {
 	m_pPlayerControl = nullptr;
-	m_pTimer = nullptr;
 	m_nGameCount	= 0;
 	m_nGameCount = 0;
 
