@@ -276,10 +276,16 @@
     <ClCompile Include="winner.cpp">
       <Filter>ソース ファイル\UI\ResultUI</Filter>
     </ClCompile>
-    <ClCompile Include="effect sushi.cpp">
+    <ClCompile Include="ShieldEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ShieldEffect.cpp">
+    <ClCompile Include="classifier.cpp">
+      <Filter>ソース ファイル\UI\ResultUI</Filter>
+    </ClCompile>
+    <ClCompile Include="effect sushi.cpp">
+      <Filter>ソース ファイル\GameModel\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="player number.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -431,9 +437,6 @@
     <ClInclude Include="winner player.h">
       <Filter>ヘッダー ファイル\GameModel\Result</Filter>
     </ClInclude>
-    <ClInclude Include="winner.h">
-      <Filter>ヘッダー ファイル\UI\ResultUI</Filter>
-    </ClInclude>
     <ClInclude Include="result effect.h">
       <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
     </ClInclude>
@@ -442,6 +445,15 @@
     </ClInclude>
     <ClInclude Include="ShieldEffect.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="winner.h">
+      <Filter>ヘッダー ファイル\UI\ResultUI</Filter>
+    </ClInclude>
+    <ClInclude Include="classifier.h">
+      <Filter>ヘッダー ファイル\UI\ResultUI</Filter>
+    </ClInclude>
+    <ClInclude Include="player number.h">
+      <Filter>ヘッダー ファイル\UI\ResultUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

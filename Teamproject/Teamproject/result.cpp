@@ -11,7 +11,10 @@
 #include "winner player.h"
 #include "manager.h"
 #include "camera.h"
+#include "score.h"
 #include "winner.h"
+#include "classifier.h"
+#include "player number.h"
 #include "result effect.h"
 
 //=============================================================================
@@ -62,11 +65,16 @@ HRESULT CResult::Init(void)
 	CManager::CreateLight();
 
 	//勝者モデルの表示
-	CWinnerPlayer::Create(D3DXVECTOR3(0.0f, 80.0f, -5.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1);
+	CWinnerPlayer::Create(D3DXVECTOR3(0.0f, 80.0f, -10.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1);
 
 	//勝利UI
-	CWinner::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5, 0.0f), D3DXVECTOR3(1000.0f, 350.0f, 0.0f));
+	CWinner::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 6, 0.0f), D3DXVECTOR3(900.0f, 260.0f, 0.0f));
+	
+	//プレイヤーUI
+	CPlayerNumber::Create(D3DXVECTOR3((SCREEN_WIDTH / 3), (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(110.0f, 110.0f, 0.0f),0);
+
 	//スコア
+	ScoreCreate(D3DXVECTOR3((SCREEN_WIDTH / 2) + 200 , (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(70.0f, 110.0f, 0.0f));
 
 	//皿を上から降らす
 	CResultEffect::Create();
@@ -94,4 +102,16 @@ void CResult::Update(void)
 //=============================================================================
 void CResult::Draw(void)
 {
+}
+
+//=============================================================================
+// 描画処理
+//=============================================================================
+void CResult::ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+{
+	//スコア生成
+	CScore::Create(pos, size);
+
+	//スコア助数詞生成処理
+	CClassifier::Create(D3DXVECTOR3(pos.x + (size.x*1.2f), pos.y, pos.z), D3DXVECTOR3(size.x * 2, size.y, size.z));
 }

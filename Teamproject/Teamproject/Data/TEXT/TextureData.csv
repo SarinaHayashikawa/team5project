@@ -1,4 +1,4 @@
-MAX_DATA,14,
+MAX_DATA,19,
 1,Data/TEXTURE/MAP/map.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
 11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
@@ -13,3 +13,8 @@ MAX_DATA,14,
 32,Data/TEXTURE/MAP/map_mask_edge.png,マップ外の円形クリッピング用
 40,Data/TEXTURE/ITEM/si-rudo.png,シールドのエフェクト
 50,Data/TEXTURE/RESULT/winner.png,リザルトのwinner
+51,Data/TEXTURE/RESULT/mai.png,スコアの助数詞
+52,Data/TEXTURE/RESULT/1p.png,プレイヤー１のUI
+53,Data/TEXTURE/RESULT/2p.png,プレイヤー２のUI
+54,Data/TEXTURE/RESULT/3p.png,プレイヤー３のUI
+55,Data/TEXTURE/RESULT/4p.png,プレイヤー４のUI
