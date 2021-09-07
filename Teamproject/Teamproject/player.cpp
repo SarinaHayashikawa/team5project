@@ -26,6 +26,7 @@
 #include "salmon.h"
 #include "tuna.h"
 #include "ShieldEffect.h"
+#include "sound.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -234,7 +235,11 @@ void CPlayer::DamageHit(void)
 		{
 			//状態を死亡に変更
 			SetStats(PLAYER_STATS_DEATH);
-
+			
+			//死亡音
+			CSound *pSound = CManager::GetSound();
+			pSound->PlaySound(CSound::LABEL_SE_DEATH);
+			
 			//持っている寿司をばら撒く
 			for (int nParts = 0; nParts < m_nParts; nParts++)
 			{
@@ -274,6 +279,9 @@ void CPlayer::DamageHit(void)
 			m_bShield = false;
 			//一定時間無敵にする
 			m_bInvincible = true;
+			//ヒット音
+			CSound *pSound = CManager::GetSound();
+			pSound->PlaySound(CSound::LABEL_SE_HITPLAYER);
 		}
 		
 		//持っている寿司をばら撒く
@@ -380,6 +388,11 @@ void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 
 void CPlayer::ShieldGet(void)
 {
+
+	//ヒット音
+	CSound *pSound = CManager::GetSound();
+	pSound->PlaySound(CSound::LABEL_SE_GETITEM);
+
 	//アイテムを持っているか
 	if (m_bShield == false)
 	{
@@ -389,7 +402,7 @@ void CPlayer::ShieldGet(void)
 
 		D3DXVECTOR3 pos = GetPos();
 
-		CShieldEffect::Create(pos, D3DXVECTOR3(22.5f, 22.5f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125),this);
+		CShieldEffect::Create(D3DXVECTOR3(pos.x, pos.y + 13.0f ,pos.z), D3DXVECTOR3(30.0f, 30.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125),this);
 
 		
 	}
@@ -561,6 +574,9 @@ void CPlayer::DashDemerit(void)
 	//ダッシュ状態チェック
 	if (m_bDashSwitch)
 	{
+		//ダッシュオン
+		CSound *pSound = CManager::GetSound();
+		pSound->PlaySound(CSound::LABEL_SE_DASH);
 		//餌を落とす
 		if (m_fDashDemeritCoutn == 0)
 		{

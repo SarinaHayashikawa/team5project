@@ -13,7 +13,7 @@
 #include "camera.h"
 #include "winner.h"
 #include "result effect.h"
-
+#include "sound.h"
 //=============================================================================
 // Ã“Iƒƒ“ƒo•Ï”‰Šú‰»
 //=============================================================================
@@ -72,6 +72,9 @@ HRESULT CResult::Init(void)
 	CResultEffect::Create();
 
 
+	CSound *pSound = CManager::GetSound();
+	pSound->PlaySound(CSound::LABEL_BGM_RESULT);
+
 	return S_OK;
 }
 
@@ -80,6 +83,9 @@ HRESULT CResult::Init(void)
 //=============================================================================
 void CResult::Uninit(void)
 {
+	CSound *pSound = CManager::GetSound();
+	pSound->StopSound(CSound::LABEL_BGM_RESULT);
+
 }
 
 //=============================================================================

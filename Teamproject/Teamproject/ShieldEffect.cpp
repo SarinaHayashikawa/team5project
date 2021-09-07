@@ -83,6 +83,6 @@ void CShieldEffect::Update(void)
 
 	pos = m_pPlayer->GetPos();
 
-	SetPos(pos);
+	SetPos(D3DXVECTOR3(pos.x, pos.y + 13.0f, pos.z));
 
 }

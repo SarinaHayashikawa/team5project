@@ -31,8 +31,10 @@ class CNumber;
 #define MOOD2_MINUTES 00	//30秒モード開始分
 
 // タイマーの位置とサイズ
-#define TIMER_POS D3DXVECTOR3(SCREEN_WIDTH / 2 - 50.0f,50.0f,0.0f)
+#define TIMER_POS D3DXVECTOR3(SCREEN_WIDTH / 2 - 40.0f,50.0f,0.0f)
 #define TIMER_SIZE D3DXVECTOR3(40.0f,50.0f,0.0f)
+#define TIMER_POSBG D3DXVECTOR3(SCREEN_WIDTH / 2,50.0f,0.0f)
+#define TIMERBG_SIZE D3DXVECTOR3(120.0f,50.0f,0.0f)
 
 //=============================================================================
 // クラス定義
@@ -40,7 +42,7 @@ class CNumber;
 class CTimer :public CScene
 {
 public:
-	CTimer(int nPriority = 8);
+	CTimer(int nPriority = 9);
 	~CTimer();
 
 	static CTimer *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, int Min,int Sec);
