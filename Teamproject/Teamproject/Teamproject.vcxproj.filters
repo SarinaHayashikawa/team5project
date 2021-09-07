@@ -288,6 +288,9 @@
     <ClCompile Include="player number.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="timerBg.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="player number.h">
       <Filter>ヘッダー ファイル\UI\ResultUI</Filter>
+    </ClInclude>
+    <ClInclude Include="timerBg.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

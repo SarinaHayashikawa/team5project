@@ -20,9 +20,20 @@
 // 静的メンバ変数の初期化
 //*****************************************************************************
 
-CSound::PARAM CSound::m_aParam[SOUND_LABEL_MAX] =
+CSound::PARAM CSound::m_aParam[LABEL_MAX] =
 {
-	{ "data/SE/Test.wav", 0 },
+	//SE
+	{ "Data/SOUND/SE/dash.wav", -1 },
+	{ "Data/SOUND/SE/death.wav", 0 },
+	{ "Data/SOUND/SE/getitem.wav", 0 },
+	{ "Data/SOUND/SE/getsushi.wav", 0 },
+	{ "Data/SOUND/SE/hitplayer.wav", 0 },
+	//BGM
+	{ "Data/SOUND/BGM/game.wav", -1 },
+	{ "Data/SOUND/BGM/loading.wav", -1 },
+	{ "Data/SOUND/BGM/result.wav", -1 },
+	{ "Data/SOUND/BGM/title.wav", -1 },
+	
 };
 //=============================================================================
 // コンストラクタ
@@ -85,7 +96,7 @@ HRESULT CSound::Init(HWND hWnd)
 	}
 
 	// サウンドデータの初期化
-	for (int nCntSound = 0; nCntSound < SOUND_LABEL_MAX; nCntSound++)
+	for (int nCntSound = 0; nCntSound < LABEL_MAX; nCntSound++)
 	{
 		HANDLE hFile;
 		DWORD dwChunkSize = 0;
@@ -189,7 +200,7 @@ HRESULT CSound::Init(HWND hWnd)
 void CSound::Uninit(void)
 {
 	// 一時停止
-	for (int nCntSound = 0; nCntSound < SOUND_LABEL_MAX; nCntSound++)
+	for (int nCntSound = 0; nCntSound < LABEL_MAX; nCntSound++)
 	{
 		if (m_apSourceVoice[nCntSound])
 		{
@@ -224,7 +235,7 @@ void CSound::Uninit(void)
 //=============================================================================
 // サウンド再生処理関数
 //=============================================================================
-HRESULT CSound::PlaySound(SOUND_LABEL label)
+HRESULT CSound::PlaySound(LABEL label)
 {
 	XAUDIO2_VOICE_STATE xa2state;
 	XAUDIO2_BUFFER buffer;
@@ -260,7 +271,7 @@ HRESULT CSound::PlaySound(SOUND_LABEL label)
 //=============================================================================
 // サウンド停止処理関数
 //=============================================================================
-void CSound::StopSound(SOUND_LABEL label)
+void CSound::StopSound(LABEL label)
 {
 	XAUDIO2_VOICE_STATE xa2state;
 
@@ -282,7 +293,7 @@ void CSound::StopSound(SOUND_LABEL label)
 void CSound::StopSound(void)
 {
 	// 一時停止
-	for (int nCntSound = 0; nCntSound < SOUND_LABEL_MAX; nCntSound++)
+	for (int nCntSound = 0; nCntSound < LABEL_MAX; nCntSound++)
 	{
 		if (m_apSourceVoice[nCntSound])
 		{

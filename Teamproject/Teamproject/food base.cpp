@@ -10,6 +10,8 @@
 //=============================================================================
 #include "food base.h"
 #include "player.h"
+#include "sound.h"
+#include "manager.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -80,6 +82,10 @@ void CFoodBase::Collision(void)
 						&&PlayerPos.z - FOOD_HIT<pos.z)
 					{
 			
+						//ヒット音
+						CSound *pSound = CManager::GetSound();
+						pSound->PlaySound(CSound::LABEL_SE_GETSUSHI);
+
 						//パーツを追加
 						((CPlayer*)pNext)->AddParts(m_FoodType);
 						//終了処理で消す
