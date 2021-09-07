@@ -612,7 +612,7 @@ void CPlayerControl::AvoidBarrier(int nNpc)
 	//エリアの中心取得
 	D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//(ココの数値を範囲制限の円の中心を取得)
 	//エリアの半径
-	int nRadius = 250;									//(ココの数値を範囲制限の円の半径を取得)
+	float fRadius = m_fMapSize;									//(ココの数値を範囲制限の円の半径を取得)
 
 	//NPCの位置
 	D3DXVECTOR3 NpcPos = m_pPlayer[nNpc]->GetPos();
@@ -621,7 +621,7 @@ void CPlayerControl::AvoidBarrier(int nNpc)
 	float RangeZ = NpcPos.z - centre.z;
 	float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
 
-	if (Range >= PLAYER_SIZE + (float)((nRadius*2) - NPC_AVOID_BARRIER))
+	if (Range >= PLAYER_SIZE + (float)((fRadius * 2) - NPC_AVOID_BARRIER))
 	{
 		//向きの記録
 		m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(-RangeX, -RangeZ, 0.0f);

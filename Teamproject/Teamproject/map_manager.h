@@ -38,7 +38,10 @@ public:
 	void Update(void);
 	void Draw(void);
 	
+	float GetMapSize(void) { return m_MapSize.x; };
 private:
+	void SushiSpawn(void);							// 寿司のランダム生成処理関数
+
 
 	D3DXVECTOR3 m_originPos;						//マップの原点（ここを{0,0}とする）
 	CLocationPoint * m_pLocationPoint[MAX_PLAYER];	//現在位置
@@ -48,6 +51,12 @@ private:
 	int m_nTimeFrame;								//現在時間
 	int m_nShrinkCount;								//収縮した回数
 	bool m_bShirnk;									//収縮中か
+
+	int			m_nSushiSpawn;					// 寿司のスポーンする時間
+	int			m_SpawnCount;					// 寿司のスポーンカウント
+	static int	m_nProb[CFoodBase::TYPE_MAX];	// どの寿司が出てくるかの確率
+	static int	m_nMaxProb;						// 最大確率
+
 };
 #endif // !_MAP_MANAGER_H_
 

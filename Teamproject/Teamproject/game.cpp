@@ -58,6 +58,7 @@ D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 //=============================================================================
 CGame::CGame()
 {
+	m_pMapManager = nullptr;
 	m_pPlayerControl = nullptr;
 	m_nGameCount	= 0;
 	m_nGameCount = 0;
@@ -118,12 +119,13 @@ HRESULT CGame::Init()
 	CManager::SetPlayerControl(CPlayerControl::Create());//情報ほしいのでマネージャーにセットしてほしいです
 	
 	//マップ作成（ここでミニマップ、管理処理も生成する）
-	CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f),D3DXVECTOR3(1000.0f,1000.0f,1000.0f));
-	
+	m_pMapManager = CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f), D3DXVECTOR3(1000.0f, 1000.0f, 1000.0f));
+
 	//タイム生成
 	CtimerBg::Create(TIMER_POSBG, TIMERBG_SIZE, D3DCOLOR_RGBA(255, 255, 255, 255));
 	m_pTimer = CTimer::Create(TIMER_POS, TIMER_SIZE, MOOD1_MINUTES, MOOD1_SECONDS);
 
+	//サウンド処理
 	CSound *pSound = CManager::GetSound();
 	pSound->PlaySound(CSound::LABEL_BGM_GAME);
 
@@ -135,6 +137,7 @@ HRESULT CGame::Init()
 //=============================================================================
 void CGame::Uninit(void)
 {
+	//サウンドストップ
 	CSound *pSound = CManager::GetSound();
 	pSound->StopSound();
 }
@@ -154,7 +157,8 @@ void CGame::Update(void)
 	{
 		m_pCamera->SetPos(nPlayer, CManager::GetPlayerControl()->GetPlayer(nPlayer)->GetPos());
 	}
-
+	//ステージサイズセット
+	CManager::GetPlayerControl()->SetMapSize(m_pMapManager->GetMapSize());
 	//制限時間を過ぎた際の処理
 	GameOut();
 

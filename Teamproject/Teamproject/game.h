@@ -12,19 +12,12 @@
 // 前方宣言
 //*****************************************************************************
 class CInput;
-class CKeyboard;
-class CJoystick;
-class CRenderer;
 class CScene2D;
-class CTitle;
-class CEnemy;
-class CSound;
 class CCamera;
-class CLight;
-class CPlayer;
 class CScore;
 class CPlayerControl;
 class CTimer;
+class CMapManager;
 //=============================================================================
 //マネージャークラス
 //=============================================================================
@@ -49,10 +42,11 @@ public:
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 	static CTimer * GetTimer(void) { return m_pTimer; };
 private:
-	CScene2D*	m_pScene;				//シーンポインタ
-	int			m_nGameCount;			//ゲームカウント
-	CPlayerControl* m_pPlayerControl;	//プレイヤーコントロールポインタ
-	static CCamera*	m_pCamera;			//カメラポインタ
+	CScene2D*	m_pScene;				// シーンポインタ
+	int			m_nGameCount;			// ゲームカウント
+	CPlayerControl* m_pPlayerControl;	// プレイヤーコントロールポインタ
+	CMapManager * m_pMapManager;		// マップマネージャーポインタ
+	static CCamera*	m_pCamera;			// カメラポインタ
 	static CTimer*		m_pTimer;
 	static D3DXVECTOR3 m_Score[MAX_PLAYER];		// スコアの位置
 

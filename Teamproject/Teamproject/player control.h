@@ -41,6 +41,7 @@ public:
 	CPlayer * GetPlayer(int nPlayer) { return m_pPlayer[nPlayer]; }	// プレイヤーゲッター関数
 	void	SetNumberPlayer(int nNumber);							// プレイヤー人数取得
 	void	SetRespawn(bool Respawn);								// リスポーンスイッチセッター
+	void	SetMapSize(float fMapSize) { m_fMapSize = fMapSize; };	// ステージサイズ
 
 private:
 
@@ -60,6 +61,7 @@ private:
 	void NpcRandomCount(int nNpc);			// ランダム向き移動(長時間)
 	void AvoidBarrier(int nNpc);			// バリアを避ける処理
 
+
 	typedef struct
 	{
 		D3DXVECTOR3 m_TargetRot;				// 目的の向き
@@ -77,6 +79,7 @@ private:
 	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];			// プレイヤーの位置
 	int				m_nNumberPlayer;					// プレイヤーの人数
 	bool			m_bRespawn;							// プレイヤーリスポーンスイッチ
+	float			m_fMapSize;							// マップサイズ
 	NPC_DATA		m_NpcData[MAX_NPC];					// NPCの情報
 };
 #endif // !_PLAYER_CONTROL_H_
