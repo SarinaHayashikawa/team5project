@@ -59,6 +59,8 @@ HRESULT CTitle::Init(void)
 	CManager::CreateCamera();
 	CManager::CreateLight();
 
+	CSound *pSound = CManager::GetSound();
+	pSound->PlaySound(CSound::LABEL_BGM_TITLE);
 	return S_OK;
 }
 
@@ -68,6 +70,8 @@ HRESULT CTitle::Init(void)
 void CTitle::Uninit(void)
 {
 
+	CSound *pSound = CManager::GetSound();
+	pSound->StopSound(CSound::LABEL_BGM_TITLE);
 }
 
 //=============================================================================

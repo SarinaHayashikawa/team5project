@@ -94,7 +94,7 @@ HRESULT CTimer::Init(void)
 	//秒の生成
 	for (int nCnt = 0;  nCnt < MAX_SECONDS_DIGIT;  nCnt++)
 	{
-		m_pSexonds[nCnt] = CNumber::Create(D3DXVECTOR3(m_Pos.x + (nCnt * m_Size.x) + 75.0f, m_Pos.y, 0.0f), m_Size.x, m_Size.y);
+		m_pSexonds[nCnt] = CNumber::Create(D3DXVECTOR3(m_Pos.x + (nCnt * m_Size.x) + 40.0f, m_Pos.y, 0.0f), m_Size.x, m_Size.y);
 	}
 	
 	
@@ -113,7 +113,7 @@ void CTimer::Update(void)
 	//フレームのカウント
 	m_nCountF++;
 
-	if (m_nCountF == 60)
+	if (m_nCountF == 30)
 	{
 		//フレームのカウントをリセット
 		m_nCountF = 0;

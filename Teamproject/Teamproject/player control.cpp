@@ -15,7 +15,7 @@
 #include "player parts.h"
 #include "score.h"
 #include <time.h>
-
+#include "sound.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -124,6 +124,7 @@ void CPlayerControl::Update(void)
 
 			//プレイヤー同士の当たり判定
 			PlayerHit(nPlayer);
+		
 			//プレイヤーのダメージ判定
 			DamageHit(nPlayer);
 			//リスポーン処理
