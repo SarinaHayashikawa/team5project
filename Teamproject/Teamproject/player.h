@@ -63,7 +63,7 @@ public:
 	void			Rot(void);								// 向き処理
 
 private:
-	void			DashDemerit(void);
+	void			DashDemerit(void);		// ダッシュ時のデメリット処理
 	void			Flashing(void);			// 点滅処理
 	void			FlashingStop(void);		// 点滅ストップ処理
 
