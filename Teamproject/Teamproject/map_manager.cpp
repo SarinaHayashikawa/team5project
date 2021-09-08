@@ -30,7 +30,8 @@
 #include "ikura.h"
 #include "salmon.h"
 #include "tuna.h"
-
+#include "scoreup.h"
+#include "shield.h"
 #include <time.h>
 
 
@@ -43,19 +44,29 @@
 #define MAP_SHIRINK_TIME_VALUE	(60)	//1縮小で縮む量（フレーム）
 #define MAP_LAST_SIZE			(50.0f) //最後のマップサイズ
 #define MAX_SUSHI_SPAWN			(300)	//餌のスポーンまでの最大時間
+#define MAX_ITEM_SPAWN			(30*60)	//餌のスポーンまでの最大時間
 
 //*****************************************************************************
 // 静的メンバー変数初期化
 //*****************************************************************************
-int CMapManager::m_nProb[CFoodBase::TYPE_MAX] =
+int CMapManager::m_nSushiProb[CFoodBase::TYPE_MAX] =
 {
-	20,				//ひとまずのデバック用の値
+	//寿司の出現確率
+	20,				
 	20,
 	20,
 	20,
 	20,
 };
-int CMapManager::m_nMaxProb = m_nProb[0] + m_nProb[1] + m_nProb[2] + m_nProb[3] + m_nProb[4];
+int CMapManager::m_nMaxSushiProb = m_nSushiProb[CFoodBase::TYPE_EBI] + m_nSushiProb[CFoodBase::TYPE_EGG] + m_nSushiProb[CFoodBase::TYPE_IKURA] + m_nSushiProb[CFoodBase::TYPE_SALMON] + m_nSushiProb[CFoodBase::TYPE_TUNA];
+
+int CMapManager::m_nItemProb[CItem::ITEM_MAX]=
+{
+	//アイテムの出現確率
+	50,		//スコアアップ
+	50		//シールド
+};
+int CMapManager::m_nMaxItemProb = m_nItemProb[CItem::ITEM_SCOREUP] + m_nItemProb[CItem::ITEM_SHIELD];
 
 //=============================================================================
 // コンストラクタ
@@ -68,9 +79,10 @@ CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 	m_nShrinkCount = 1;
 	m_bShirnk = false;
 	m_nTimeFrame = 0;
-	m_nSushiSpawn = 0;	// 寿司のスポーンする時間の初期化
-	m_SpawnCount = 0;	// 寿司のスポーンカウントの初期化
-
+	m_nSushiSpawn = 0;		// 寿司のスポーンする時間の初期化
+	m_nSpawnSushiCount = 0;	// 寿司のスポーンする時間までのカウントの初期化
+	m_nItemSpawn = 0;		// アイテムのスポーンする時間の初期化
+	m_nSpawnItemCount = 0;	// アイテムのスポーンする時間までのカウントの初期化
 }
 
 //=============================================================================
@@ -161,6 +173,7 @@ void CMapManager::Update(void)
     //サイズセット
     m_pMapEdgeMask->SetSize(m_MapSize);
     m_pFieldManager->SetSize(m_MapSize);
+
     for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
     {
         //プレイヤーの位置取得
@@ -172,6 +185,9 @@ void CMapManager::Update(void)
 
 	//餌の生成処理
 	SushiSpawn();
+
+	//アイテムの生成
+	ItemSpawn();
 
 }
 //=============================================================================
@@ -188,12 +204,12 @@ void CMapManager::Draw(void)
 void CMapManager::SushiSpawn(void)
 {
 	//カウントダウン
-	m_SpawnCount++;
+	m_nSpawnSushiCount++;
 	//カウントが一定に達したらランダムにスポーン
-	if (m_SpawnCount>m_nSushiSpawn)
+	if (m_nSpawnSushiCount>m_nSushiSpawn)
 	{
 		//エリアの半径
-		float fRadius = m_MapSize.x;//(ココの数値を範囲制限の円の半径を取得)
+		float fRadius = (m_MapSize.x / 2) - 50;//(ココの数値を範囲制限の円の半径を取得)
 		//中心値
 		D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
 
@@ -204,24 +220,24 @@ void CMapManager::SushiSpawn(void)
 		//ランダムな距離
 		int nDistance = rand() % (int)fRadius;		//ランダムな距離を取得
 
-													//ランダムリスポーン位置
+		//ランダムリスポーン位置
 		D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
 
 		//ランダムにどの寿司をスポーンさせるか決める
-		int nSpawn = rand() % m_nMaxProb;			//ランダムに値を取得
+		int nSpawn = rand() % m_nMaxSushiProb;			//ランダムに値を取得
 
 		int nProd = 0;//確率用の変数
 
-					  //どの寿司がスポーンするか
+		//どの寿司がスポーンするか
 		for (int nSushi = 0; nSushi < CFoodBase::TYPE_MAX; nSushi++)
 		{
 			//確率を足してく
-			nProd += m_nProb[nSushi];
+			nProd += m_nSushiProb[nSushi];
 			//確率の確認
 			if (nSpawn <= nProd)
 			{
 				//カウント初期化
-				m_SpawnCount = 0;
+				m_nSpawnSushiCount = 0;
 				//ランダムに次のスポーン時間を決める
 				m_nSushiSpawn = rand() % MAX_SUSHI_SPAWN;
 
@@ -248,4 +264,65 @@ void CMapManager::SushiSpawn(void)
 			}
 		}
 	}
+}
+
+//=============================================================================
+// アイテムのランダム生成処理関数
+//=============================================================================
+void CMapManager::ItemSpawn(void)
+{
+	//カウントダウン
+	m_nSpawnItemCount++;
+	//カウントが一定に達したらランダムにスポーン
+	if (m_nSpawnItemCount>m_nItemSpawn)
+	{
+		//エリアの半径
+		float fRadius = (m_MapSize.x / 2) - 50;//(ココの数値を範囲制限の円の半径を取得)
+		 //中心値
+		D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
+
+		//ランダム角度
+		srand((unsigned int)time(NULL));			//ランダム関数の初期化
+		float fAngle = (float)(rand() % 360 + 1);	//ランダムで角度を決める
+
+		//ランダムな距離
+		int nDistance = rand() % (int)fRadius;		//ランダムな距離を取得
+
+		//ランダムリスポーン位置
+		D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
+
+		//ランダムにどのアイテムをスポーンさせるか決める
+		int nSpawn = rand() % m_nMaxItemProb;			//ランダムに値を取得
+
+		int nProd = 0;//確率用の変数
+
+		//どのアイテムがスポーンするか
+		for (int nItem = 0; nItem < CItem::ITEM_MAX; nItem++)
+		{
+			//確率を足してく
+			nProd += m_nItemProb[nItem];
+			//確率の確認
+			if (nSpawn <= nProd)
+			{
+				//カウント初期化
+				m_nSpawnItemCount = 0;
+				//次のスポーン時間を設定
+				m_nItemSpawn = MAX_ITEM_SPAWN;
+
+				//アイテムのスポーン生成
+				switch (nItem)
+				{
+				case CItem::ITEM_SCOREUP:	//スコアアップ生成
+					CScoreup::Create(random, D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+					break;
+				case CItem::ITEM_SHIELD:	//シールド生成
+					CShield::Create(random, D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+					break;
+				}
+
+				return;
+			}
+		}
+	}
+
 }

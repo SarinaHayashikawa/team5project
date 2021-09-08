@@ -26,8 +26,8 @@ class CScoreup :public CItem
 public:
 	CScoreup();
 
-	static CScoreup * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type);
-	void ItemEffect(ITEM type, CPlayer* pPlayer);		//アイテム効果関数
+	static CScoreup * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);
+	void ItemEffect(CPlayer* pPlayer);		//アイテム効果関数
 
 private:
 	const int	m_nScoreupModel = 10; // モデル番号	

@@ -237,7 +237,7 @@ void CManager::Draw(void)
 	{
 		// 現在のシーン状況で画面分割をする
 		// ゲームシーン以外の場合分割しない
-		if (m_mode!= MODE_GAME)
+		if (m_mode != MODE_GAME)
 		{
 			m_pCamera->SetUpViewport();
 			m_pCamera->SetCamera();
@@ -274,9 +274,6 @@ void CManager::SetMode(MODE mode)
 	{
 	case MODE_TITLE:
 		m_pTitle = CTitle::Create();
-		break;
-	case MODE_SELECT:
-		//m_pSelect = CSelect::Create();
 		break;
 	case MODE_GAME:
 		m_pGame = CGame::Create();

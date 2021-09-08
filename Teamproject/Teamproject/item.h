@@ -29,7 +29,7 @@ public:
 	// アイテムの種類
 	typedef enum
 	{
-		ITEM_NONE = 0,		// 割り当てなし
+		ITEM_NONE = -1,		// 割り当てなし
 		ITEM_SCOREUP,		// スコアアップ
 		ITEM_SHIELD,		// シールド
 		ITEM_MAX			// 種類の最大数
@@ -39,7 +39,7 @@ public:
 	 ~CItem();
 	void Update(void);
 	void Collision(void);						// 当たり判定関数
-	virtual void ItemEffect(ITEM type, CPlayer* pPlayer) = 0;		// アイテム効果関数
+	virtual void ItemEffect(CPlayer* pPlayer) = 0;		// アイテム効果関数
 	void SetItem(ITEM item);					// アイテムの種類設定
 	ITEM GetType(void) { return m_ItemType; };	// タイプゲッター
 private:

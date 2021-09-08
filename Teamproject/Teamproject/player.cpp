@@ -385,28 +385,22 @@ void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 //=============================================================================
 // シールド取得処理
 //=============================================================================
-
 void CPlayer::ShieldGet(void)
 {
-
-	//ヒット音
-	CSound *pSound = CManager::GetSound();
-	pSound->PlaySound(CSound::LABEL_SE_GETITEM);
 
 	//アイテムを持っているか
 	if (m_bShield == false)
 	{
+		//ヒット音
+		CSound *pSound = CManager::GetSound();
+		pSound->PlaySound(CSound::LABEL_SE_GETITEM);
+
 		//取得状態のためtrueに変更
 		m_bShield = true;
 		//見た目に変化？
-
 		D3DXVECTOR3 pos = GetPos();
-
 		CShieldEffect::Create(D3DXVECTOR3(pos.x, pos.y + 13.0f ,pos.z), D3DXVECTOR3(30.0f, 30.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125),this);
-
-		
 	}
-
 }
 
 //=============================================================================

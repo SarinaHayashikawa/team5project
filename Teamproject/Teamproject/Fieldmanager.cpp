@@ -121,7 +121,7 @@ void CFieldManager::EdgeCollision(void)
 			pNext = pTop[nCount];
 			while (pNext != nullptr)
 			{
-				//pNext(CScene)をCEnemyにダウンキャスト
+				//pNext(CScene)をCPlayerにダウンキャスト
 				CPlayer * pPlayer = dynamic_cast<CPlayer*> (pNext);
 				if (pPlayer != nullptr)
 				{

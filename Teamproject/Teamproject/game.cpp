@@ -102,8 +102,8 @@ HRESULT CGame::Init()
 	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CTuna::Create(D3DXVECTOR3(90.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
-	CShield::Create(D3DXVECTOR3(-55.0f, 0.0f, -80.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SHIELD);
-	CScoreup::Create(D3DXVECTOR3(-60.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), CItem::ITEM_SCOREUP);
+	CShield::Create(D3DXVECTOR3(-55.0f, 0.0f, -80.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	CScoreup::Create(D3DXVECTOR3(-60.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	
 	
 	//スコア生成

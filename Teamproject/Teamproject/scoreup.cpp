@@ -23,7 +23,7 @@ CScoreup::CScoreup()
 //=============================================================================
 // 生成処理関数
 //=============================================================================
-CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
+CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
 	//メモリー確保
 	CScoreup *pScoreup;
@@ -38,7 +38,6 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 	{
 		pScoreup->SetPos(pos);			// 位置設定
 		pScoreup->SetSize(size);		// サイズ設定
-		pScoreup->SetItem(type);		// アイテムタイプ(スコアアップ)固定
 		pScoreup->SetModelData(Model);	// モデル設定
 
 		pScoreup->Init();				//初期化処理
@@ -46,18 +45,12 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, ITEM type)
 	return pScoreup;
 }
 
-void CScoreup::ItemEffect(ITEM type,CPlayer* pPlayer)
+void CScoreup::ItemEffect(CPlayer* pPlayer)
 {
-	if (type != NULL)
-	{
-		if (type == ITEM_SCOREUP)
-		{
-			//スコアアップの処理
+	//スコアアップの処理
 
-			//スコアの効果(予定)
-		
-		}
-	}
+	//スコアの効果(予定)
+
 }
 
 

@@ -21,9 +21,9 @@
 //=============================================================================
 #define PLAYER_SIZE				(7.0f)		// プレイヤーの当たり判定のサイズ
 #define PLAYER_DEATH			(30*3)		// プレイヤーが死亡時間
-#define NPC_AVOID				(80.0f)		// NPCのプレイヤー回避条件
-#define NPC_ITEM				(500.0f)	// NPCのアイテム優先条件
-#define NPC_SUSHI				(2000.0f)	// NPCの寿司優先条件
+#define NPC_AVOID				(50.0f)		// NPCのプレイヤー回避条件
+#define NPC_ITEM				(200.0f)	// NPCのアイテム優先条件
+#define NPC_SUSHI				(1000.0f)	// NPCの寿司優先条件
 #define NPC_MAX_RANDOM_ROT		(100)		// ランダムに向く方向
 #define NPC_MAX_RANDOM			(50)		// ランダムに向く際の最大カウント
 #define NPC_MAX_TARGET_COUNT	(60*10)		// ターゲットカウントの最大数
@@ -91,6 +91,7 @@ HRESULT CPlayerControl::Init(void)
 	{
 		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), m_nPlayerModel[nPlayer]);
 	}
+
 	return S_OK;
 }
 
@@ -123,14 +124,12 @@ void CPlayerControl::Update(void)
 				//NPCとして管理
 				NpcControl(nPlayer);
 			}
-
 			//プレイヤー同士の当たり判定
 			PlayerHit(nPlayer);
-		
 			//プレイヤーのダメージ判定
 			DamageHit(nPlayer);
 			//リスポーン処理
-			//RespawnControl(nPlayer);
+			RespawnControl(nPlayer);
 			//スコア管理
 			PlayerScore(nPlayer);
 		}
@@ -167,33 +166,36 @@ void CPlayerControl::SetRespawn(bool Respawn)
 void CPlayerControl::RespawnControl(int nPlayer)
 {
 	//プレイヤーの状態が死んでいる状態なのか
-	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_DEATH&&m_bRespawn == true)
+	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_DEATH)
 	{//死んでいたら
-
-		//リスポーンカウント
-		m_nRespawn[nPlayer]++;
-
-		//リスポーンカウントが一定に達したら
-		if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
+		if (m_bRespawn == true)
 		{
-			//半径
-			int nRadius = 250;//(ココの数値を範囲制限の円の半径を取得)
-			//中心地
-			D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
-			//ランダム角度
-			srand((unsigned int)time(NULL));			//ランダム関数の初期化
-			float fAngle = (float)(rand() % 360 + 1);	//ランダムで角度を決める
-			//fAngle = D3DXToRadian(fAngle);			//ラジアンに変える
-			//ランダムな距離
-			srand((unsigned int)time(NULL));			//ランダム関数の初期化
-			int nDistance = rand() % nRadius + 1;		//ランダムな距離を取得
-			//ランダムリスポーン位置
-			D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
+			//リスポーンカウント
+			m_nRespawn[nPlayer]++;
 
-			//リスポーン処理
-			m_pPlayer[nPlayer]->Respawn(random);
-			//リスポーンカウントの初期化
-			m_nRespawn[nPlayer] = 0;
+			//リスポーンカウントが一定に達したら
+			if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
+			{
+				//中心地
+				D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
+				//ランダム角度
+				srand((unsigned int)time(NULL));					//ランダム関数の初期化
+				float fAngle = (float)(rand() % 360 + 1);			//ランダムで角度を決める
+				//ランダムな距離
+				srand((unsigned int)time(NULL));					//ランダム関数の初期化
+				int nDistance = rand() % (int)((m_fMapSize / 2) - 50);		//ランダムな距離を取得(マップのサイズ内に入るように)
+				//ランダムリスポーン位置
+				D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
+
+				//リスポーン処理
+				m_pPlayer[nPlayer]->Respawn(random);
+				//リスポーンカウントの初期化
+				m_nRespawn[nPlayer] = 0;
+			}
+		}
+		else
+		{
+			Uninit();
 		}
 	}
 }

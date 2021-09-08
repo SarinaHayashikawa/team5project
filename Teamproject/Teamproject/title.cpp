@@ -69,7 +69,6 @@ HRESULT CTitle::Init(void)
 //=============================================================================
 void CTitle::Uninit(void)
 {
-
 	CSound *pSound = CManager::GetSound();
 	pSound->StopSound(CSound::LABEL_BGM_TITLE);
 }
@@ -79,11 +78,7 @@ void CTitle::Uninit(void)
 //=============================================================================
 void CTitle::Update(void)
 {
-	//if (pInputKeyboard->GetKeyboardTrigger(DIK_RETURN))//スタート
-	//{
-	//	CManager::SetMode(CManager::MODE_SELECT);
-	//	return;
-	//}
+
 }
 
 //=============================================================================

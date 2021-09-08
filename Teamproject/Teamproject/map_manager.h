@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// ミニマップ管理 [map_manager.h]
+// マップ管理 [map_manager.h]
 // Author : 林川紗梨夏
 //
 //=============================================================================
@@ -10,7 +10,7 @@
 // ヘッダーファイル
 //=============================================================================
 #include "food base.h"
-
+#include "item.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -40,8 +40,8 @@ public:
 	
 	float GetMapSize(void) { return m_MapSize.x; };
 private:
-	void SushiSpawn(void);							// 寿司のランダム生成処理関数
-
+	void SushiSpawn(void);				// 寿司のランダム生成処理関数
+	void ItemSpawn(void);				// アイテムのランダム生成処理関数
 
 	D3DXVECTOR3 m_originPos;						//マップの原点（ここを{0,0}とする）
 	CLocationPoint * m_pLocationPoint[MAX_PLAYER];	//現在位置
@@ -53,9 +53,14 @@ private:
 	bool m_bShirnk;									//収縮中か
 
 	int			m_nSushiSpawn;					// 寿司のスポーンする時間
-	int			m_SpawnCount;					// 寿司のスポーンカウント
-	static int	m_nProb[CFoodBase::TYPE_MAX];	// どの寿司が出てくるかの確率
-	static int	m_nMaxProb;						// 最大確率
+	int			m_nSpawnSushiCount;				// 寿司のスポーンする時間までのカウント
+	int			m_nItemSpawn;					// アイテムのスポーンする時間
+	int			m_nSpawnItemCount;				// アイテムのスポーンする時間までのカウント
+
+	static int	m_nItemProb[CItem::ITEM_MAX];		// どのアイテムが出てくるかの確率
+	static int	m_nMaxItemProb;						// アイテムの最大確率
+	static int	m_nSushiProb[CFoodBase::TYPE_MAX];	// どの寿司が出てくるかの確率
+	static int	m_nMaxSushiProb;					// 寿司の最大確率
 
 };
 #endif // !_MAP_MANAGER_H_

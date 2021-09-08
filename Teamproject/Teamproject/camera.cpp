@@ -105,23 +105,6 @@ void CCamera::Uninit(void)
 //======================================================
 void CCamera::Update(void)
 {
-#ifdef _DEBUG
-	//キーボード入力の取得
-	CKeyboard* pInput = (CKeyboard*)CManager::GetInputKeyboard();
-	//プレイヤーの取得
-
-	//デバック状態の切替
-	if (pInput->GetKeyTrigger(DIK_Z))
-	{
-		if (m_bDebug == true)
-		{
-			m_bDebug = false;
-		}
-		else
-		{
-			m_bDebug = true;
-		}
-	}
 
 	for (int nCoutn = 0; nCoutn < MAX_PLAYER; nCoutn++)
 	{
@@ -139,24 +122,6 @@ void CCamera::Update(void)
 		//注意点の移動処理
 		m_posR[nCoutn] = RotateCenter;
 	}
-
-
-
-#else
-	//移動の計算
-	D3DXVECTOR3 RotateCenter = m_pos + D3DXVECTOR3(sinf(D3DXToRadian(m_rot.y - 90)),
-		50,
-		cosf(D3DXToRadian(-m_rot.y - 90)));
-
-	//カメラの移動処理
-	m_posV = RotateCenter +
-		D3DXVECTOR3(sinf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance,
-			sinf(D3DXToRadian(m_rot.x)) * m_fDistance,
-			cosf(D3DXToRadian(-m_rot.y)) * cosf(D3DXToRadian(m_rot.x)) * m_fDistance);
-	//注意点の移動処理
-	m_posR = RotateCenter;
-#endif
-
 }
 
 //======================================================
