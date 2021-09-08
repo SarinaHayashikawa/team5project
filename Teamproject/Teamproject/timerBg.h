@@ -29,7 +29,7 @@
 class CtimerBg :public CScene2d
 {
 public:
-	CtimerBg(int nPriority = 7);
+	CtimerBg(int nPriority = 8);
 	~CtimerBg();
 
 	static CtimerBg *Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOLOR Col);

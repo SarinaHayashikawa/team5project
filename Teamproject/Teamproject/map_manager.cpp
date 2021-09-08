@@ -43,8 +43,9 @@
 #define MAP_SHIRINK_SIZE		(2.0f)	//縮むスピード
 #define MAP_SHIRINK_TIME_VALUE	(60)	//1縮小で縮む量（フレーム）
 #define MAP_LAST_SIZE			(50.0f) //最後のマップサイズ
-#define MAX_SUSHI_SPAWN			(300)	//餌のスポーンまでの最大時間
-#define MAX_ITEM_SPAWN			(30*60)	//餌のスポーンまでの最大時間
+#define MAX_SUSHI_SPAWN			(30*7)	//餌のスポーンまでの最大時間
+#define MIN_SUSHI_SPAWN			(30*2)	//餌のスポーンまでの最低時間
+#define MAX_ITEM_SPAWN			(30*60)	//餌のスポーンまでの時間
 
 //*****************************************************************************
 // 静的メンバー変数初期化
@@ -239,8 +240,15 @@ void CMapManager::SushiSpawn(void)
 				//カウント初期化
 				m_nSpawnSushiCount = 0;
 				//ランダムに次のスポーン時間を決める
-				m_nSushiSpawn = rand() % MAX_SUSHI_SPAWN;
-
+				m_nSushiSpawn = rand() % MAX_SUSHI_SPAWN + 1;
+				
+				//最小値より低ければ
+				if (m_nSushiSpawn<MIN_SUSHI_SPAWN)
+				{
+					//最小値に合わせる
+					m_nSushiSpawn = MIN_SUSHI_SPAWN;
+				}
+				
 				//寿司のスポーン生成
 				switch (nSushi)
 				{

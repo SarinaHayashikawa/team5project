@@ -120,10 +120,11 @@ HRESULT CGame::Init()
 	
 	//マップ作成（ここでミニマップ、管理処理も生成する）
 	m_pMapManager = CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f), D3DXVECTOR3(1000.0f, 1000.0f, 1000.0f));
-
+	
 	//タイム生成
 	CtimerBg::Create(TIMER_POSBG, TIMERBG_SIZE, D3DCOLOR_RGBA(255, 255, 255, 255));
 	m_pTimer = CTimer::Create(TIMER_POS, TIMER_SIZE, MOOD1_MINUTES, MOOD1_SECONDS);
+
 
 	//サウンド処理
 	CSound *pSound = CManager::GetSound();

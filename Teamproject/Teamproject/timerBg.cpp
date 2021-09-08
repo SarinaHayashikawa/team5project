@@ -90,5 +90,6 @@ void CtimerBg::Uninit(void)
 //=============================================================================
 void CtimerBg::Draw(void)
 {
+	//•`‰æˆ—
 	CScene2d::Draw();
 }
