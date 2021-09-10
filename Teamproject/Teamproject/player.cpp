@@ -53,12 +53,12 @@ CPlayer::CPlayer(int nPriority)
 	m_fDashDemeritCoutn	 = 0;								// 加速時のデメリットカウントの初期化
 	m_fDashCoutn	= 0;									// 加速値の初期化
 	m_nParts		= 0;									// パーツ数の初期化
-	m_nItemCount	= 0;									// スコアアップ状態の時間
+	m_nItemCount	= ITEM_EFFECT_COUNT;									// スコアアップ状態の時間
 	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
 	m_bInvincible	= false;								// 無敵状態の初期化
 	m_bDashSwitch	= false;								// ダッシュ切替の初期化
 	m_bShield		= false;								// アイテムシールドスイッチの初期化
-	m_bScoreUp		= false;								// アイテムスコアアップの初期化
+	m_bScoreUp		= false;					// アイテムスコアアップの初期化
 	m_RotMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向きの移動量の初期化
 	m_RepelMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// はじかれた際の移動量の初期化
 
@@ -140,8 +140,6 @@ void CPlayer::Update(void)
 	//スコアアップのアイテムを拾ったら
 	if (m_bScoreUp == true)
 	{
-		m_nItemCount = ITEM_EFFECT_COUNT;// 時間の設定
-
 		// スコアアップの制限時間処理
 		ScoreUpCount();
 	}
@@ -443,7 +441,9 @@ void CPlayer::ScoreUpCount(void)
 	if (m_nItemCount <= 0)
 	{
 		//状態を元に戻す
-		m_bScoreUp == false;
+		m_bScoreUp = false;
+		//数値を元に戻す
+		m_nItemCount = ITEM_EFFECT_COUNT;
 	}
 
 }
