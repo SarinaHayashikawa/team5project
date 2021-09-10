@@ -12,6 +12,7 @@
 #include "resource manager.h"
 #include "manager.h"
 #include "renderer.h"
+#include "player.h"
 
 //=============================================================================
 // コンストラクタ
@@ -37,7 +38,8 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	if (pScoreup != NULL)
 	{
 		pScoreup->SetPos(pos);			// 位置設定
-		pScoreup->SetSize(size);		// サイズ設定
+		pScoreup->SetSize(size);		// サイズ設定7
+		pScoreup->SetItem(ITEM_SCOREUP);
 		pScoreup->SetModelData(Model);	// モデル設定
 
 		pScoreup->Init();				//初期化処理
@@ -48,9 +50,7 @@ CScoreup * CScoreup::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 void CScoreup::ItemEffect(CPlayer* pPlayer)
 {
 	//スコアアップの処理
-
-	//スコアの効果(予定)
-
+	pPlayer->ScoreUpGet();
 }
 
 

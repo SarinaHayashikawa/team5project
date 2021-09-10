@@ -82,12 +82,21 @@ void CFoodBase::Collision(void)
 						&&PlayerPos.z - FOOD_HIT<pos.z)
 					{
 			
-						//ヒット音
+						//取得音
 						CSound *pSound = CManager::GetSound();
 						pSound->PlaySound(CSound::LABEL_SE_GETSUSHI);
 
 						//パーツを追加
 						((CPlayer*)pNext)->AddParts(m_FoodType);
+
+						//スコアアップ状態ならもう一度追加
+						if (((CPlayer*)pNext)->GetScoreUp() == true)
+						{
+							((CPlayer*)pNext)->AddParts(m_FoodType);
+							//取得音
+							CSound *pSound = CManager::GetSound();
+							pSound->PlaySound(CSound::LABEL_SE_GETSUSHI);
+						}
 						//終了処理で消す
 						Uninit();
 						return;

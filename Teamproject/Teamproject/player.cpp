@@ -37,6 +37,7 @@
 #define PLAYER_REPEL_FRAME	(10.0f)	// プレイヤーのはじかれた際のフレーム
 #define PLAYER_INVINCIBLE	(30*3)	// プレイヤーの無敵時間
 #define PLAYER_DASH_DEMERIT	(30*4)	// プレイヤーのダッシュ時のデメリットカウント
+#define ITEM_EFFECT_COUNT	(3000)	// アイテムの効果時間
 
 //=============================================================================
 // コンストラクタ
@@ -52,10 +53,12 @@ CPlayer::CPlayer(int nPriority)
 	m_fDashDemeritCoutn	 = 0;								// 加速時のデメリットカウントの初期化
 	m_fDashCoutn	= 0;									// 加速値の初期化
 	m_nParts		= 0;									// パーツ数の初期化
+	m_nItemCount	= 0;									// スコアアップ状態の時間
 	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
 	m_bInvincible	= false;								// 無敵状態の初期化
 	m_bDashSwitch	= false;								// ダッシュ切替の初期化
 	m_bShield		= false;								// アイテムシールドスイッチの初期化
+	m_bScoreUp		= false;								// アイテムスコアアップの初期化
 	m_RotMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// 向きの移動量の初期化
 	m_RepelMove		= D3DXVECTOR3(0.0f, 0.0f, 0.0f);		// はじかれた際の移動量の初期化
 
@@ -133,6 +136,15 @@ void CPlayer::Update(void)
 		break;
 	}
 	Invincible();
+	
+	//スコアアップのアイテムを拾ったら
+	if (m_bScoreUp == true)
+	{
+		m_nItemCount = ITEM_EFFECT_COUNT;// 時間の設定
+
+		// スコアアップの制限時間処理
+		ScoreUpCount();
+	}
 }
 
 //=============================================================================
@@ -401,6 +413,33 @@ void CPlayer::ShieldGet(void)
 		D3DXVECTOR3 pos = GetPos();
 		CShieldEffect::Create(D3DXVECTOR3(pos.x, pos.y + 13.0f ,pos.z), D3DXVECTOR3(30.0f, 30.0f, 0.0f), D3DCOLOR_RGBA(255, 255, 255, 125),this);
 	}
+}
+
+void CPlayer::ScoreUpGet(void)
+{
+	//アイテムを持っているか
+	if (m_bScoreUp == false)
+	{
+		//ヒット音
+		CSound *pSound = CManager::GetSound();
+		pSound->PlaySound(CSound::LABEL_SE_GETITEM);
+
+		//取得状態のためtrueに変更
+		m_bScoreUp = true;
+	}
+}
+
+void CPlayer::ScoreUpCount(void)
+{
+	//カウントを減らす
+	m_nItemCount--;
+
+	if (m_nItemCount <= 0)
+	{
+		//状態を元に戻す
+		m_bScoreUp == false;
+	}
+
 }
 
 //=============================================================================
