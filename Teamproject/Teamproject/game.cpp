@@ -8,33 +8,23 @@
 // ヘッダファイルのインクルード
 //=============================================================================
 #include "manager.h"
-#include "camera.h"
-#include "scene.h"
-#include "sound.h"
-#include "joystick.h"
 #include "game.h"
-#include "sound.h"
-#include "floor.h"
-#include "player.h"
-#include "ebi.h"
-#include "egg.h"
-#include "ikura.h"
-#include "tuna.h"
-#include "salmon.h"
-#include "player parts.h"
+#include "camera.h"
 #include "renderer.h"
-#include "player control.h"
-#include "score.h"
 #include "map_manager.h"
-#include "map.h"
+#include "player control.h"
+#include "player.h"
+#include "sound.h"
+#include "score.h"
 #include "Shield.h"
 #include "scoreup.h"
-#include "Fieldmanager.h"
 #include "timer.h"
-#include "manager.h"
-#include "keyboard.h"
-#include "ShieldEffect.h"
 #include "timerBg.h"
+#ifdef _DEBUG
+//デバック用のキー
+#include "keyboard.h"
+#endif
+
 
 //=============================================================================
 // 静的メンバ変数初期化
@@ -58,11 +48,10 @@ D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 //=============================================================================
 CGame::CGame()
 {
-	m_pMapManager = nullptr;
-	m_pPlayerControl = nullptr;
-	m_nGameCount	= 0;
-	m_nGameCount = 0;
-
+	m_pMapManager		= nullptr;
+	m_pPlayerControl	= nullptr;
+	m_nGameCount		= 0;
+	m_nGameCount		= 0;
 }
 
 //=============================================================================
@@ -97,11 +86,6 @@ HRESULT CGame::Init()
 	CManager::CreateLight();
 
 	//デバックのためのアイテム生成
-	CEbi::Create(D3DXVECTOR3(30.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
-	CEgg::Create(D3DXVECTOR3(50.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
-	CSalmon::Create(D3DXVECTOR3(70.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
-	CTuna::Create(D3DXVECTOR3(90.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
-	CIkura::Create(D3DXVECTOR3(110.0f, 0.0f, 0.0f), D3DXVECTOR3(10.0f, 10.0f, 0.0f));
 	CShield::Create(D3DXVECTOR3(-55.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	CScoreup::Create(D3DXVECTOR3(-55.0f, 0.0f, -40.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 
@@ -119,10 +103,11 @@ HRESULT CGame::Init()
 	
 	//マップ作成（ここでミニマップ、管理処理も生成する）
 	m_pMapManager = CMapManager::Create(D3DXVECTOR3(SCREEN_CENTER_X, SCREEN_CENTER_Y, 0.0f), D3DXVECTOR3(1000.0f, 1000.0f, 1000.0f));
-
+	
 	//タイム生成
 	CtimerBg::Create(TIMER_POSBG, TIMERBG_SIZE, D3DCOLOR_RGBA(255, 255, 255, 255));
 	m_pTimer = CTimer::Create(TIMER_POS, TIMER_SIZE, MOOD1_MINUTES, MOOD1_SECONDS);
+
 
 	//サウンド処理
 	CSound *pSound = CManager::GetSound();
@@ -161,11 +146,14 @@ void CGame::Update(void)
 	//制限時間を過ぎた際の処理
 	GameOut();
 
+#ifdef _DEBUG
 	//デバック
 	if (pInputKeyboard->GetKeyTrigger(DIK_RETURN))
 	{
 		CManager::SetMode(CManager::MODE_RESULT);
 	}
+#endif
+
 }
 
 //=============================================================================
@@ -187,4 +175,5 @@ void CGame::GameOut(void)
 		//画面遷移
 		CManager::SetMode(CManager::MODE_RESULT);
 	}
+
 }

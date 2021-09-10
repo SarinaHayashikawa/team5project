@@ -24,6 +24,7 @@ class CMapManager;
 class CGame : public CScene
 {
 public:
+
 	CGame();
 	~CGame();
 	static CGame *Create(void);
@@ -31,7 +32,7 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
-	void GameOut(void);
+	void GameOut(void);		// ゲーム終了時の処理
 
 	CScene2D * GetScene(void) { return m_pScene; };
 	CGame * GetManager(void) { return this; };
@@ -42,16 +43,16 @@ public:
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 	static CTimer * GetTimer(void) { return m_pTimer; };
 private:
-	CScene2D*	m_pScene;				// シーンポインタ
-	int			m_nGameCount;			// ゲームカウント
-	CPlayerControl* m_pPlayerControl;	// プレイヤーコントロールポインタ
-	CMapManager * m_pMapManager;		// マップマネージャーポインタ
-	static CCamera*	m_pCamera;			// カメラポインタ
-	static CTimer*		m_pTimer;
-	static D3DXVECTOR3 m_Score[MAX_PLAYER];		// スコアの位置
+	CScene2D*		m_pScene;				// シーンポインタ
+	int				m_nGameCount;			// ゲームカウント
+	CPlayerControl* m_pPlayerControl;		// プレイヤーコントロールポインタ
+	CMapManager *	m_pMapManager;			// マップマネージャーポインタ
+	static CCamera*	m_pCamera;				// カメラポインタ
+	static CTimer*	m_pTimer;				// タイムポインタ
+	static D3DXVECTOR3 m_Score[MAX_PLAYER];	// スコアの位置
 
-	static bool		m_bPlayerUse;				//プレイヤーが使われているか
-	static bool		m_bIsStopUpdate;			//アップデート停止しているか
-	static bool		m_bIsStopUpdateContinue;	//コンティニュー発生しているか
+	static bool		m_bPlayerUse;			// プレイヤーが使われているか
+	static bool		m_bIsStopUpdate;		// アップデート停止しているか
+	static bool		m_bIsStopUpdateContinue;// コンティニュー発生しているか
 };
 #endif
