@@ -47,13 +47,15 @@ public:
 	void			DamageHit(void);								// プレイヤーがダメージを受けるモノにぶつかった際の処理
 	void			Repel(CScene3d* Player);						// はじかれる処理
 	void			Respawn(D3DXVECTOR3 RespawnPos);				// リスポーン処理
-	void			ShieldGet(void);								// アイテム取得処理
-
+	void			ShieldGet(void);								// シールド取得処理
+	void			ScoreUpGet(void);								// スコアアップ処理
+	void			ScoreUpCount(void);								// スコアアップ
 
 	CPlayerParts*	GetParts(int nParts) { return m_pParts[nParts]; }				// パーツゲッター
 	int				GetPartsCount(void) { return m_nParts; }						// パーツ数ゲッター
 	void			SetStats(const PLAYER_STATS Stats) { m_PlayerStats = Stats; }	// プレイヤー状態セッター
 	PLAYER_STATS	GetStats(void) { return m_PlayerStats; }						// プレイヤー状態ゲッター
+	bool			GetScoreUp(void) { return m_bScoreUp; }							// スコアアップ状態のゲッター
 
 	void			Death(void);							// 死亡処理
 	void			RepelMove(void);						// はじかれ移動処理
@@ -77,11 +79,13 @@ private:
 	int				m_nInvinciFrameCount;	// 無敵状態のフレームカウント
 	int				m_MaxInvinciCount;		// 無敵状態の最大カウント数
 	bool			m_bShield;				// アイテムのシールドスイッチ（持っているか）
+	bool			m_bScoreUp;				// アイテムのスコアアップの　(状態になっているか)
 	float			m_fDashCoutn;			// 加速値
 	float			m_fDashDemeritCoutn;	// 加速時のデメリットカウント
 	bool			m_bDashSwitch;			// 加速切替スイッチ
 	int				m_nParts;				// パーツ数
 	CPlayerParts*	m_pParts[MAX_PARTS];	// パーツポインタ
+	int				m_nItemCount;			// 効果カウント用変数
 };
 #endif // !_PLAYER_H_
 
