@@ -93,9 +93,6 @@ void CFoodBase::Collision(void)
 						if (((CPlayer*)pNext)->GetScoreUp() == true)
 						{
 							((CPlayer*)pNext)->AddParts(m_FoodType);
-							//æ“¾‰¹
-							CSound *pSound = CManager::GetSound();
-							pSound->PlaySound(CSound::LABEL_SE_GETSUSHI);
 						}
 						//I—¹ˆ—‚ÅÁ‚·
 						Uninit();
