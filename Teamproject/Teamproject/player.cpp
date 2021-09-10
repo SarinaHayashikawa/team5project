@@ -53,7 +53,7 @@ CPlayer::CPlayer(int nPriority)
 	m_fDashDemeritCoutn	 = 0;								// 加速時のデメリットカウントの初期化
 	m_fDashCoutn	= 0;									// 加速値の初期化
 	m_nParts		= 0;									// パーツ数の初期化
-	m_nItemCount	= ITEM_EFFECT_COUNT;									// スコアアップ状態の時間
+	m_nItemCount	= ITEM_EFFECT_COUNT;					// スコアアップ状態の時間
 	m_PlayerStats	= PLAYER_STATS_NORMAL;					// プレイヤーステータスの初期化
 	m_bInvincible	= false;								// 無敵状態の初期化
 	m_bDashSwitch	= false;								// ダッシュ切替の初期化
