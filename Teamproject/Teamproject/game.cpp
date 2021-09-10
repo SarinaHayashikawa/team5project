@@ -86,10 +86,9 @@ HRESULT CGame::Init()
 	CManager::CreateLight();
 
 	//デバックのためのアイテム生成
-	CShield::Create(D3DXVECTOR3(-55.0f, 0.0f, -80.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-	CScoreup::Create(D3DXVECTOR3(-60.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
-	
-	
+	CShield::Create(D3DXVECTOR3(-55.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	CScoreup::Create(D3DXVECTOR3(-55.0f, 0.0f, -40.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+
 	//スコア生成
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
