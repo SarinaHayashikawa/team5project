@@ -52,7 +52,6 @@ CGame::CGame()
 	m_pPlayerControl	= nullptr;
 	m_nGameCount		= 0;
 	m_nGameCount		= 0;
-	GameStats			= STATS_1;
 }
 
 //=============================================================================

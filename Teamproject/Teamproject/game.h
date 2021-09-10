@@ -25,16 +25,6 @@ class CGame : public CScene
 {
 public:
 
-	typedef enum	//ゲームの状態(範囲縮小やプレイヤーリスポーンの管理用)
-	{
-		STATS_1 = 0,	//初期状態
-		STATS_2,
-		STATS_3,
-		STATS_4,
-		STATS_5,		//ここでプレイヤーリスポーン不可
-	}GAME_STATS;
-
-
 	CGame();
 	~CGame();
 	static CGame *Create(void);
@@ -57,7 +47,6 @@ private:
 	int				m_nGameCount;			// ゲームカウント
 	CPlayerControl* m_pPlayerControl;		// プレイヤーコントロールポインタ
 	CMapManager *	m_pMapManager;			// マップマネージャーポインタ
-	GAME_STATS		GameStats;				// ゲームの進行状況
 	static CCamera*	m_pCamera;				// カメラポインタ
 	static CTimer*	m_pTimer;				// タイムポインタ
 	static D3DXVECTOR3 m_Score[MAX_PLAYER];	// スコアの位置
