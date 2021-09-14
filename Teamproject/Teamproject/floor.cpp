@@ -77,4 +77,3 @@ HRESULT CFloor::Init(void)
 
 	return S_OK;
 }
-

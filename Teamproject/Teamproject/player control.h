@@ -77,10 +77,11 @@ private:
 	CPlayer*		m_pPlayer[MAX_PLAYER];				// プレイヤーポインタ
 	int				m_nRespawn[MAX_PLAYER];				// プレイヤーのリスポーンカウント
 	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];			// プレイヤーの位置
-	int				m_nNumberPlayer;					// プレイヤーの人数
+	int				m_nNumberPlayer;					// 操作プレイヤーの人数
 	bool			m_bRespawn;							// プレイヤーリスポーンスイッチ
 	float			m_fMapSize;							// マップサイズ
 	NPC_DATA		m_NpcData[MAX_NPC];					// NPCの情報
+	bool			m_GemeEnd;							// プレイヤー、一人になった際の勝利スイッチ
 };
 #endif // !_PLAYER_CONTROL_H_
 

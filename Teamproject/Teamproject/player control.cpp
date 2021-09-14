@@ -20,7 +20,7 @@
 // マクロ定義
 //=============================================================================
 #define PLAYER_SIZE				(7.0f)		// プレイヤーの当たり判定のサイズ
-#define PLAYER_DEATH			(30*3)		// プレイヤーが死亡時間
+#define PLAYER_DEATH			(30*10)		// プレイヤーが死亡時間
 #define NPC_AVOID				(50.0f)		// NPCのプレイヤー回避条件
 #define NPC_ITEM				(200.0f)	// NPCのアイテム優先条件
 #define NPC_SUSHI				(1000.0f)	// NPCの寿司優先条件
@@ -166,36 +166,29 @@ void CPlayerControl::SetRespawn(bool Respawn)
 void CPlayerControl::RespawnControl(int nPlayer)
 {
 	//プレイヤーの状態が死んでいる状態なのか
-	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_DEATH)
-	{//死んでいたら
-		if (m_bRespawn == true)
-		{
-			//リスポーンカウント
-			m_nRespawn[nPlayer]++;
+	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_RESPAWN)
+	{
+		//リスポーンカウント
+		m_nRespawn[nPlayer]++;
 
-			//リスポーンカウントが一定に達したら
-			if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
-			{
-				//中心地
-				D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
-				//ランダム角度
-				srand((unsigned int)time(NULL));					//ランダム関数の初期化
-				float fAngle = (float)(rand() % 360 + 1);			//ランダムで角度を決める
-				//ランダムな距離
-				srand((unsigned int)time(NULL));					//ランダム関数の初期化
-				int nDistance = rand() % (int)((m_fMapSize / 2) - 50);		//ランダムな距離を取得(マップのサイズ内に入るように)
-				//ランダムリスポーン位置
-				D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
-
-				//リスポーン処理
-				m_pPlayer[nPlayer]->Respawn(random);
-				//リスポーンカウントの初期化
-				m_nRespawn[nPlayer] = 0;
-			}
-		}
-		else
+		//リスポーンカウントが一定に達したら
+		if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
 		{
-			Uninit();
+			//中心地
+			D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
+			//ランダム角度
+			srand((unsigned int)time(NULL));					//ランダム関数の初期化
+			float fAngle = (float)(rand() % 360 + 1);			//ランダムで角度を決める
+			//ランダムな距離
+			srand((unsigned int)time(NULL));					//ランダム関数の初期化
+			int nDistance = rand() % (int)((m_fMapSize / 2) - 50);		//ランダムな距離を取得(マップのサイズ内に入るように)
+			//ランダムリスポーン位置
+			D3DXVECTOR3 random = centre + D3DXVECTOR3((float)(nDistance*cos(fAngle)), 0.0f, (float)(nDistance*sin(fAngle)));
+
+			//リスポーン処理
+			m_pPlayer[nPlayer]->Respawn(random);
+			//リスポーンカウントの初期化
+			m_nRespawn[nPlayer] = 0;
 		}
 	}
 }

@@ -128,6 +128,10 @@ void CPlayer::Update(void)
 		RepelMove();
 		break;
 
+	case PLAYER_STATS_RESPAWN:	// リスポーン状態
+		RespawnStats();
+		break;
+
 	case PLAYER_STATS_DEATH:	//死亡している場合
 		Death();
 		break;
@@ -136,6 +140,7 @@ void CPlayer::Update(void)
 		SetStats(PLAYER_STATS_NORMAL);
 		break;
 	}
+	// 無敵時間処理関数
 	Invincible();
 	
 	//スコアアップのアイテムを拾ったら
@@ -143,6 +148,183 @@ void CPlayer::Update(void)
 	{
 		// スコアアップの制限時間処理
 		ScoreUpCount();
+	}
+}
+
+//=============================================================================
+// 描画処理関数
+//=============================================================================
+void CPlayer::Draw(void)
+{
+	//レンダラーの取得
+	CRenderer *pRenderer = CManager::GetRenderer();
+	//デバイスにレンダラーのデバイスを代入
+	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
+
+	//アルファテストを有効化
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	//アルファテスト基準値の設定
+	pDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+	//アルファテストの比較方法の設定
+	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
+	//描画処理
+	CModel::Draw();
+
+	//アルファテストを無効化
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+}
+
+//=============================================================================
+// 移動処理関数
+//=============================================================================
+void CPlayer::Move(void)
+{
+
+	//位置取得
+	D3DXVECTOR3 pos = GetPos();
+	//向き取得
+	D3DXVECTOR3 rot = GetRot();
+	//移動量
+	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+	//移動処理
+	move = D3DXVECTOR3((float)(cos(rot.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(rot.y - D3DXToRadian(90.0f))));
+
+
+	if (!m_bDashSwitch)
+	{
+		if (m_fDashCoutn <= PLAYER_SPEED)
+		{
+			m_fDashCoutn = m_fDashCoutn + 0.1f;
+		}
+		else if (m_fDashCoutn > PLAYER_SPEED)
+		{
+			m_fDashCoutn = m_fDashCoutn - 0.1f;
+
+		}
+	}
+	else
+	{
+		if (m_fDashCoutn <= PLAYER_BOOST_SPEED)
+		{
+			m_fDashCoutn = m_fDashCoutn + 0.1f;
+		}
+		else if (m_fDashCoutn > PLAYER_BOOST_SPEED)
+		{
+			m_fDashCoutn = m_fDashCoutn - 0.1f;
+		}
+	}
+	//スピードを計算
+	move *= m_fDashCoutn;
+	// 移動処理
+	pos += move;
+
+	// 位置保存
+	SetPos(pos);
+
+}
+
+//=============================================================================
+// 向き処理関数
+//=============================================================================
+void CPlayer::Rot(void)
+{
+	//角度の移動量
+	float fRotMove = 0.0f;
+	//位置取得
+	D3DXVECTOR3 pos = GetPos();
+	//向き取得
+	D3DXVECTOR3 rot = GetRot();
+	//向きたい角度
+	fRotMove = atan2f((pos.x - (m_RotMove.x + pos.x)), (pos.z - (m_RotMove.z + pos.z)));
+	//差分の角度
+	float fDiff = ((D3DXToRadian(180.0f) - (fRotMove*-1.0f)) - (D3DXToRadian(180.0f) - (rot.y*-1.0f)))*-1.0f;
+	//回転方向の確認(時計周りtrue:反時計回りfalse)
+	bool bRotation = fRotMove>rot.y ? !(fRotMove - rot.y > D3DXToRadian(180.0f)) : rot.y - fRotMove  > D3DXToRadian(180.0f);
+	//向きの修正
+	fDiff = (fDiff + (bRotation ? D3DXToRadian(-360.0f) : D3DXToRadian(360.0f)));
+	fDiff = (float)(fmod(fDiff, D3DXToRadian(360.0f)));
+	//向き処理
+	rot.y = rot.y - (fDiff*(0.04f));
+	//角度が一定に達したら修正
+	if (D3DXToDegree(rot.y) >= 360.0f
+		|| D3DXToDegree(rot.y) <= -360.0f)
+	{
+		rot.y = 0.0f;
+	}
+	// 向き保存
+	SetRot(rot);
+}
+
+//=============================================================================
+// はじかれた際の移動処理関数
+//=============================================================================
+void CPlayer::RepelMove(void)
+{
+	//位置取得
+	D3DXVECTOR3 pos = GetPos();
+
+	//移動処理
+	pos = pos + (m_RepelMove - pos) / (PLAYER_REPEL_FRAME - m_nRepelFrameCount);
+	//位置セット
+	SetPos(pos);
+	//フレーム加算
+	m_nRepelFrameCount++;
+
+	if (m_nRepelFrameCount >= PLAYER_REPEL_FRAME)
+	{
+		//カウント初期化
+		m_nRepelFrameCount = 0;
+		//ステータスを変更
+
+		SetStats(PLAYER_STATS_NORMAL);
+	}
+}
+
+//=============================================================================
+// はじかれる処理関数
+//=============================================================================
+void CPlayer::Repel(CScene3d* Player)
+{
+	//プレイヤーの状態が通常の場合＆無敵状態出ないとき
+	if (m_PlayerStats == PLAYER_STATS_NORMAL
+		&&m_bInvincible == false)
+	{
+		//現在位置
+		D3DXVECTOR3 pos = GetPos();
+		//相手の位置
+		D3DXVECTOR3 PlayerPos = Player->GetPos();
+		//当たった方向
+		D3DXVECTOR3 HItPint = D3DXVECTOR3(0.0f, atan2f((PlayerPos.x - pos.x), (PlayerPos.z - pos.z)), 0.0f);;
+		//法線ベクトルの計算
+		D3DXVECTOR3 Normal = PlayerPos - pos;
+		//移動処理
+		D3DXVECTOR3 move = D3DXVECTOR3((float)(cos(HItPint.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(HItPint.y - D3DXToRadian(90.0f))));
+
+		//移動量
+		D3DXVec3Normalize(&Normal, &Normal);
+		//移動量の計算
+		D3DXVec3Normalize(&m_RepelMove, &(move - 2.0f * D3DXVec3Dot(&move, &Normal) * Normal));
+		m_RepelMove = (-m_RepelMove*PLAYER_REPEL) + pos;
+		//加速値の初期化
+		m_fDashCoutn = 0.0f;
+		//一定時間無敵にする
+		SwitchedInvincible(PLAYER_INVINCIBLE);
+
+		//シールドアイテムを持っているか
+		//持っていない場合
+		if (m_bShield == false)
+		{
+			//はじかれ状態に変化
+			SetStats(PLAYER_STATS_REPEL);
+		}
+		//持っていた場合
+		else
+		{
+			//アイテムを消費して防ぐ
+			m_bShield = false;
+		}
 	}
 }
 
@@ -244,8 +426,8 @@ void CPlayer::DamageHit(void)
 		//シールドアイテムを持っていなかった場合
 		if (!m_bShield)
 		{
-			//状態を死亡に変更
-			SetStats(PLAYER_STATS_DEATH);
+			//状態をリスポーン状態に変更
+			SetStats(PLAYER_STATS_RESPAWN);
 			
 			//死亡音
 			CSound *pSound = CManager::GetSound();
@@ -294,7 +476,23 @@ void CPlayer::DamageHit(void)
 			CSound *pSound = CManager::GetSound();
 			pSound->PlaySound(CSound::LABEL_SE_HITPLAYER);
 		}
-		
+	}
+}
+
+//=============================================================================
+// マップ端でのダメージヒット処理
+//=============================================================================
+void CPlayer::BarrierHit(void)
+{
+	if (m_PlayerStats == PLAYER_STATS_NORMAL)
+	{
+		//状態をリスポーン状態に変更
+		SetStats(PLAYER_STATS_RESPAWN);
+
+		//死亡音
+		CSound *pSound = CManager::GetSound();
+		pSound->PlaySound(CSound::LABEL_SE_DEATH);
+
 		//持っている寿司をばら撒く
 		for (int nParts = 0; nParts < m_nParts; nParts++)
 		{
@@ -320,7 +518,7 @@ void CPlayer::DamageHit(void)
 					CTuna::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
 					break;
 				}
-				
+
 				m_pParts[nParts]->Uninit();
 				m_pParts[nParts] = nullptr;
 			}
@@ -330,66 +528,23 @@ void CPlayer::DamageHit(void)
 }
 
 //=============================================================================
-// はじかれる処理関数
-//=============================================================================
-void CPlayer::Repel(CScene3d* Player)
-{
-	//プレイヤーの状態が通常の場合＆無敵状態出ないとき
-	if (m_PlayerStats == PLAYER_STATS_NORMAL
-		&&m_bInvincible == false)
-	{
-		//現在位置
-		D3DXVECTOR3 pos = GetPos();
-		//相手の位置
-		D3DXVECTOR3 PlayerPos = Player->GetPos();
-		//当たった方向
-		D3DXVECTOR3 HItPint = D3DXVECTOR3(0.0f, atan2f((PlayerPos.x - pos.x), (PlayerPos.z - pos.z)), 0.0f);;
-		//法線ベクトルの計算
-		D3DXVECTOR3 Normal = PlayerPos - pos;
-		//移動処理
-		D3DXVECTOR3 move = D3DXVECTOR3((float)(cos(HItPint.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(HItPint.y - D3DXToRadian(90.0f))));
-		
-		//移動量
-		D3DXVec3Normalize(&Normal, &Normal);
-		//移動量の計算
-		D3DXVec3Normalize(&m_RepelMove, &(move - 2.0f * D3DXVec3Dot(&move, &Normal) * Normal));
-		m_RepelMove = (-m_RepelMove*PLAYER_REPEL) + pos;
-		//加速値の初期化
-		m_fDashCoutn = 0.0f;		
-		//一定時間無敵にする
-		m_bInvincible = true;
-
-		//シールドアイテムを持っているか
-		//持っていない場合
-		if (m_bShield==false)
-		{
-			//はじかれ状態に変化
-			SetStats(PLAYER_STATS_REPEL);
-		}
-		//持っていた場合
-		else
-		{
-			//アイテムを消費して防ぐ
-			m_bShield = false;
-		}
-	}
-}
-
-//=============================================================================
 // リスポーン処理
 //=============================================================================
 void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 {
-	if (m_PlayerStats == PLAYER_STATS_DEATH)
+	if (m_PlayerStats == PLAYER_STATS_RESPAWN)
 	{
 		//リスポーン位置
 		SetPos(RespawnPos);
 		//ステータス設定
 		SetStats(PLAYER_STATS_NORMAL);
 		//リスポーン時に一定時間無敵にする
-		m_bInvincible = true;
-		//点滅ストップ処理
-		FlashingStop();
+		SwitchedInvincible(PLAYER_INVINCIBLE);
+		//アイテムの効果を切る
+		m_bShield = false;
+		m_bScoreUp = false;
+		//アルファ値を初期化
+		SetAlphaValue(1.0f);
 	}
 }
 
@@ -414,7 +569,6 @@ void CPlayer::ShieldGet(void)
 	}
 }
 
-
 //=============================================================================
 // スコアアップ取得処理
 //=============================================================================
@@ -431,6 +585,7 @@ void CPlayer::ScoreUpGet(void)
 		m_bScoreUp = true;
 	}
 }
+
 //=============================================================================
 //スコアアップ状態の時間
 //=============================================================================
@@ -454,115 +609,7 @@ void CPlayer::ScoreUpCount(void)
 //=============================================================================
 void CPlayer::Death(void)
 {
-	Flashing();
-}
-
-//=============================================================================
-// 移動処理関数
-//=============================================================================
-void CPlayer::Move(void)
-{
-
-	//位置取得
-	D3DXVECTOR3 pos = GetPos();
-	//向き取得
-	D3DXVECTOR3 rot = GetRot();
-	//移動量
-	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-
-	//移動処理
-	move = D3DXVECTOR3((float)(cos(rot.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(rot.y - D3DXToRadian(90.0f))));
-
-
-	if (!m_bDashSwitch)
-	{
-		if (m_fDashCoutn <= PLAYER_SPEED)
-		{
-			m_fDashCoutn = m_fDashCoutn + 0.1f;
-		}
-		else if(m_fDashCoutn > PLAYER_SPEED)
-		{
-			m_fDashCoutn = m_fDashCoutn - 0.1f;
-
-		}
-	}
-	else
-	{
-		if (m_fDashCoutn <= PLAYER_BOOST_SPEED)
-		{
-			m_fDashCoutn = m_fDashCoutn + 0.1f;
-		}
-		else if (m_fDashCoutn > PLAYER_BOOST_SPEED)
-		{
-			m_fDashCoutn = m_fDashCoutn - 0.1f;
-		}
-	}
-	//スピードを計算
-	move *= m_fDashCoutn;
-	// 移動処理
-	pos += move;
-
-	// 位置保存
-	SetPos(pos);
-
-}
-
-//=============================================================================
-// 向き処理関数
-//=============================================================================
-void CPlayer::Rot(void)
-{
-	//角度の移動量
-	float fRotMove = 0.0f;
-	//位置取得
-	D3DXVECTOR3 pos = GetPos();
-	//向き取得
-	D3DXVECTOR3 rot = GetRot();
-	//向きたい角度
-	fRotMove = atan2f((pos.x - (m_RotMove.x + pos.x)), (pos.z - (m_RotMove.z + pos.z)));
-	//差分の角度
-	float fDiff = ((D3DXToRadian(180.0f) - (fRotMove*-1.0f)) - (D3DXToRadian(180.0f) - (rot.y*-1.0f)))*-1.0f;
-	//回転方向の確認(時計周りtrue:反時計回りfalse)
-	bool bRotation = fRotMove>rot.y ? !(fRotMove - rot.y > D3DXToRadian(180.0f)) : rot.y - fRotMove  > D3DXToRadian(180.0f);
-	//向きの修正
-	fDiff = (fDiff + (bRotation ? D3DXToRadian(-360.0f) : D3DXToRadian(360.0f)));
-	fDiff = (float)(fmod(fDiff, D3DXToRadian(360.0f)));
-	//向き処理
-	rot.y = rot.y - (fDiff*(0.04f));
-	//角度が一定に達したら修正
-	if (D3DXToDegree(rot.y) >= 360.0f
-		|| D3DXToDegree(rot.y) <= -360.0f)
-	{
-		rot.y = 0.0f;
-	}
-	// 向き保存
-	SetRot(rot);
-}
-
-
-//=============================================================================
-// はじかれた際の移動処理関数
-//=============================================================================
-void CPlayer::RepelMove(void)
-{
-	//位置取得
-	D3DXVECTOR3 pos = GetPos();
-
-	//移動処理
-	pos = pos + (m_RepelMove - pos)/(PLAYER_REPEL_FRAME - m_nRepelFrameCount);
-	//位置セット
-	SetPos(pos);
-	//フレーム加算
-	m_nRepelFrameCount++;
-
-	if (m_nRepelFrameCount>= PLAYER_REPEL_FRAME)
-	{
-		//カウント初期化
-		m_nRepelFrameCount = 0;
-		//ステータスを変更
-
-		SetStats(PLAYER_STATS_NORMAL);
-	}
+	SetAlphaValue(0.0f);
 }
 
 //=============================================================================
@@ -604,6 +651,14 @@ void CPlayer::SwitchedInvincible(int nInvincible)
 		//無敵スイッチオン
 		m_bInvincible = true;
 	}
+}
+
+//=============================================================================
+// リスポーン状態時処理
+//=============================================================================
+void CPlayer::RespawnStats(void)
+{
+	SetAlphaValue(0.0f);
 }
 
 //=============================================================================

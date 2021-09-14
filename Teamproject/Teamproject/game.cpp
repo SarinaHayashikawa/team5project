@@ -20,6 +20,7 @@
 #include "scoreup.h"
 #include "timer.h"
 #include "timerBg.h"
+
 #ifdef _DEBUG
 //デバック用のキー
 #include "keyboard.h"
@@ -174,6 +175,29 @@ void CGame::GameOut(void)
 	{
 		//画面遷移
 		CManager::SetMode(CManager::MODE_RESULT);
+		return;
+	}
+	//プレイヤーコントロールの取得
+	CPlayerControl* pPlayerControl = CManager::GetPlayerControl();
+	//やられているプレイヤーの数
+	int nDeathPlayer = 0;
+	
+	//プレイヤーずつに確認
+	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
+	{
+		//プレイヤーのポインタの取得
+		CPlayer *pPlayer = pPlayerControl->GetPlayer(nPlayer);
+		if (pPlayer->GetStats() == CPlayer::PLAYER_STATS_DEATH)
+		{
+			//一人追加
+			nDeathPlayer += 1;
+		}
 	}
 
+	//プレイヤーが３人以上死んでいると
+	if (nDeathPlayer>=3)
+	{
+		//画面遷移
+		CManager::SetMode(CManager::MODE_RESULT);
+	}
 }

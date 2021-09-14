@@ -133,7 +133,7 @@ void CFieldManager::EdgeCollision(void)
 					{
 						//死亡処理（マップ収縮２５％以下なら）
 						//それ以外はリスポーン
-						pPlayer->DamageHit();
+						pPlayer->BarrierHit();
 					}
 					
 				}

@@ -32,13 +32,13 @@ public:
 	}TYPE;
 
 	static CFloor * Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size);
-	HRESULT Init(void);
+	HRESULT			Init(void);
 
 private:
 	int							m_nPatternAnim;			// アニメーションパターン
 	int							m_nCountAnim;			// アニメーションパターン
 	const int					m_nTexture = 1;			// テクスチャ番号
 };
-#endif // !_BLOCK_H_
+#endif
 
 
