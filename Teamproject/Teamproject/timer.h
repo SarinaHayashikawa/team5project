@@ -55,7 +55,7 @@ public:
 	bool GetTimeUp(void) { return m_bTimeUp; }	//時間切れ所得関数
 	//セッター
 	void SetTimer(int Min, int Sec);	//制限時間の設定
-	
+	int GetTime(void);//時間取得
 private:
 	bool m_bTimeUp;
 	CNumber *m_pMINUtes;						//分のポインター

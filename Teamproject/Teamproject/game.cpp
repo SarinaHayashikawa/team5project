@@ -35,6 +35,7 @@ bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
 CCamera* CGame::m_pCamera = nullptr;
 CTimer* CGame::m_pTimer = nullptr;
+CGame::GAME_STATE CGame::m_GameState = GAMESTATE_NONE;
 D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 {
 	D3DXVECTOR3(150.0f, 30.0f, 0.0f),
@@ -42,6 +43,18 @@ D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 	D3DXVECTOR3(150.0f, 385.0f, -50.0f),
 	D3DXVECTOR3(1250.0f, 385.0f, -50.0f)
 
+};
+
+//イベント発生タイミングの時間を格納（フレーム単位）
+const int CGame::m_aGameStateTime[GAMESTATE_MAX] =
+{
+	-1,
+	3600,
+	3300,
+	2700,
+	1800,
+	900,
+	300
 };
 
 //=============================================================================
@@ -53,6 +66,7 @@ CGame::CGame()
 	m_pPlayerControl	= nullptr;
 	m_nGameCount		= 0;
 	m_nGameCount		= 0;
+	
 }
 
 //=============================================================================
@@ -137,6 +151,15 @@ void CGame::Update(void)
 	//キーボードの取得
 	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
 
+	//現在の状態
+	if (m_GameState != GAMESTATE_6)//最終フェーズまで続ける
+	{
+		if (m_pTimer->GetTime() <= m_aGameStateTime[m_GameState + 1])
+		{
+			m_GameState = GAME_STATE((int)m_GameState + 1);//状態を一段階上げる
+		}
+	}
+
 	//カメラにプレイヤーの位置を伝える
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
@@ -175,6 +198,7 @@ void CGame::GameOut(void)
 	{
 		//画面遷移
 		CManager::SetMode(CManager::MODE_RESULT);
+		m_GameState = GAMESTATE_NONE;
 		return;
 	}
 	//プレイヤーコントロールの取得

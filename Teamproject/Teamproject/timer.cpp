@@ -221,3 +221,12 @@ void CTimer::SetTimer(int Min, int Sec)
 	m_nMinutes = Min;
 	m_nSeconds = Sec;
 }
+
+//=============================================================================
+// 現在時間取得（フレーム）
+//=============================================================================
+int CTimer::GetTime(void)
+{
+	int nTime = (m_nMinutes * 60 * 30) + (m_nSeconds * 30);
+	return nTime;//フレームで返す
+}
