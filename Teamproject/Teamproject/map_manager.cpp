@@ -79,7 +79,6 @@ CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 	m_pFieldManager = nullptr;
 	m_nShrinkCount = 1;
 	m_bShirnk = false;
-	m_nTimeFrame = 0;
 	m_nSushiSpawn = 0;		// 寿司のスポーンする時間の初期化
 	m_nSpawnSushiCount = 0;	// 寿司のスポーンする時間までのカウントの初期化
 	m_nItemSpawn = 0;		// アイテムのスポーンする時間の初期化
@@ -116,6 +115,8 @@ CMapManager * CMapManager::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 //=============================================================================
 HRESULT CMapManager::Init(void)
 {
+	//現在の状態を取得
+	m_GameState = CGame::GetGameState();
     //ステージ生成
     m_pFieldManager = CFieldManager::Create(D3DXVECTOR3(0.0f, -50.0f, 0.0f), m_MapSize);
     //ステージ生成（現在のフィールド）
@@ -149,13 +150,17 @@ void CMapManager::Uninit(void)
 //=============================================================================
 void CMapManager::Update(void)
 {
-
+	//1フレーム前の状態を格納しておく
+	CGame::GAME_STATE OldGameState = m_GameState;
+	//現在の状態を取得
+	m_GameState = CGame::GetGameState();
 	//収縮時間が来たか調べる
-	if (m_nTimeFrame == (MAP_SHRINK_TIME * m_nShrinkCount) * 30 && m_bShirnk == false)
+	if (m_GameState != OldGameState)//異なっていたら収縮開始
 	{
 		m_bShirnk = true;
 	}
-	if (m_bShirnk == true && m_nTimeFrame <= (MAP_SHRINK_TIME * m_nShrinkCount) * 30 + MAP_SHIRINK_TIME_VALUE)
+	
+	if (m_bShirnk == true && m_nShrinkCount < MAP_SHIRINK_TIME_VALUE)
 	{
 		if (m_MapSize.x > MAP_LAST_SIZE)//最小サイズになるまで縮ませる
 		{
@@ -163,12 +168,13 @@ void CMapManager::Update(void)
 			m_MapSize.x -= MAP_SHIRINK_SIZE;
 			m_MapSize.y -= MAP_SHIRINK_SIZE;
 			m_MapSize.z -= MAP_SHIRINK_SIZE;
+			m_nShrinkCount++;
 		}
 	}
-	else if(m_bShirnk == true && m_nTimeFrame > (MAP_SHRINK_TIME * m_nShrinkCount) * 30 + MAP_SHIRINK_TIME_VALUE)
+	else if (m_bShirnk == true && m_nShrinkCount >= MAP_SHIRINK_TIME_VALUE)
 	{
-		m_nShrinkCount++;
-		m_bShirnk = false;
+		m_bShirnk = false;//収縮状態を元に戻す
+		m_nShrinkCount = 0;
 	}
 
     //サイズセット
@@ -182,7 +188,6 @@ void CMapManager::Update(void)
         //プレイヤーの現在位置をセット
         m_pLocationPoint[nCount]->SetPos(D3DXVECTOR3(m_originPos.x + pos.x * MAP_LOCATION_VALUE, m_originPos.y - pos.z * MAP_LOCATION_VALUE, 0.0f));
     }
-	m_nTimeFrame++;
 
 	//餌の生成処理
 	SushiSpawn();

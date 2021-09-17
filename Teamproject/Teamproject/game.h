@@ -25,6 +25,18 @@ class CGame : public CScene
 {
 public:
 
+	typedef enum //現在の状態
+	{
+		GAMESTATE_NONE = 0,
+		GAMESTATE_1,
+		GAMESTATE_2,
+		GAMESTATE_3,
+		GAMESTATE_4,
+		GAMESTATE_5,
+		GAMESTATE_6,
+		GAMESTATE_MAX
+	}GAME_STATE;
+
 	CGame();
 	~CGame();
 	static CGame *Create(void);
@@ -42,7 +54,9 @@ public:
 	static bool GetIsStopUpdateContinue(void) { return m_bIsStopUpdateContinue; };
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 	static CTimer * GetTimer(void) { return m_pTimer; };
+	static GAME_STATE GetGameState(void) { return m_GameState; };
 private:
+
 	CScene2D*		m_pScene;				// シーンポインタ
 	int				m_nGameCount;			// ゲームカウント
 	CPlayerControl* m_pPlayerControl;		// プレイヤーコントロールポインタ
@@ -54,5 +68,7 @@ private:
 	static bool		m_bPlayerUse;			// プレイヤーが使われているか
 	static bool		m_bIsStopUpdate;		// アップデート停止しているか
 	static bool		m_bIsStopUpdateContinue;// コンティニュー発生しているか
+	static const int	m_aGameStateTime[GAMESTATE_MAX];	// イベント発生タイミング格納
+	static GAME_STATE	m_GameState;		//現在の状態
 };
 #endif

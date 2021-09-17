@@ -11,6 +11,7 @@
 //=============================================================================
 #include "food base.h"
 #include "item.h"
+#include "game.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -48,7 +49,6 @@ private:
 	D3DXVECTOR3 m_MapSize;							//mapのサイズ
 	CMapEdgeMask * m_pMapEdgeMask;					//マスクポインタ
 	CFieldManager * m_pFieldManager;				//フィールドポインタ
-	int m_nTimeFrame;								//現在時間
 	int m_nShrinkCount;								//収縮した回数
 	bool m_bShirnk;									//収縮中か
 
@@ -61,6 +61,7 @@ private:
 	static int	m_nMaxItemProb;						// アイテムの最大確率
 	static int	m_nSushiProb[CFoodBase::TYPE_MAX];	// どの寿司が出てくるかの確率
 	static int	m_nMaxSushiProb;					// 寿司の最大確率
+	CGame::GAME_STATE m_GameState;					// ゲームの状態
 
 };
 #endif // !_MAP_MANAGER_H_
