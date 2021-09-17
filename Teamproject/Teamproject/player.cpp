@@ -9,6 +9,7 @@
 //インクルードファイル
 //=============================================================================
 #include "player.h"
+#include "renderer.h"
 #include "resource manager.h"
 #include "keyboard.h"
 #include "mouse.h"
