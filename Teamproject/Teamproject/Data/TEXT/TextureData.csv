@@ -1,4 +1,4 @@
-MAX_DATA,22,
+MAX_DATA,24,
 1,Data/TEXTURE/MAP/map.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
 11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
@@ -21,3 +21,5 @@ MAX_DATA,22,
 55,Data/TEXTURE/RESULT/4p.png,プレイヤー４のUI
 56,Data/TEXTURE/EFFECT/effect_circle.png,円形エフェクト
 57,Data/TEXTURE/EFFECT/arrow.png,矢印
+58,Data/TEXTURE/UI/nokori10.png,のこり１０秒
+59,Data/TEXTURE/UI/syuryo.png,終了

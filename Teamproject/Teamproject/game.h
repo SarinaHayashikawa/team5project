@@ -38,6 +38,7 @@ public:
 		GAMESTATE_4,
 		GAMESTATE_5,
 		GAMESTATE_6,
+		GAMESTATE_7,
 		GAMESTATE_MAX
 	}GAME_STATE;
 
@@ -74,5 +75,6 @@ private:
 	static bool		m_bIsStopUpdateContinue;// コンティニュー発生しているか
 	static const int	m_aGameStateTime[GAMESTATE_MAX];	// イベント発生タイミング格納
 	static GAME_STATE	m_GameState;		//現在の状態
+	int					m_endcount;			//終了カウンタ
 };
 #endif

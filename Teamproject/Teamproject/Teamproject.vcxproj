@@ -166,6 +166,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameend ui.cpp" />
     <ClCompile Include="ikura parts.cpp" />
     <ClCompile Include="ikura.cpp" />
     <ClCompile Include="input.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
     <ClCompile Include="ShieldEffect.cpp" />
+    <ClCompile Include="timecount ui.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="timerBg.cpp" />
     <ClCompile Include="tuna parts.cpp" />
@@ -226,6 +228,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gameend ui.h" />
     <ClInclude Include="ikura parts.h" />
     <ClInclude Include="ikura.h" />
     <ClInclude Include="input.h" />
@@ -246,6 +249,7 @@
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
     <ClInclude Include="ShieldEffect.h" />
+    <ClInclude Include="timecount ui.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="timerBg.h" />
     <ClInclude Include="tuna parts.h" />

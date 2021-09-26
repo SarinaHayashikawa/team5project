@@ -20,12 +20,14 @@
 #include "scoreup.h"
 #include "timer.h"
 #include "timerBg.h"
-
+#include "timecount ui.h"
+#include "gameend ui.h"
 #ifdef _DEBUG
 //デバック用のキー
 #include "keyboard.h"
 #endif
 
+#define END_TIME (120) //終了からリザルト遷移までの時間
 
 //=============================================================================
 // 静的メンバ変数初期化
@@ -54,7 +56,8 @@ const int CGame::m_aGameStateTime[GAMESTATE_MAX] =
 	2700,
 	1800,
 	900,
-	300
+	300,
+	0
 };
 
 //=============================================================================
@@ -66,7 +69,7 @@ CGame::CGame()
 	m_pPlayerControl	= nullptr;
 	m_nGameCount		= 0;
 	m_nGameCount		= 0;
-	
+	m_endcount = 0;
 }
 
 //=============================================================================
@@ -152,11 +155,21 @@ void CGame::Update(void)
 	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
 
 	//現在の状態
-	if (m_GameState != GAMESTATE_6)//最終フェーズまで続ける
+	if (m_GameState != GAMESTATE_7)//最終フェーズまで続ける
 	{
 		if (m_pTimer->GetTime() <= m_aGameStateTime[m_GameState + 1])
 		{
 			m_GameState = GAME_STATE((int)m_GameState + 1);//状態を一段階上げる
+			if (m_GameState == GAMESTATE_6)//残り10秒
+			{
+				CTimecountUi::Create(D3DXVECTOR3(1980.0f, 400.0f, 0.0f), D3DXVECTOR3(-20.0f, 0.0f, 0.0f), D3DXVECTOR3(320.0f, 85.0f, 0.0f));
+				pSound->PlaySound(CSound::LABEL_SE_COUNTDOWN);
+			}
+			if (m_GameState == GAMESTATE_7)//ゲーム終了
+			{
+				CGameEndUi::Create(D3DXVECTOR3(SCREEN_CENTER_X, -50.0f, 0.0f), D3DXVECTOR3(0.0f, 10.0f, 0.0f), D3DXVECTOR3(834.0f, 289.0f, 0.0f));
+				pSound->PlaySound(CSound::LABEL_SE_PIPI);
+			}
 		}
 	}
 
@@ -193,14 +206,19 @@ void CGame::Draw(void)
 //=============================================================================
 void CGame::GameOut(void)
 {
-	//制限時間が来たら
-	if (m_pTimer->GetTimeUp() == true)
+	if (m_GameState == GAMESTATE_7)
 	{
-		//画面遷移
-		CManager::SetMode(CManager::MODE_RESULT);
-		m_GameState = GAMESTATE_NONE;
-		return;
+		m_endcount++;
+		//制限時間が来たら
+		if (m_endcount >= END_TIME)
+		{
+			//画面遷移
+			CManager::SetMode(CManager::MODE_RESULT);
+			m_GameState = GAMESTATE_NONE;
+			return;
+		}
 	}
+	
 	//プレイヤーコントロールの取得
 	CPlayerControl* pPlayerControl = CManager::GetPlayerControl();
 	//やられているプレイヤーの数

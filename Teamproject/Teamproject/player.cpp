@@ -29,6 +29,7 @@
 #include "ShieldEffect.h"
 #include "sound.h"
 #include "effect powerup.h"
+#include "game.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -221,9 +222,11 @@ void CPlayer::Move(void)
 	move *= m_fDashCoutn;
 	// 移動処理
 	pos += move;
-
-	// 位置保存
-	SetPos(pos);
+	if (CGame::GetGameState() != CGame::GAMESTATE_7)//終了時は動きを止める
+	{
+		// 位置保存
+		SetPos(pos);
+	}
 
 }
 

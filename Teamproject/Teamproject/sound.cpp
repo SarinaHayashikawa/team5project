@@ -28,6 +28,8 @@ CSound::PARAM CSound::m_aParam[LABEL_MAX] =
 	{ "Data/SOUND/SE/getitem.wav", 0 },
 	{ "Data/SOUND/SE/getsushi.wav", 0 },
 	{ "Data/SOUND/SE/hitplayer.wav", 0 },
+	{ "Data/SOUND/SE/count.wav", 0 },
+	{ "Data/SOUND/SE/pipi.wav", 0 },
 	//BGM
 	{ "Data/SOUND/BGM/game.wav", -1 },
 	{ "Data/SOUND/BGM/loading.wav", -1 },
