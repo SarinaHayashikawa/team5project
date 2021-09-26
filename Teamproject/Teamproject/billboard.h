@@ -22,10 +22,12 @@ public:
 	virtual ~CBillboard();
 
 	virtual HRESULT Init(void);		// 初期化処理
+	virtual void Update(void);		// 終了処理
 	virtual void Uninit(void);		// 終了処理
 	virtual void Draw(void);		// 描画処理
 
 	void SetColor(D3DXCOLOR col);						// カラーセッター
+	D3DXCOLOR GetColor(void) { return m_col; };			// カラーゲッター
 	void BindTexture(LPDIRECT3DTEXTURE9 pTexture);		// テクスチャ設定
 	D3DXMATRIX GetMtxWorld(void) { return m_mtxWorld; }	// ワールドマトリクスゲッター
 

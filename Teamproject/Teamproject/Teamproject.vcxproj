@@ -155,6 +155,8 @@
     <ClCompile Include="classifier.cpp" />
     <ClCompile Include="ebi parts.cpp" />
     <ClCompile Include="ebi.cpp" />
+    <ClCompile Include="effect 3d.cpp" />
+    <ClCompile Include="Effect powerup.cpp" />
     <ClCompile Include="effect sushi.cpp" />
     <ClCompile Include="egg parts.cpp" />
     <ClCompile Include="egg.cpp" />
@@ -170,6 +172,7 @@
     <ClCompile Include="MapEdgeMask.cpp" />
     <ClCompile Include="MapEdgeMaskOut.cpp" />
     <ClCompile Include="mapEdgeOverlay.cpp" />
+    <ClCompile Include="meshfield cylinder.cpp" />
     <ClCompile Include="player control.cpp" />
     <ClCompile Include="player number.cpp" />
     <ClCompile Include="result effect.cpp" />
@@ -212,6 +215,8 @@
   <ItemGroup>
     <ClInclude Include="ebi parts.h" />
     <ClInclude Include="ebi.h" />
+    <ClInclude Include="effect 3d.h" />
+    <ClInclude Include="effect powerup.h" />
     <ClInclude Include="effect sushi.h" />
     <ClInclude Include="egg parts.h" />
     <ClInclude Include="egg.h" />
@@ -228,6 +233,7 @@
     <ClInclude Include="MapEdgeMaskOut.h" />
     <ClInclude Include="MapEdgeOverlay.h" />
     <ClInclude Include="classifier.h" />
+    <ClInclude Include="meshfield cylinder.h" />
     <ClInclude Include="player control.h" />
     <ClInclude Include="player number.h" />
     <ClInclude Include="result effect.h" />

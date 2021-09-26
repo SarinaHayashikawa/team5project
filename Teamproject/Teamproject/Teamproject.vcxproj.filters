@@ -291,6 +291,15 @@
     <ClCompile Include="timerBg.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Effect powerup.cpp">
+      <Filter>ソース ファイル\GameModel\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="meshfield cylinder.cpp">
+      <Filter>ソース ファイル\GameModel\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="effect 3d.cpp">
+      <Filter>ソース ファイル\GameModel\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -460,6 +469,15 @@
     </ClInclude>
     <ClInclude Include="timerBg.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="effect powerup.h">
+      <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="meshfield cylinder.h">
+      <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="effect 3d.h">
+      <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
