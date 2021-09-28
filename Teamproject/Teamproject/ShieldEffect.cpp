@@ -54,7 +54,6 @@ CShieldEffect * CShieldEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size, D3DXCOL
 	return pShieldEffect;
 }
 
-
 //=============================================================================
 // 更新処理関数
 //=============================================================================
@@ -66,7 +65,7 @@ void CShieldEffect::Update(void)
 	SetPos(D3DXVECTOR3(pos.x, pos.y + 13.0f, pos.z));
 
 	//プレイヤーの状況に合わせて消失
-	if (m_pPlayer->GetStats() != CPlayer::PLAYER_STATS_NORMAL)
+	if (m_pPlayer->GetShield() == false)
 	{
 		CShieldEffect::Uninit();
 	}

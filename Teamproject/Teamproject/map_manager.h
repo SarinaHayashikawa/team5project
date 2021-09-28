@@ -54,8 +54,7 @@ private:
 
 	int			m_nSushiSpawn;					// 寿司のスポーンする時間
 	int			m_nSpawnSushiCount;				// 寿司のスポーンする時間までのカウント
-	int			m_nItemSpawn;					// アイテムのスポーンする時間
-	int			m_nSpawnItemCount;				// アイテムのスポーンする時間までのカウント
+	static int	m_nSpawnItemCount[CGame::GAMESTATE_MAX];		// アイテムのスポーンする時間までのカウント
 
 	static int	m_nItemProb[CItem::ITEM_MAX];		// どのアイテムが出てくるかの確率
 	static int	m_nMaxItemProb;						// アイテムの最大確率

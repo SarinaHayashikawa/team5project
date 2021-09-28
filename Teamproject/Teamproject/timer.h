@@ -24,8 +24,8 @@ class CNumber;
 #define MAX_MINUTES_DIGIT 1	//分の桁数
 #define MAX_SECONDS_DIGIT 2 //秒の桁数
 
-#define MOOD1_SECONDS 00	//三分モード開始秒数
-#define MOOD1_MINUTES 3		//三分モード開始分
+#define MOOD1_SECONDS 00	//2分モード開始秒数
+#define MOOD1_MINUTES 2		//2分モード開始分
 		
 #define MOOD2_SECONDS 30	//30秒モード開始秒数
 #define MOOD2_MINUTES 00	//30秒モード開始分

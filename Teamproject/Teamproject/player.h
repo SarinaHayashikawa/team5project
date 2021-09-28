@@ -60,7 +60,7 @@ public:
 	void			SetStats(const PLAYER_STATS Stats) { m_PlayerStats = Stats; }	// プレイヤー状態セッター
 	PLAYER_STATS	GetStats(void) { return m_PlayerStats; }						// プレイヤー状態ゲッター
 	bool			GetScoreUp(void) { return m_bScoreUp; }							// スコアアップ状態のゲッター
-	
+	bool			GetShield(void) { return m_bShield; }							// シールド状態のゲッター
 
 private:
 	void			Move(void);								// 移動処理

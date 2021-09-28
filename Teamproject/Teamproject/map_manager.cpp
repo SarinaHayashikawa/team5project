@@ -45,7 +45,6 @@
 #define MAP_LAST_SIZE			(50.0f) //最後のマップサイズ
 #define MAX_SUSHI_SPAWN			(30*7)	//餌のスポーンまでの最大時間
 #define MIN_SUSHI_SPAWN			(30*2)	//餌のスポーンまでの最低時間
-#define MAX_ITEM_SPAWN			(30*60)	//餌のスポーンまでの時間
 
 //*****************************************************************************
 // 静的メンバー変数初期化
@@ -68,7 +67,15 @@ int CMapManager::m_nItemProb[CItem::ITEM_MAX]=
 	50		//シールド
 };
 int CMapManager::m_nMaxItemProb = m_nItemProb[CItem::ITEM_SCOREUP] + m_nItemProb[CItem::ITEM_SHIELD];
-
+int CMapManager::m_nSpawnItemCount[CGame::GAMESTATE_MAX] =
+{
+	0,
+	5,
+	3,
+	3,
+	2,
+	1
+};
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -81,8 +88,6 @@ CMapManager::CMapManager(int nPriority) : CScene(nPriority)
 	m_bShirnk = false;
 	m_nSushiSpawn = 0;		// 寿司のスポーンする時間の初期化
 	m_nSpawnSushiCount = 0;	// 寿司のスポーンする時間までのカウントの初期化
-	m_nItemSpawn = 0;		// アイテムのスポーンする時間の初期化
-	m_nSpawnItemCount = 0;	// アイテムのスポーンする時間までのカウントの初期化
 }
 
 //=============================================================================
@@ -173,8 +178,9 @@ void CMapManager::Update(void)
 	}
 	else if (m_bShirnk == true && m_nShrinkCount >= MAP_SHIRINK_TIME_VALUE)
 	{
-		m_bShirnk = false;//収縮状態を元に戻す
-		m_nShrinkCount = 0;
+		m_bShirnk = false;	//収縮状態を元に戻す
+		m_nShrinkCount = 0;	//初期化
+		ItemSpawn();		//アイテムの生成
 	}
 
     //サイズセット
@@ -191,9 +197,6 @@ void CMapManager::Update(void)
 
 	//餌の生成処理
 	SushiSpawn();
-
-	//アイテムの生成
-	ItemSpawn();
 
 }
 //=============================================================================
@@ -215,7 +218,7 @@ void CMapManager::SushiSpawn(void)
 	if (m_nSpawnSushiCount>m_nSushiSpawn)
 	{
 		//エリアの半径
-		float fRadius = (m_MapSize.x / 2) - 50;//(ココの数値を範囲制限の円の半径を取得)
+		float fRadius = (m_MapSize.x / 2) - 50;//(ココの数値を範囲制限の円の半径にするそして余裕をもって-50)
 		//中心値
 		D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
 
@@ -284,13 +287,11 @@ void CMapManager::SushiSpawn(void)
 //=============================================================================
 void CMapManager::ItemSpawn(void)
 {
-	//カウントダウン
-	m_nSpawnItemCount++;
 	//カウントが一定に達したらランダムにスポーン
-	if (m_nSpawnItemCount>m_nItemSpawn)
+	for(int nCoutn=0; nCoutn<m_nSpawnItemCount[m_GameState]; nCoutn++)
 	{
 		//エリアの半径
-		float fRadius = (m_MapSize.x / 2) - 50;//(ココの数値を範囲制限の円の半径を取得)
+		float fRadius = (m_MapSize.x / 2) - 50;//(ココの数値を範囲制限の円の半径にするそして余裕をもって-50)
 		 //中心値
 		D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
 
@@ -317,11 +318,6 @@ void CMapManager::ItemSpawn(void)
 			//確率の確認
 			if (nSpawn <= nProd)
 			{
-				//カウント初期化
-				m_nSpawnItemCount = 0;
-				//次のスポーン時間を設定
-				m_nItemSpawn = MAX_ITEM_SPAWN;
-
 				//アイテムのスポーン生成
 				switch (nItem)
 				{
@@ -332,8 +328,7 @@ void CMapManager::ItemSpawn(void)
 					CShield::Create(random, D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 					break;
 				}
-
-				return;
+				break;
 			}
 		}
 	}

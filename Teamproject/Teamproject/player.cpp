@@ -425,46 +425,48 @@ void CPlayer::DamageHit(void)
 	if (m_PlayerStats == PLAYER_STATS_NORMAL)
 	{
 		//シールドアイテムを持っていなかった場合
-		if (!m_bShield)
+		if (m_bShield == false)
 		{
-			//状態をリスポーン状態に変更
-			SetStats(PLAYER_STATS_RESPAWN);
-			
-			//死亡音
-			CSound *pSound = CManager::GetSound();
-			pSound->PlaySound(CSound::LABEL_SE_DEATH);
-			
-			//持っている寿司をばら撒く
-			for (int nParts = 0; nParts < m_nParts; nParts++)
+			if (m_bInvincible == false)
 			{
-				if (m_pParts[nParts] != nullptr)
-				{
-					//パーツの位置取得
-					D3DXVECTOR3 PartsPos = m_pParts[nParts]->GetPos();
-					switch (m_pParts[nParts]->GetType())
-					{
-					case CFoodBase::TYPE_EBI:
-						CEbi::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-						break;
-					case CFoodBase::TYPE_EGG:
-						CEgg::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-						break;
-					case CFoodBase::TYPE_IKURA:
-						CIkura::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-						break;
-					case CFoodBase::TYPE_SALMON:
-						CSalmon::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-						break;
-					case CFoodBase::TYPE_TUNA:
-						CTuna::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
-						break;
-					}
+				//状態をリスポーン状態に変更
+				SetStats(PLAYER_STATS_RESPAWN);
 
-					m_pParts[nParts]->Uninit();
-					m_pParts[nParts] = nullptr;
+				//死亡音
+				CSound *pSound = CManager::GetSound();
+				pSound->PlaySound(CSound::LABEL_SE_DEATH);
+
+				//持っている寿司をばら撒く
+				for (int nParts = 0; nParts < m_nParts; nParts++)
+				{
+					if (m_pParts[nParts] != nullptr)
+					{
+						//パーツの位置取得
+						D3DXVECTOR3 PartsPos = m_pParts[nParts]->GetPos();
+						switch (m_pParts[nParts]->GetType())
+						{
+						case CFoodBase::TYPE_EBI:
+							CEbi::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+							break;
+						case CFoodBase::TYPE_EGG:
+							CEgg::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+							break;
+						case CFoodBase::TYPE_IKURA:
+							CIkura::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+							break;
+						case CFoodBase::TYPE_SALMON:
+							CSalmon::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+							break;
+						case CFoodBase::TYPE_TUNA:
+							CTuna::Create(PartsPos, D3DXVECTOR3(10.0f, 10.0f, 10.0f));
+							break;
+						}
+						m_pParts[nParts]->Uninit();
+						m_pParts[nParts] = nullptr;
+					}
 				}
+				m_nParts = 0;
 			}
-			m_nParts = 0;
 		}
 		//持っていた場合
 		else
@@ -554,7 +556,6 @@ void CPlayer::Respawn(D3DXVECTOR3 RespawnPos)
 //=============================================================================
 void CPlayer::ShieldGet(void)
 {
-
 	//アイテムを持っているか
 	if (m_bShield == false)
 	{

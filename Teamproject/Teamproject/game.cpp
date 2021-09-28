@@ -156,7 +156,13 @@ void CGame::Update(void)
 	{
 		if (m_pTimer->GetTime() <= m_aGameStateTime[m_GameState + 1])
 		{
-			m_GameState = GAME_STATE((int)m_GameState + 1);//状態を一段階上げる
+			m_GameState = GAME_STATE((int)m_GameState + 1);	//状態を一段階上げる
+			
+			if (m_GameState == GAMESTATE_5)			//ステージ状態が5以上の時
+			{
+				//プレイヤーをリスポーン出来なくする
+				CManager::GetPlayerControl()->SetRespawn(false);
+			}
 		}
 	}
 
