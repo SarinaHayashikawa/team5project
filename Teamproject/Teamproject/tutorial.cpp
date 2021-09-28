@@ -1,20 +1,26 @@
 //=============================================================================
 //
-// ミニマップの処理 [map.cpp]
-// Author : 林川紗梨夏
+// タイトル処理 [tutorial.cpp]
+// Author : 
 //
 //=============================================================================
 
 //*****************************************************************************
 // ヘッダファイルのインクルード
 //*****************************************************************************
-#include "main.h"
-#include "manager.h"
-#include "renderer.h"
-#include "scene.h"
+#include "tutorial.h"
+#include "sound.h"
+#include "joystick.h"
+#include "sound.h"
 #include "scene2d.h"
-#include "map.h"
+#include "keyboard.h"
+#include "fade.h"
 #include "resource manager.h"
+#include "game.h"
+
+//*****************************************************************************
+// マクロ定義
+//*****************************************************************************
 
 //*****************************************************************************
 // 静的メンバ変数初期化
@@ -23,16 +29,25 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CMap::CMap(int nPriority) : CScene2d(nPriority)
+CTutorial::CTutorial()
 {
-	m_nPatternAnim = 1;
-	m_nCountAnim = 0;
+	for (int nCount = 0; nCount < MAX_TUTORIAL_TEX; nCount++)
+	{
+		m_pTutorial[nCount] = new CScene2d;
+		if (m_pTutorial[nCount] != nullptr)
+		{
+			m_pTutorial[nCount]->Init();
+		}
+	}
+
+	m_pTutorial[TEX_TUTORIAL]->SetPos(D3DXVECTOR3(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f));
+	m_pTutorial[TEX_TUTORIAL]->SetSize(D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f));
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CMap::~CMap()
+CTutorial::~CTutorial()
 {
 
 }
@@ -40,77 +55,72 @@ CMap::~CMap()
 //=============================================================================
 // 生成処理
 //=============================================================================
-CMap * CMap::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
+CTutorial * CTutorial::Create(void)
 {
-	CMap *pMap = nullptr;
+	CTutorial *pTutorial;
+	pTutorial = new CTutorial;
 
-	pMap = new CMap;
-	if (pMap != nullptr)
+	//リソース確保(リソースマネージャーから呼び出す)
+	CResource* pResource = CManager::GetResource();
+
+	for (int nCount = 0; nCount < MAX_TUTORIAL_TEX; nCount++)
 	{
-		//リソース確保(リソースマネージャーから呼び出す)
-		CResource* pResource = CManager::GetResource();
-		LPDIRECT3DTEXTURE9 Texture = pResource->TextureLoad(pMap->m_nTexture);
-		pMap->BindTexture(Texture);
-		pMap->SetPos(Pos);
-		pMap->SetSize(Size);
-		pMap->Init();
+		LPDIRECT3DTEXTURE9 TitleTexture = pResource->TextureLoad(pTutorial->m_nTexture[nCount]);
+
+		pTutorial->m_pTutorial[nCount]->BindTexture(TitleTexture);
 	}
-	return pMap;
+
+	if (pTutorial != nullptr)
+	{
+		pTutorial->Init();
+	}
+
+	return pTutorial;
 }
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CMap::Init(void)
+HRESULT CTutorial::Init(void)
 {
-	SetObjType(CScene::OBJTYPE_NONE);
+	//オブジェクト生成
+	CManager::CreateCamera();
+	CManager::CreateLight();
 
-	CScene2d::Init();
-
-	//テクスチャセット
-	D3DXVECTOR2 Tex[NUM_VERTEX];
-	Tex[0] = D3DXVECTOR2(0.0f, 0.0f);
-	Tex[1] = D3DXVECTOR2(1.0f, 0.0f);
-	Tex[2] = D3DXVECTOR2(0.0f, 1.0f);
-	Tex[3] = D3DXVECTOR2(1.0f, 1.0f);
-	SetTexture(Tex);
-
-	//頂点カラーセット
-	SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	CSound *pSound = CManager::GetSound();
+	pSound->PlaySound(CSound::LABEL_BGM_TITLE);
 	return S_OK;
 }
 
 //=============================================================================
 // 終了処理
 //=============================================================================
-void CMap::Uninit(void)
+void CTutorial::Uninit(void)
 {
-	CScene2d::Uninit();
+
+	CSound *pSound = CManager::GetSound();
+	pSound->StopSound(CSound::LABEL_BGM_TITLE);
 }
 
 //=============================================================================
 // 更新処理
 //=============================================================================
-void CMap::Update(void)
+void CTutorial::Update(void)
 {
-	CScene2d::Update();
+	//サウンド
+	CSound * pSound = CManager::GetSound();
+	//キーボードの取得
+	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
 
-	//テクスチャセット
-	D3DXVECTOR2 Tex[NUM_VERTEX];
-	Tex[0] = D3DXVECTOR2(0.0f, 0.0f);
-	Tex[1] = D3DXVECTOR2(1.0f, 0.0f);
-	Tex[2] = D3DXVECTOR2(0.0f, 1.0f);
-	Tex[3] = D3DXVECTOR2(1.0f, 1.0f);
-	SetTexture(Tex);
-
-	//頂点カラーセット
-	SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_RETURN))
+	{
+		CManager::GetFade()->SetFade(CManager::MODE_GAME);
+	}
 }
 
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CMap::Draw(void)
+void CTutorial::Draw(void)
 {
-	CScene2d::Draw();
 }

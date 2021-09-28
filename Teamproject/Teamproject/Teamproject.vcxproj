@@ -94,7 +94,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,6 +160,7 @@
     <ClCompile Include="effect sushi.cpp" />
     <ClCompile Include="egg parts.cpp" />
     <ClCompile Include="egg.cpp" />
+    <ClCompile Include="fade.cpp" />
     <ClCompile Include="Fieldmanager.cpp" />
     <ClCompile Include="food base.cpp" />
     <ClCompile Include="billboard.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="shield.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="winner player.cpp" />
     <ClCompile Include="winner.cpp" />
   </ItemGroup>
@@ -222,6 +224,7 @@
     <ClInclude Include="effect sushi.h" />
     <ClInclude Include="egg parts.h" />
     <ClInclude Include="egg.h" />
+    <ClInclude Include="fade.h" />
     <ClInclude Include="Fieldmanager.h" />
     <ClInclude Include="food base.h" />
     <ClInclude Include="billboard.h" />
@@ -274,6 +277,7 @@
     <ClInclude Include="shield.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="tutorial.h" />
     <ClInclude Include="winner player.h" />
     <ClInclude Include="winner.h" />
   </ItemGroup>

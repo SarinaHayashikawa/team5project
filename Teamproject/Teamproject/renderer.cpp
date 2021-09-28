@@ -12,6 +12,7 @@
 #include "renderer.h"
 #include "scene.h"
 #include "manager.h"
+#include "fade.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -178,6 +179,10 @@ void CRenderer::Draw(void)
 	{
 		//全てのシーンの描画
 		CScene::DrawAll();
+
+		//フェード描画
+		CManager::GetFade()->Draw();
+
 #ifdef _DEBUG
 		// FPS表示
 		DrawFPS();

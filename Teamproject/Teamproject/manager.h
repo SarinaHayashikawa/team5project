@@ -37,6 +37,8 @@ class CResource;
 class CScore;
 class CPlayerControl;
 class CResult;
+class CFade;
+class CTutorial;
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
@@ -85,6 +87,7 @@ public:
 	static CPlayerControl * GetPlayerControl(void) { return m_pPlayerControl; };
 	static void SetPlayerNumber(const int nNumber);								// プレイヤー人数セッター
 	static int	GetPlayerNumber(void) { return m_nPlayerNumber; }			// プレイヤー人数ゲッター
+	static CFade* GetFade(void) { return m_pFade; }   // フェードの取得// プレイヤー人数ゲッター
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
@@ -98,6 +101,7 @@ private:
 	static CGame * m_pGame;
 	static CResult* m_pResult;
 	static CTitle * m_pTitle;
+	static CTutorial * m_pTutorial;
 	static CSelect * m_pSelect;
 	static CMapManager * m_pMapManager;
 	static HWND m_hWnd;
@@ -105,5 +109,6 @@ private:
 	static CScore * m_apScore[MAX_PLAYER];		// プレイヤースコア
 	static CPlayerControl * m_pPlayerControl;	// プレイヤー管理のポインタ
 	static int m_nPlayerNumber;					// プレイヤーの人数
+	static CFade* m_pFade;            // フェードのポインタ
 };
 #endif

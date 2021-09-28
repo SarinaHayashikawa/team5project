@@ -22,6 +22,8 @@
 #include "camera.h"
 #include "light.h"
 #include "resource manager.h"
+#include "fade.h"
+#include "Tutorial.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -37,6 +39,7 @@ CSound * CManager::m_pSound = nullptr;
 CGame * CManager::m_pGame = nullptr;
 CResult * CManager::m_pResult = nullptr;
 CTitle * CManager::m_pTitle = nullptr;
+CTutorial * CManager::m_pTutorial = nullptr;
 CSelect * CManager::m_pSelect = nullptr;
 CCamera *CManager::m_pCamera = nullptr;
 CLight *CManager::m_pLight = nullptr;
@@ -48,6 +51,7 @@ CResource * CManager::m_pResource = nullptr;
 CScore * CManager::m_apScore[MAX_PLAYER] = {};
 CPlayerControl * CManager::m_pPlayerControl = nullptr;
 int CManager::m_nPlayerNumber = NULL;
+CFade* CManager::m_pFade = nullptr;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -107,6 +111,14 @@ HRESULT CManager::Init(HINSTANCE hInsitance, HWND hWnd, bool bWindow)
 	}
 	//サウンドの初期化
 	m_pSound->Init(hWnd);
+
+	//フェードの生成
+	if (m_pFade == nullptr)
+	{
+		m_pFade = new CFade;
+	}
+	//フェードの初期化
+	m_pFade->Init();
 
 	//カーソル見えなくする
 	//ShowCursor(FALSE);
@@ -182,6 +194,14 @@ void CManager::Uninit(void)
 		m_pRenderer = nullptr;
 	}
 
+	////フェードの破棄
+	if (m_pFade != nullptr)
+	{
+		m_pFade->Uninit();
+		delete m_pFade;
+		m_pFade = nullptr;
+	}
+
 	//全てのリソース破棄
 	if (m_pResource != nullptr)
 	{
@@ -218,6 +238,12 @@ void CManager::Update(void)
 	if (m_pCamera != nullptr)
 	{
 		m_pCamera->Update();
+	}
+
+	//フェードの更新処理
+	if (m_pFade != NULL)
+	{
+		m_pFade->Update();
 	}
 
 	//描画の更新
@@ -274,6 +300,9 @@ void CManager::SetMode(MODE mode)
 	{
 	case MODE_TITLE:
 		m_pTitle = CTitle::Create();
+		break;
+	case MODE_TUTORIAL:
+		m_pTutorial = CTutorial::Create();
 		break;
 	case MODE_GAME:
 		m_pGame = CGame::Create();
