@@ -28,6 +28,8 @@
 #include "tuna.h"
 #include "ShieldEffect.h"
 #include "sound.h"
+#include "effect powerup.h"
+#include "game.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -220,9 +222,11 @@ void CPlayer::Move(void)
 	move *= m_fDashCoutn;
 	// 移動処理
 	pos += move;
-
-	// 位置保存
-	SetPos(pos);
+	if (CGame::GetGameState() != CGame::GAMESTATE_7)//終了時は動きを止める
+	{
+		// 位置保存
+		SetPos(pos);
+	}
 
 }
 
@@ -585,6 +589,9 @@ void CPlayer::ScoreUpGet(void)
 
 		//取得状態のためtrueに変更
 		m_bScoreUp = true;
+		//見た目に変化？
+		D3DXVECTOR3 pos = GetPos();
+		CEffectPowerUP::Create(pos, D3DXVECTOR3(30.0f, 30.0f, 0.0f), this);
 	}
 }
 

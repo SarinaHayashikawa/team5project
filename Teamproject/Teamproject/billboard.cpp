@@ -76,6 +76,50 @@ HRESULT CBillboard::Init(void)
 }
 
 //=============================================================================
+// 更新処理関数
+//=============================================================================
+void CBillboard::Update(void)
+{
+	// デバイス取得
+	LPDIRECT3DDEVICE9 pDevice = NULL;
+	pDevice = CManager::GetRenderer()->GetDevice();
+
+	// 頂点情報
+	VERTEX_3D *pVtx = NULL;
+
+	//大きさ取得
+	D3DXVECTOR3 size = GetSize();
+
+	//頂点バッファの生成
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4, D3DUSAGE_WRITEONLY, FVF_VERTEX_3D, D3DPOOL_MANAGED, &m_pVtxBuff, NULL);
+
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	pVtx[0].pos = D3DXVECTOR3(-size.x / 2, size.y / 2, +size.z / 2);
+	pVtx[1].pos = D3DXVECTOR3(size.x / 2, size.y / 2, +size.z / 2);
+	pVtx[2].pos = D3DXVECTOR3(-size.x / 2, -size.y / 2, +size.z / 2);
+	pVtx[3].pos = D3DXVECTOR3(size.x / 2, -size.y / 2, +size.z / 2);
+
+	pVtx[0].nor = D3DXVECTOR3(0, 0, -1);
+	pVtx[1].nor = D3DXVECTOR3(0, 0, -1);
+	pVtx[2].nor = D3DXVECTOR3(0, 0, -1);
+	pVtx[3].nor = D3DXVECTOR3(0, 0, -1);
+
+	pVtx[0].col = m_col;
+	pVtx[1].col = m_col;
+	pVtx[2].col = m_col;
+	pVtx[3].col = m_col;
+
+	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+	pVtx[1].tex = D3DXVECTOR2(0.0f, 1.0f);
+	pVtx[2].tex = D3DXVECTOR2(1.0f, 0.0f);
+	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+
+	m_pVtxBuff->Unlock();
+
+}
+
+//=============================================================================
 // 終了処理関数
 //=============================================================================
 void CBillboard::Uninit(void)
