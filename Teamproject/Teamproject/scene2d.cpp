@@ -163,6 +163,12 @@ void CScene2d::Update(void)
 	pVtx[3].pos.x = m_Pos.x + cosf(m_fAngle - m_Rot.z) * m_fLength * m_fScale;
 	pVtx[3].pos.y = m_Pos.y + sinf(m_fAngle - m_Rot.z) * m_fLength * m_fScale;
 
+	// 頂点カラーの設定
+	pVtx[0].col = m_Col;
+	pVtx[1].col = m_Col;
+	pVtx[2].col = m_Col;
+	pVtx[3].col = m_Col;
+
 	// テクスチャ座標の設定
 	pVtx[0].tex = m_aTex[0];
 	pVtx[1].tex = m_aTex[1];

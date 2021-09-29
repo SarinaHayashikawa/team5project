@@ -1,4 +1,4 @@
-MAX_DATA,24,
+MAX_DATA,32,
 1,Data/TEXTURE/MAP/map.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
 11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
@@ -23,3 +23,11 @@ MAX_DATA,24,
 57,Data/TEXTURE/EFFECT/arrow.png,矢印
 58,Data/TEXTURE/UI/nokori10.png,のこり１０秒
 59,Data/TEXTURE/UI/syuryo.png,終了
+60,Data/TEXTURE/TITLE/title.png,タイトル
+61,Data/TEXTURE/TITLE/3minute.png,3分モード
+62,Data/TEXTURE/TITLE/30second.png,30秒モード
+63,Data/TEXTURE/TITLE/1play.png,1人プレイ
+64,Data/TEXTURE/TITLE/2play.png,2人プレイ
+65,Data/TEXTURE/TITLE/3play.png,3人プレイ
+66,Data/TEXTURE/TITLE/4play.png,4人プレイ
+70,Data/TEXTURE/TUTOLIAL/setumei.png,説明画像

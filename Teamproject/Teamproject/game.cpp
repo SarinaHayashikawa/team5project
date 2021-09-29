@@ -37,6 +37,7 @@ bool CGame::m_bIsStopUpdate = false;
 bool CGame::m_bIsStopUpdateContinue = false;
 CCamera* CGame::m_pCamera = nullptr;
 CTimer* CGame::m_pTimer = nullptr;
+CGame::MODETYPE CGame::m_mode = MODETYPE_NONE;
 CGame::GAME_STATE CGame::m_GameState = GAMESTATE_NONE;
 D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 {
@@ -70,6 +71,8 @@ CGame::CGame()
 	m_nGameCount		= 0;
 	m_nGameCount		= 0;
 	m_endcount = 0;
+
+	m_map.clear();
 }
 
 //=============================================================================
@@ -99,6 +102,9 @@ CGame * CGame::Create(void)
 //=============================================================================
 HRESULT CGame::Init()
 {
+	m_map.insert(std::make_pair(MODETYPE_1, MOOD1_SECONDS));
+	m_map.insert(std::make_pair(MODETYPE_2, MOOD2_SECONDS));
+
 	//オブジェクト生成
 	CManager::CreateCamera();
 	CManager::CreateLight();
@@ -124,7 +130,7 @@ HRESULT CGame::Init()
 	
 	//タイム生成
 	CtimerBg::Create(TIMER_POSBG, TIMERBG_SIZE, D3DCOLOR_RGBA(255, 255, 255, 255));
-	m_pTimer = CTimer::Create(TIMER_POS, TIMER_SIZE, MOOD1_MINUTES, MOOD1_SECONDS);
+	m_pTimer = CTimer::Create(TIMER_POS, TIMER_SIZE, m_mode, m_map[m_mode]);
 
 
 	//サウンド処理

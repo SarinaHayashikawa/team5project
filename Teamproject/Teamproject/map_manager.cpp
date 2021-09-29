@@ -12,7 +12,7 @@
 #include "manager.h"
 #include "renderer.h"
 #include "scene.h"
-#include "scene2D.h"
+#include "scene2d.h"
 #include "map_manager.h"
 #include "resource manager.h"
 #include "map.h"

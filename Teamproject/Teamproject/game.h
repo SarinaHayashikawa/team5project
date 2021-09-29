@@ -11,6 +11,8 @@
 //=============================================================================
 #include "scene.h"
 #include "camera.h"
+#include <map>
+#include <iostream>
 
 //*****************************************************************************
 // 前方宣言
@@ -28,6 +30,12 @@ class CMapManager;
 class CGame : public CScene
 {
 public:
+	typedef enum
+	{
+		MODETYPE_NONE = 0,
+		MODETYPE_1,
+		MODETYPE_2,
+	} MODETYPE;
 
 	typedef enum //現在の状態
 	{
@@ -60,15 +68,20 @@ public:
 	static void SetIsStopUpdateContinue(bool bIsStopUpdateContinue) { m_bIsStopUpdateContinue = bIsStopUpdateContinue; };
 	static CTimer * GetTimer(void) { return m_pTimer; };
 	static GAME_STATE GetGameState(void) { return m_GameState; };
+	static void SetGameType(MODETYPE mode) { m_mode = mode; };
+	static MODETYPE GetGameType(void) { return m_mode; };
 private:
 
 	CScene2D*		m_pScene;				// シーンポインタ
 	int				m_nGameCount;			// ゲームカウント
 	CPlayerControl* m_pPlayerControl;		// プレイヤーコントロールポインタ
 	CMapManager *	m_pMapManager;			// マップマネージャーポインタ
+	std::map<MODETYPE, int> m_map;
+	
 	static CCamera*	m_pCamera;				// カメラポインタ
 	static CTimer*	m_pTimer;				// タイムポインタ
 	static D3DXVECTOR3 m_Score[MAX_PLAYER];	// スコアの位置
+	static MODETYPE		m_mode;				// ゲームモード
 
 	static bool		m_bPlayerUse;			// プレイヤーが使われているか
 	static bool		m_bIsStopUpdate;		// アップデート停止しているか
