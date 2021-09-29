@@ -92,6 +92,8 @@ HRESULT CPlayerControl::Init(void)
 		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), m_nPlayerModel[nPlayer]);
 	}
 
+	//プレイヤー人数取得
+	m_nNumberPlayer = CManager::GetPlayerNumber();
 	return S_OK;
 }
 

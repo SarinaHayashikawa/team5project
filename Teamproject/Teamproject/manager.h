@@ -78,12 +78,12 @@ public:
 	static void CreateLight(void);
 	static void BindCamera(CCamera* pCamera);
 	static bool GetIsActiveWindow(void);
-	static CResource* GetResource(void) { return m_pResource; };			//リソースゲッター
+	static CResource* GetResource(void) { return m_pResource; };			// リソースゲッター
 	static CScore * GetScore(int nPlayer) { return m_apScore[nPlayer]; };
 	static void SetScore(CScore * pScore, int nPlayer);
 	static void SetPlayerControl(CPlayerControl * pPlayerControl);
 	static CPlayerControl * GetPlayerControl(void) { return m_pPlayerControl; };
-	static void SetPlayerNumber(const int nNumber);								// プレイヤー人数セッター
+	static void SetPlayerNumber(const int nNumber);							// プレイヤー人数セッター
 	static int	GetPlayerNumber(void) { return m_nPlayerNumber; }			// プレイヤー人数ゲッター
 private:
 	static CRenderer * m_pRenderer;

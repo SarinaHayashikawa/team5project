@@ -242,10 +242,17 @@ void CGame::GameOut(void)
 		}
 	}
 
-	//プレイヤーが３人以上死んでいると
+	//プレイヤーが一人になった時
 	if (nDeathPlayer>=3)
 	{
-		//画面遷移
-		CManager::SetMode(CManager::MODE_RESULT);
+		m_endcount++;
+		//制限時間が来たら
+		if (m_endcount >= END_TIME)
+		{
+			//画面遷移
+			CManager::SetMode(CManager::MODE_RESULT);
+			m_GameState = GAMESTATE_NONE;
+			return;
+		}
 	}
 }
