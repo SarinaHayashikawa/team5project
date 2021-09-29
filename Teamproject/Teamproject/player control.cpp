@@ -12,6 +12,7 @@
 #include "player control.h"
 #include "player.h"
 #include "joystick.h"
+#include "keyboard.h"
 #include "player parts.h"
 #include "score.h"
 #include <time.h>
@@ -120,6 +121,11 @@ void CPlayerControl::Update(void)
 			{
 				//プレイヤー、一人ひとりの操作管理
 				PlayerControl(nPlayer);
+
+				if (m_nNumberPlayer == 1)
+				{
+					PlayerKeyControl();
+				}
 			}
 			else
 			{
@@ -306,6 +312,44 @@ void CPlayerControl::PlayerControl(int nPlayer)
 	else
 	{
 		m_pPlayer[nPlayer]->Dash(false);
+	}
+}
+
+//=============================================================================
+// プレイヤー操作(キーボード)関数
+//=============================================================================
+void CPlayerControl::PlayerKeyControl(void)
+{
+	//キーボードの取得
+	CKeyboard* pKeyBoard = CManager::GetInputKeyboard();
+	//入力先
+	D3DXVECTOR3 Key = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	
+	//キー入力取得
+	if (pKeyBoard->GetKeyPress(DIK_UP))Key.y += 1.0f;
+	if (pKeyBoard->GetKeyPress(DIK_LEFT)) Key.x -= 1.0f;
+	if (pKeyBoard->GetKeyPress(DIK_RIGHT)) Key.x += 1.0f;
+	if (pKeyBoard->GetKeyPress(DIK_DOWN))Key.y -= 1.0f;
+
+	// プレイヤーの操作 
+	m_pPlayer[0]->RotControl(Key);
+	
+	//プレイヤーの加速操作
+	if (pKeyBoard->GetKeyPress(DIK_Z))
+	{
+		//パーツ数が0以上
+		if (m_pPlayer[0]->GetPartsCount()>0)
+		{
+			m_pPlayer[0]->Dash(true);
+		}
+		else
+		{
+			m_pPlayer[0]->Dash(false);
+		}
+	}
+	else
+	{
+		m_pPlayer[0]->Dash(false);
 	}
 }
 

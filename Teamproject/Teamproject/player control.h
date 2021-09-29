@@ -49,6 +49,7 @@ private:
 	void DamageHit(int nPlayer);			// 他のプレイヤーの当たった際のダメージ処理
 	void PlayerHit(int nPlayer);			// プレイヤーのヒット処理
 	void PlayerControl(int nPlayer);		// プレイヤー操作関数
+	void PlayerKeyControl(void);			// プレイヤー操作関数（キーボード）
 	void PlayerScore(int nPlayer);			// プレイヤーのスコア処理
 
 	void NpcControl(int nNpc);				// NPC操作関数
