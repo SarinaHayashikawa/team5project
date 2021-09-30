@@ -17,6 +17,8 @@
 #include "score.h"
 #include <time.h>
 #include "sound.h"
+#include "respawn count.h"
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -33,6 +35,14 @@
 //*****************************************************************************
 // 静的メンバ変数初期化
 //*****************************************************************************
+D3DXVECTOR3 CPlayerControl::m_RespawnCountPos[MAX_PLAYER]=
+{
+	D3DXVECTOR3(340.0f, 150.0f, 0.0f),
+	D3DXVECTOR3(1050.0f, 150.0f, 0.0f),
+	D3DXVECTOR3(340.0f, 505.0f, -50.0f),
+	D3DXVECTOR3(1050.0f, 505.0f, -50.0f)
+
+};
 D3DXVECTOR3 CPlayerControl::m_PlayerPos[MAX_PLAYER] =
 {
 	D3DXVECTOR3(-50.0f, 0.0f, 0.0f),
@@ -49,6 +59,7 @@ CPlayerControl::CPlayerControl(int nPriority)
 	{
 		m_pPlayer[nPlayer] = nullptr;
 		m_nRespawn[nPlayer] = 0;
+		m_pRespawnCount[nPlayer] = NULL;
 	}
 	m_bRespawn = true;
 
@@ -88,6 +99,7 @@ CPlayerControl * CPlayerControl::Create()
 //=============================================================================
 HRESULT CPlayerControl::Init(void)
 {
+	//プレイヤー生成
 	for (int nPlayer = 0; nPlayer < MAX_PLAYER; nPlayer++)
 	{
 		m_pPlayer[nPlayer] = CPlayer::Create(m_PlayerPos[nPlayer], D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), m_nPlayerModel[nPlayer]);
@@ -176,8 +188,15 @@ void CPlayerControl::RespawnControl(int nPlayer)
 	//プレイヤーの状態が死んでいる状態なのか
 	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_RESPAWN)
 	{
+		//カウントのUI
+		if (m_pRespawnCount[nPlayer] == NULL)
+		{
+			m_pRespawnCount[nPlayer] = CRespawnCount::Create(m_RespawnCountPos[nPlayer], D3DXVECTOR3(60.0f, 120.0f, 0.0f));
+			m_pRespawnCount[nPlayer]->SetControl(m_nRespawn[nPlayer]/30);
+		}
 		//リスポーンカウント
 		m_nRespawn[nPlayer]++;
+		m_pRespawnCount[nPlayer]->SetControl(m_nRespawn[nPlayer]/30);
 
 		//リスポーンカウントが一定に達したら
 		if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
@@ -197,6 +216,13 @@ void CPlayerControl::RespawnControl(int nPlayer)
 			m_pPlayer[nPlayer]->Respawn(random);
 			//リスポーンカウントの初期化
 			m_nRespawn[nPlayer] = 0;
+
+			//リスポーンカウントUIの処理
+			if (m_pRespawnCount[nPlayer] != NULL)
+			{
+				m_pRespawnCount[nPlayer]->Uninit();
+				m_pRespawnCount[nPlayer] = NULL;
+			}
 		}
 	}
 }

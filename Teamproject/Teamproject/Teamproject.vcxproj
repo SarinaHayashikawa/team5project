@@ -177,6 +177,7 @@
     <ClCompile Include="meshfield cylinder.cpp" />
     <ClCompile Include="player control.cpp" />
     <ClCompile Include="player number.cpp" />
+    <ClCompile Include="respawn count.cpp" />
     <ClCompile Include="result effect.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="salmon parts.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="meshfield cylinder.h" />
     <ClInclude Include="player control.h" />
     <ClInclude Include="player number.h" />
+    <ClInclude Include="respawn count.h" />
     <ClInclude Include="result effect.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="salmon parts.h" />

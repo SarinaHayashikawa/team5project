@@ -19,6 +19,8 @@
 class CPlayer;
 class CScene;
 class CScore;
+class CRespawnCount;
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -74,7 +76,7 @@ private:
 	}NPC_DATA;
 
 	const int		m_nPlayerModel[MAX_PLAYER] = { 1,2,3,4 };		// プレイヤーモデル番号
-
+	CRespawnCount*	m_pRespawnCount[MAX_PLAYER];					// リスポーン時のカウントUIポインタ
 	CPlayer*		m_pPlayer[MAX_PLAYER];				// プレイヤーポインタ
 	int				m_nRespawn[MAX_PLAYER];				// プレイヤーのリスポーンカウント
 	static D3DXVECTOR3 m_PlayerPos[MAX_PLAYER];			// プレイヤーの位置
@@ -83,6 +85,7 @@ private:
 	float			m_fMapSize;							// マップサイズ
 	NPC_DATA		m_NpcData[MAX_NPC];					// NPCの情報
 	bool			m_GemeEnd;							// プレイヤー、一人になった際の勝利スイッチ
+	static D3DXVECTOR3 m_RespawnCountPos[MAX_PLAYER];	// リスポーンカウントの位置
 };
 #endif // !_PLAYER_CONTROL_H_
 
