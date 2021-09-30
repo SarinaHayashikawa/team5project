@@ -28,7 +28,7 @@
 #define NPC_MAX_RANDOM_ROT		(100)		// ランダムに向く方向
 #define NPC_MAX_RANDOM			(50)		// ランダムに向く際の最大カウント
 #define NPC_MAX_TARGET_COUNT	(60*10)		// ターゲットカウントの最大数
-#define NPC_AVOID_BARRIER		(75)		// バリアをよける距離
+#define NPC_AVOID_BARRIER		(100)		// バリアをよける距離
 
 //*****************************************************************************
 // 静的メンバ変数初期化
@@ -653,7 +653,7 @@ void CPlayerControl::AvoidBarrier(int nNpc)
 	//エリアの中心取得
 	D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//(ココの数値を範囲制限の円の中心を取得)
 	//エリアの半径
-	float fRadius = m_fMapSize;									//(ココの数値を範囲制限の円の半径を取得)
+	float fRadius = (m_fMapSize / 2) - NPC_AVOID_BARRIER;									//(ココの数値を範囲制限の円の半径を取得)
 
 	//NPCの位置
 	D3DXVECTOR3 NpcPos = m_pPlayer[nNpc]->GetPos();
@@ -662,10 +662,9 @@ void CPlayerControl::AvoidBarrier(int nNpc)
 	float RangeZ = NpcPos.z - centre.z;
 	float Range = (float)(sqrt(RangeX * RangeX + RangeZ * RangeZ));
 
-	if (Range >= PLAYER_SIZE + (float)((fRadius * 2) - NPC_AVOID_BARRIER))
+	if (Range >= PLAYER_SIZE + (fRadius))
 	{
 		//向きの記録
 		m_NpcData[nNpc - 1].m_TargetRot = D3DXVECTOR3(-RangeX, -RangeZ, 0.0f);
 	}
-
 }
