@@ -52,11 +52,11 @@ D3DXVECTOR3 CGame::m_Score[MAX_PLAYER] =
 const int CGame::m_aGameStateTime[GAMESTATE_MAX] =
 {
 	-1,
-	3600,
-	3300,
 	2700,
 	1800,
+	1500,
 	900,
+	600,
 	300,
 	0
 };
