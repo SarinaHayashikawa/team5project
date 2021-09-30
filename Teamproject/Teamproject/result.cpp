@@ -27,6 +27,7 @@ CCamera* CResult::m_pCamera = nullptr;
 //=============================================================================
 CResult::CResult()
 {
+	m_pScore = nullptr;
 }
 
 //=============================================================================
@@ -116,7 +117,8 @@ void CResult::Draw(void)
 void CResult::ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
 	//スコア生成
-	CScore::Create(pos, size);
+	m_pScore = CScore::Create(pos, size);
+	//m_pScore->SetScore();
 
 	//スコア助数詞生成処理
 	CClassifier::Create(D3DXVECTOR3(pos.x + (size.x*1.2f), pos.y, pos.z), D3DXVECTOR3(size.x * 2, size.y, size.z));
