@@ -187,6 +187,7 @@
     <ClCompile Include="number.cpp" />
     <ClCompile Include="salmon.cpp" />
     <ClCompile Include="ShieldEffect.cpp" />
+    <ClCompile Include="sushi bg.cpp" />
     <ClCompile Include="timecount ui.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="timerBg.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="number.h" />
     <ClInclude Include="salmon.h" />
     <ClInclude Include="ShieldEffect.h" />
+    <ClInclude Include="sushi bg.h" />
     <ClInclude Include="timecount ui.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="timerBg.h" />
