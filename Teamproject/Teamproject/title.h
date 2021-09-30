@@ -49,12 +49,8 @@ public:
 	void Uninit(void);
 private:
 	CScene2d* m_pTitle[MAX_TITLE_TEX];	//TEXポインタ
-
 	static CCamera*	m_pCamera;			//カメラポインタ
-
 	PLAYER_SELECT PlayerNum;
-
 	int nPlayer;
-
 	const int m_nTexture[MAX_TITLE_TEX] = { 60, 61, 62, 63, 64, 65 ,66 };		// テクスチャ番号
 };

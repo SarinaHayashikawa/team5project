@@ -109,6 +109,6 @@ private:
 	static CScore * m_apScore[MAX_PLAYER];		// プレイヤースコア
 	static CPlayerControl * m_pPlayerControl;	// プレイヤー管理のポインタ
 	static int m_nPlayerNumber;					// プレイヤーの人数
-	static CFade* m_pFade;            // フェードのポインタ
+	static CFade* m_pFade;						// フェードのポインタ
 };
 #endif

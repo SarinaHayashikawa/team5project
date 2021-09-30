@@ -678,9 +678,6 @@ void CPlayer::DashDemerit(void)
 	//ダッシュ状態チェック
 	if (m_bDashSwitch)
 	{
-		//ダッシュオン
-		CSound *pSound = CManager::GetSound();
-		pSound->PlaySound(CSound::LABEL_SE_DASH);
 		//餌を落とす
 		if (m_fDashDemeritCoutn == 0)
 		{

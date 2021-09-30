@@ -30,7 +30,7 @@ public:
 	void Update(void);
 	void Draw(void);
 
-	void ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size);	//スコア生成処理
+	void ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size,int nPlayer);	//スコア生成処理
 private:
 	static CCamera*	m_pCamera;	//カメラポインタ
 	CScore*			m_pScore;	//スコアポインタ
