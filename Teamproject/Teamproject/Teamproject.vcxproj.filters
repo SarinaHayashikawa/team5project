@@ -315,6 +315,9 @@
     <ClCompile Include="sushi bg.cpp">
       <Filter>ソース ファイル\GameModel\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="sushi model.cpp">
+      <Filter>ソース ファイル\GameModel\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -507,6 +510,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="sushi bg.h">
+      <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="sushi model.h">
       <Filter>ヘッダー ファイル\GameModel\Effect</Filter>
     </ClInclude>
   </ItemGroup>

@@ -88,6 +88,8 @@ public:
 	static void SetPlayerNumber(const int nNumber);							// プレイヤー人数セッター
 	static int	GetPlayerNumber(void) { return m_nPlayerNumber; }			// プレイヤー人数ゲッター
 	static CFade* GetFade(void) { return m_pFade; }   // フェードの取得// プレイヤー人数ゲッター
+	static void SetResultScore(int nPlayer, int nScore);
+	static int GetResultScore(int nPlayer) { return m_nResultScore[nPlayer]; };
 private:
 	static CRenderer * m_pRenderer;
 	static CKeyboard * m_pKeyboard;
@@ -110,5 +112,6 @@ private:
 	static CPlayerControl * m_pPlayerControl;	// プレイヤー管理のポインタ
 	static int m_nPlayerNumber;					// プレイヤーの人数
 	static CFade* m_pFade;						// フェードのポインタ
+	static int m_nResultScore[MAX_PLAYER];		// 最終スコア
 };
 #endif

@@ -65,21 +65,55 @@ HRESULT CResult::Init(void)
 	//ライト設定
 	CManager::CreateLight();
 
+	//順位付け処理
+	typedef struct
+	{
+		int nScore;
+		int nRank;
+	}PLAYER_DATA;
+
+	PLAYER_DATA aPlayerScore[MAX_PLAYER];
+	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
+	{
+		aPlayerScore[nCount].nScore = CManager::GetResultScore(nCount);
+		aPlayerScore[nCount].nRank = 1;
+	}
+
+	//順位ソート
+	for (int nCountX = 0; nCountX < MAX_PLAYER; nCountX++)
+	{
+		for (int nCountZ = 0; nCountZ < MAX_PLAYER; nCountZ++)
+		{
+			if (aPlayerScore[nCountX].nScore < aPlayerScore[nCountZ].nScore)
+			{
+				aPlayerScore[nCountX].nRank++;
+			}
+		}
+	}
+
+	int nWinnerPlayerNum = 0;
+	for (int nCount = 0; nCount < MAX_PLAYER; nCount++)
+	{
+		if (aPlayerScore[nCount].nRank == 1)
+		{
+			nWinnerPlayerNum = nCount;//勝者の番号を格納
+		}
+	}
+
 	//勝者モデルの表示
-	CWinnerPlayer::Create(D3DXVECTOR3(0.0f, 80.0f, -10.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1);
+	CWinnerPlayer::Create(D3DXVECTOR3(0.0f, 80.0f, -10.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f), nWinnerPlayerNum + 1);
 
 	//勝利UI
 	CWinner::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 6, 0.0f), D3DXVECTOR3(900.0f, 260.0f, 0.0f));
 	
 	//プレイヤーUI
-	CPlayerNumber::Create(D3DXVECTOR3((SCREEN_WIDTH / 3), (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(110.0f, 110.0f, 0.0f),0);
+	CPlayerNumber::Create(D3DXVECTOR3((SCREEN_WIDTH / 3), (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(110.0f, 110.0f, 0.0f), nWinnerPlayerNum);
 
 	//スコア
-	ScoreCreate(D3DXVECTOR3((SCREEN_WIDTH / 2) + 200 , (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(70.0f, 110.0f, 0.0f),0);
+	ScoreCreate(D3DXVECTOR3((SCREEN_WIDTH / 2) + 200 , (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(70.0f, 110.0f, 0.0f), nWinnerPlayerNum);
 
 	//皿を上から降らす
 	CResultEffect::Create();
-
 
 	CSound *pSound = CManager::GetSound();
 	pSound->PlaySound(CSound::LABEL_BGM_RESULT);
@@ -116,10 +150,9 @@ void CResult::Draw(void)
 //=============================================================================
 void CResult::ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nPlayer)
 {
-	CScore* pScore = CManager::GetScore(nPlayer);
 	//スコア生成
 	m_pScore = CScore::Create(pos, size);
-	m_pScore->SetScore(pScore->GetScore());
+	m_pScore->SetScore(CManager::GetResultScore(nPlayer));
 	//スコア助数詞生成処理
 	CClassifier::Create(D3DXVECTOR3(pos.x + (size.x*1.2f), pos.y, pos.z), D3DXVECTOR3(size.x * 2, size.y, size.z));
 }

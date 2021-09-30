@@ -17,7 +17,7 @@
 #include "fade.h"
 #include "resource manager.h"
 #include "game.h"
-
+#include "result effect.h"
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -115,7 +115,7 @@ HRESULT CTitle::Init(void)
 	//オブジェクト生成
 	CManager::CreateCamera();
 	CManager::CreateLight();
-
+	CResultEffect::Create();
 	CSound *pSound = CManager::GetSound();
 	pSound->PlaySound(CSound::LABEL_BGM_TITLE);
 	return S_OK;
