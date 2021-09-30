@@ -11,8 +11,6 @@
 //=============================================================================
 #include "scene.h"
 #include "camera.h"
-#include <map>
-#include <iostream>
 
 //*****************************************************************************
 // 前方宣言
@@ -76,7 +74,6 @@ private:
 	int				m_nGameCount;			// ゲームカウント
 	CPlayerControl* m_pPlayerControl;		// プレイヤーコントロールポインタ
 	CMapManager *	m_pMapManager;			// マップマネージャーポインタ
-	std::map<MODETYPE, int> m_map;
 	
 	static CCamera*	m_pCamera;				// カメラポインタ
 	static CTimer*	m_pTimer;				// タイムポインタ
