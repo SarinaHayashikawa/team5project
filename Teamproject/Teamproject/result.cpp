@@ -75,7 +75,7 @@ HRESULT CResult::Init(void)
 	CPlayerNumber::Create(D3DXVECTOR3((SCREEN_WIDTH / 3), (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(110.0f, 110.0f, 0.0f),0);
 
 	//スコア
-	ScoreCreate(D3DXVECTOR3((SCREEN_WIDTH / 2) + 200 , (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(70.0f, 110.0f, 0.0f));
+	ScoreCreate(D3DXVECTOR3((SCREEN_WIDTH / 2) + 200 , (SCREEN_HEIGHT / 2.5f), 0.0f), D3DXVECTOR3(70.0f, 110.0f, 0.0f),0);
 
 	//皿を上から降らす
 	CResultEffect::Create();
@@ -114,12 +114,12 @@ void CResult::Draw(void)
 //=============================================================================
 // 描画処理
 //=============================================================================
-void CResult::ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size)
+void CResult::ScoreCreate(D3DXVECTOR3 pos, D3DXVECTOR3 size, int nPlayer)
 {
+	CScore* pScore = CManager::GetScore(nPlayer);
 	//スコア生成
 	m_pScore = CScore::Create(pos, size);
-	//m_pScore->SetScore();
-
+	m_pScore->SetScore(pScore->GetScore());
 	//スコア助数詞生成処理
 	CClassifier::Create(D3DXVECTOR3(pos.x + (size.x*1.2f), pos.y, pos.z), D3DXVECTOR3(size.x * 2, size.y, size.z));
 }
