@@ -23,6 +23,7 @@ CSushiBg::CSushiBg(int nPriority) : CPolygon3d(nPriority)
 {
 	m_nPatternAnim = 0;
 	m_nCountAnim = 0;
+
 }
 
 //=============================================================================

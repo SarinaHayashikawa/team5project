@@ -18,6 +18,7 @@
 CSushiModel::CSushiModel(int nPriority) :CModel(nPriority)
 {
 	m_RandAddRot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
 }
 
 //=============================================================================
