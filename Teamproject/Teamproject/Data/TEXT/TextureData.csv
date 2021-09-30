@@ -1,4 +1,4 @@
-MAX_DATA,32,
+MAX_DATA,33,
 1,Data/TEXTURE/MAP/map.png,床のテクスチャ
 10,Data/TEXTURE/FOOD/ebi.png,寿司のエビ
 11,Data/TEXTURE/FOOD/ikura.png,寿司のいくら
@@ -31,3 +31,4 @@ MAX_DATA,32,
 65,Data/TEXTURE/TITLE/3play.png,3人プレイ
 66,Data/TEXTURE/TITLE/4play.png,4人プレイ
 70,Data/TEXTURE/TUTOLIAL/setumei.png,説明画像
+80,Data/TEXTURE/BG/bg_1.png,タイトルなどの背景

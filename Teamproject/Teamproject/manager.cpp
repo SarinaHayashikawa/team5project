@@ -52,6 +52,7 @@ CScore * CManager::m_apScore[MAX_PLAYER] = {};
 CPlayerControl * CManager::m_pPlayerControl = nullptr;
 int CManager::m_nPlayerNumber = NULL;
 CFade* CManager::m_pFade = nullptr;
+int CManager::m_nResultScore[MAX_PLAYER] = {};
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -397,4 +398,12 @@ void CManager::SetPlayerControl(CPlayerControl * pPlayerControl)
 void CManager::SetPlayerNumber(const int nNumber)
 {
 	m_nPlayerNumber = nNumber;
+}
+
+//=============================================================================
+// プレイヤー最終スコアセッター
+//=============================================================================
+void CManager::SetResultScore(int nPlayer ,int nScore)
+{
+	m_nResultScore[nPlayer] = nScore;
 }

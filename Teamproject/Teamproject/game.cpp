@@ -226,9 +226,15 @@ void CGame::GameOut(void)
 		//制限時間が来たら
 		if (m_endcount >= END_TIME)
 		{
+			//マネージャーに最終スコアを渡す
+			for (int nCount = 0;nCount < MAX_PLAYER;nCount++)
+			{
+				CManager::SetResultScore(nCount,CManager::GetScore(nCount)->GetScore());
+			}
+			
+			m_GameState = GAMESTATE_NONE;
 			//画面遷移
 			CManager::SetMode(CManager::MODE_RESULT);
-			m_GameState = GAMESTATE_NONE;
 			return;
 		}
 	}

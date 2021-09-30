@@ -1,41 +1,44 @@
 //=============================================================================
 //
-//	勝者プレイヤー[winner player.cpp]
-//	Author:吉田悠人
+//	寿司モデル[model sushi.cpp]
+//	Author:林川
 //
 //=============================================================================
 
 //=============================================================================
 //インクルードファイル
 //=============================================================================
-#include "winner player.h"
+#include "sushi model.h"
 #include "resource manager.h"
+
+#define MOVE_SPEED (5)
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CWinnerPlayer::CWinnerPlayer(int nPriority) :CModel(nPriority)
+CSushiModel::CSushiModel(int nPriority) :CModel(nPriority)
 {
+	m_RandAddRot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
 }
 
 //=============================================================================
 // デストラクタ
 //=============================================================================
-CWinnerPlayer::~CWinnerPlayer()
+CSushiModel::~CSushiModel()
 {
-
 }
 
 //=============================================================================
 // 生成処理関数
 //=============================================================================
-CWinnerPlayer * CWinnerPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size, int nModel)
+CSushiModel * CSushiModel::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECTOR3 Size, int nModel)
 {
 	//メモリ確保
-	CWinnerPlayer* pWinnerPlayer = nullptr;
-	pWinnerPlayer = new CWinnerPlayer;
+	CSushiModel* pWinnerPlayer = nullptr;
+	pWinnerPlayer = new CSushiModel;
 	//リソース確保
 	CResource* pResource = CManager::GetResource();
-	MODELDATA Model = pResource->ModelLoad(nModel);
+	MODELDATA Model = pResource->ModelLoad(20 + nModel);
 
 	//NULLチェック
 	if (pWinnerPlayer != nullptr)
@@ -48,6 +51,10 @@ CWinnerPlayer * CWinnerPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECT
 		pWinnerPlayer->SetSize(Size);
 		//モデルデータ設定
 		pWinnerPlayer->SetModelData(Model);
+		float nRandRotX = float(rand() % 100) / 10000;
+		float nRandRotY = float(rand() % 100) / 10000;
+		float nRandRotZ = float(rand() % 100) / 10000;
+		pWinnerPlayer->m_RandAddRot = D3DXVECTOR3(nRandRotX, nRandRotY, nRandRotZ);
 		//初期化処理
 		pWinnerPlayer->Init();
 	}
@@ -58,7 +65,16 @@ CWinnerPlayer * CWinnerPlayer::Create(D3DXVECTOR3 Pos, D3DXVECTOR3 Rot, D3DXVECT
 //=============================================================================
 // 更新処理関数
 //=============================================================================
-void CWinnerPlayer::Update(void)
+void CSushiModel::Update(void)
 {
+	SetRot(GetRot() + m_RandAddRot);
 
+	SetPos(D3DXVECTOR3(GetPos().x, GetPos().y, GetPos().z - MOVE_SPEED));
+
+	//画面外に出ているか
+	if (GetPos().z <= -500)
+	{
+		//画面外にいる時に消去
+		Uninit();
+	}
 }

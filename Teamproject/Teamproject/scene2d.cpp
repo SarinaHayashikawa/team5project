@@ -191,6 +191,10 @@ void CScene2d::Draw(void)
 	//デバイスにレンダラーのデバイスを代入
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
+	//アルファテストの設定
+	pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000001);
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
 
 	// 頂点フォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_2D);

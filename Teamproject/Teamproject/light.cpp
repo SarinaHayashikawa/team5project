@@ -38,10 +38,14 @@ void CLight::Init(void)
 	D3DXVECTOR3 vecDir;
 	ZeroMemory(&m_light, sizeof(D3DLIGHT9));
 	m_light.Type = D3DLIGHT_DIRECTIONAL;
-	m_light.Diffuse = D3DXCOLOR(2, 2, 2, 1);
+	m_light.Diffuse = D3DXCOLOR(5, 5, 5, 1);
 	m_light.Ambient = D3DXCOLOR(2, 2, 2, 1);
 	m_light.Specular = D3DXCOLOR(1, 1, 1, 1);
 	vecDir = D3DXVECTOR3(0.5f, -0.8f, 0.0f);
+	//m_light.Diffuse = D3DXCOLOR(10, 10, 10, 1);
+	//m_light.Ambient = D3DXCOLOR(2, 2, 2, 1);
+	//m_light.Specular = D3DXCOLOR(2, 2, 2, 1);
+	//vecDir = D3DXVECTOR3(-0.5f, -0.8f, 0.5f);
 	D3DXVec3Normalize(&vecDir, &vecDir);
 	m_light.Direction = vecDir;
 	pDevice->SetLight(0, &m_light);
