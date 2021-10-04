@@ -138,10 +138,6 @@ void CPlayer::Update(void)
 	case PLAYER_STATS_DEATH:	//死亡している場合
 		Death();
 		break;
-
-	default:					//指定している以外の状態になってしまった際
-		SetStats(PLAYER_STATS_NORMAL);
-		break;
 	}
 	// 無敵時間処理関数
 	Invincible();
@@ -183,17 +179,14 @@ void CPlayer::Draw(void)
 //=============================================================================
 void CPlayer::Move(void)
 {
-
 	//位置取得
 	D3DXVECTOR3 pos = GetPos();
 	//向き取得
 	D3DXVECTOR3 rot = GetRot();
 	//移動量
 	D3DXVECTOR3 move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-
 	//移動処理
 	move = D3DXVECTOR3((float)(cos(rot.y + D3DXToRadian(90.0f))), 0.0f, (float)(sin(rot.y - D3DXToRadian(90.0f))));
-
 
 	if (!m_bDashSwitch)
 	{
@@ -222,11 +215,9 @@ void CPlayer::Move(void)
 	move *= m_fDashCoutn;
 	// 移動処理
 	pos += move;
-	if (CGame::GetGameState() != CGame::GAMESTATE_7)//終了時は動きを止める
-	{
-		// 位置保存
-		SetPos(pos);
-	}
+
+	// 位置保存
+	SetPos(pos);
 
 }
 
@@ -282,7 +273,6 @@ void CPlayer::RepelMove(void)
 		//カウント初期化
 		m_nRepelFrameCount = 0;
 		//ステータスを変更
-
 		SetStats(PLAYER_STATS_NORMAL);
 	}
 }

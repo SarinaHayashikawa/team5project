@@ -181,7 +181,16 @@ void CGame::Update(void)
 			}
 			if (m_GameState == GAMESTATE_7)//ゲーム終了
 			{
+				//プレイヤーの取得
+				for (int nPlayer = 0; nPlayer<MAX_PLAYER; nPlayer++)
+				{
+					CPlayer* pPlayer = CManager::GetPlayerControl()->GetPlayer(nPlayer);
+					pPlayer->SetStats(CPlayer::PLAYER_STATS_NONE);
+				}
+
+				//ゲーム終了お知らせのUI
 				CGameEndUi::Create(D3DXVECTOR3(SCREEN_CENTER_X, -50.0f, 0.0f), D3DXVECTOR3(0.0f, 10.0f, 0.0f), D3DXVECTOR3(834.0f, 289.0f, 0.0f));
+				//SE
 				pSound->PlaySound(CSound::LABEL_SE_PIPI);
 			}
 		}

@@ -32,7 +32,6 @@ public:
 private:
 
 	void EdgeCollision(void);
-	void NowEdgeCollision(void);
 	D3DXVECTOR3 m_size;
 	D3DXVECTOR3 m_originsize;
 
