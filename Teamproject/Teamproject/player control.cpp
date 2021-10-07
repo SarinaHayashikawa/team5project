@@ -58,7 +58,7 @@ CPlayerControl::CPlayerControl(int nPriority)
 	for (int nPlayer = 0; nPlayer<MAX_PLAYER; nPlayer++)
 	{
 		m_pPlayer[nPlayer] = nullptr;
-		m_nRespawn[nPlayer] = 0;
+		m_nRespawn[nPlayer] = PLAYER_DEATH;
 		m_pRespawnCount[nPlayer] = NULL;
 	}
 	m_bRespawn = true;
@@ -195,11 +195,11 @@ void CPlayerControl::RespawnControl(int nPlayer)
 			m_pRespawnCount[nPlayer]->SetControl(m_nRespawn[nPlayer]/30);
 		}
 		//リスポーンカウント
-		m_nRespawn[nPlayer]++;
+		m_nRespawn[nPlayer]--;
 		m_pRespawnCount[nPlayer]->SetControl(m_nRespawn[nPlayer]/30);
 
 		//リスポーンカウントが一定に達したら
-		if (m_nRespawn[nPlayer] >= PLAYER_DEATH)
+		if (m_nRespawn[nPlayer] <= 0)
 		{
 			//中心地
 			D3DXVECTOR3 centre = D3DXVECTOR3(0.0f, 0.0f, 0.0f);//(ココの数値を範囲制限の円の中心を取得)
@@ -215,7 +215,7 @@ void CPlayerControl::RespawnControl(int nPlayer)
 			//リスポーン処理
 			m_pPlayer[nPlayer]->Respawn(random);
 			//リスポーンカウントの初期化
-			m_nRespawn[nPlayer] = 0;
+			m_nRespawn[nPlayer] = PLAYER_DEATH;
 
 			//リスポーンカウントUIの処理
 			if (m_pRespawnCount[nPlayer] != NULL)
@@ -286,7 +286,7 @@ void CPlayerControl::PlayerHit(int nPlayer)
 			if (m_pPlayer[nPlayerCount] != nullptr)
 			{
 				//相手プレイヤーの状態チェック
-				if (m_pPlayer[nPlayerCount]->GetStats()== CPlayer::PLAYER_STATS_NORMAL)
+				if (m_pPlayer[nPlayerCount]->GetStats() == CPlayer::PLAYER_STATS_NORMAL)
 				{
 					//プレイヤーの位置
 					D3DXVECTOR3 PlayerPos = m_pPlayer[nPlayer]->GetPos();

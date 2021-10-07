@@ -39,7 +39,7 @@
 #define PLAYER_REPEL		(15.0f)	// プレイヤーがはじかれる距離
 #define PLAYER_REPEL_FRAME	(10.0f)	// プレイヤーのはじかれた際のフレーム
 #define PLAYER_INVINCIBLE	(30*3)	// プレイヤーの無敵時間
-#define PLAYER_DASH_DEMERIT	(30*4)	// プレイヤーのダッシュ時のデメリットカウント
+#define PLAYER_DASH_DEMERIT	(30*2)	// プレイヤーのダッシュ時のデメリットカウント
 #define ITEM_EFFECT_COUNT	(150)	// アイテムの効果時間
 
 
@@ -54,7 +54,7 @@ CPlayer::CPlayer(int nPriority)
 	m_nFlashing			 = 0;								// 死亡時のカウントフレーム値　の初期化
 	m_nInvinciFrameCount = 0;								// 無敵状態のフレームカウントの初期化
 	m_MaxInvinciCount	 = 0;								// 無敵状態の最大数の初期化
-	m_fDashDemeritCoutn	 = 0;								// 加速時のデメリットカウントの初期化
+	m_fDashDemeritCoutn	 = PLAYER_DASH_DEMERIT;				// 加速時のデメリットカウントの初期化
 	m_fDashCoutn	= 0;									// 加速値の初期化
 	m_nParts		= 0;									// パーツ数の初期化
 	m_nItemCount	= ITEM_EFFECT_COUNT;					// スコアアップ状態の時間
@@ -328,63 +328,67 @@ void CPlayer::Repel(CScene3d* Player)
 //=============================================================================
 void CPlayer::AddParts(CFoodBase::FOOD_TYPE FoodType)
 {
-	//パーツがない時
-	if (m_nParts == 0)
-	{	
-		//位置取得
-		D3DXVECTOR3 pos = GetPos();
-		//向き取得
-		D3DXVECTOR3 rot = GetRot();
-		//生成処理
-		switch (FoodType)
-		{
-		case CFoodBase::TYPE_EBI:
-			m_pParts[m_nParts] = CEbiParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
-			break;
-		case CFoodBase::TYPE_EGG:
-			m_pParts[m_nParts] = CEggParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
-			break;
-		case CFoodBase::TYPE_IKURA:
-			m_pParts[m_nParts] = CIkuraParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
-			break;
-		case CFoodBase::TYPE_SALMON:
-			m_pParts[m_nParts] = CSalmonParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
-			break;
-		case CFoodBase::TYPE_TUNA:
-			m_pParts[m_nParts] = CTunaParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
-			break;
-		}
-	}
-	//パーツが１つでもある時
-	else if (m_nParts>0 && m_nParts<MAX_PARTS)
+	if (m_PlayerStats != PLAYER_STATS_DEATH)
 	{
-		//位置取得
-		D3DXVECTOR3 PartsPos = m_pParts[m_nParts - 1]->GetPos();
-		//向き取得
-		D3DXVECTOR3 PartsRot = m_pParts[m_nParts - 1]->GetRot();
-		//生成処理
-		switch (FoodType)
+		//パーツがない時
+		if (m_nParts == 0)
 		{
-		case CFoodBase::TYPE_EBI:
-			m_pParts[m_nParts] = CEbiParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
-			break;
-		case CFoodBase::TYPE_EGG:
-			m_pParts[m_nParts] = CEggParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
-			break;
-		case CFoodBase::TYPE_IKURA:		
-			m_pParts[m_nParts] = CIkuraParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
-			break;
-		case CFoodBase::TYPE_SALMON:
-			m_pParts[m_nParts] = CSalmonParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
-			break;
-		case CFoodBase::TYPE_TUNA:
-			m_pParts[m_nParts] = CTunaParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
-			break;
+			//位置取得
+			D3DXVECTOR3 pos = GetPos();
+			//向き取得
+			D3DXVECTOR3 rot = GetRot();
+			//生成処理
+			switch (FoodType)
+			{
+			case CFoodBase::TYPE_EBI:
+				m_pParts[m_nParts] = CEbiParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
+				break;
+			case CFoodBase::TYPE_EGG:
+				m_pParts[m_nParts] = CEggParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
+				break;
+			case CFoodBase::TYPE_IKURA:
+				m_pParts[m_nParts] = CIkuraParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
+				break;
+			case CFoodBase::TYPE_SALMON:
+				m_pParts[m_nParts] = CSalmonParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
+				break;
+			case CFoodBase::TYPE_TUNA:
+				m_pParts[m_nParts] = CTunaParts::Create(pos, rot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), this);
+				break;
+			}
 		}
-	}
+		//パーツが１つでもある時
+		else if (m_nParts>0 && m_nParts<MAX_PARTS)
+		{
+			//位置取得
+			D3DXVECTOR3 PartsPos = m_pParts[m_nParts - 1]->GetPos();
+			//向き取得
+			D3DXVECTOR3 PartsRot = m_pParts[m_nParts - 1]->GetRot();
+			//生成処理
+			switch (FoodType)
+			{
+			case CFoodBase::TYPE_EBI:
+				m_pParts[m_nParts] = CEbiParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
+				break;
+			case CFoodBase::TYPE_EGG:
+				m_pParts[m_nParts] = CEggParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
+				break;
+			case CFoodBase::TYPE_IKURA:
+				m_pParts[m_nParts] = CIkuraParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
+				break;
+			case CFoodBase::TYPE_SALMON:
+				m_pParts[m_nParts] = CSalmonParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
+				break;
+			case CFoodBase::TYPE_TUNA:
+				m_pParts[m_nParts] = CTunaParts::Create(m_pParts[m_nParts - 1]->GetPos(), PartsRot, D3DXVECTOR3(10.0f, 10.0f, 10.0f), m_pParts[m_nParts - 1]);
+				break;
+			}
+		}
 
-	//パーツ数を増やす
-	m_nParts++;
+		//パーツ数を増やす
+		m_nParts++;
+
+	}
 }
 
 //=============================================================================
@@ -668,10 +672,13 @@ void CPlayer::DashDemerit(void)
 	//ダッシュ状態チェック
 	if (m_bDashSwitch)
 	{
+		//カウントダウン
+		m_fDashDemeritCoutn--;
+
 		//餌を落とす
 		if (m_fDashDemeritCoutn == 0)
 		{
-			if (m_pParts[m_nParts-1] != nullptr)
+			if (m_pParts[m_nParts - 1] != nullptr)
 			{
 				//パーツの位置取得
 				D3DXVECTOR3 PartsPos = m_pParts[m_nParts - 1]->GetPos();
@@ -697,21 +704,10 @@ void CPlayer::DashDemerit(void)
 				m_pParts[m_nParts - 1]->Uninit();
 				m_pParts[m_nParts - 1] = nullptr;
 				m_nParts -= 1;
+				m_fDashDemeritCoutn = PLAYER_DASH_DEMERIT;
 
 			}
 		}
-		//カウントアップ
-		m_fDashDemeritCoutn++;
-
-		//一定までカウントしたら
-		if (m_fDashDemeritCoutn>PLAYER_DASH_DEMERIT)
-		{
-			m_fDashDemeritCoutn = 0;
-		}
-	}
-	else
-	{
-		m_fDashDemeritCoutn = 0;
 	}
 }
 
