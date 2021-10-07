@@ -185,8 +185,8 @@ void CPlayerControl::SetRespawn(bool Respawn)
 //=============================================================================
 void CPlayerControl::RespawnControl(int nPlayer)
 {
-	//プレイヤーの状態が死んでいる状態なのか
-	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_RESPAWN)
+	//プレイヤーの状態が死んでいる状態なのか+リスポーンのスイッチが入っているか
+	if (m_pPlayer[nPlayer]->GetStats() == CPlayer::PLAYER_STATS_RESPAWN&&m_bRespawn == true)
 	{
 		//カウントのUI
 		if (m_pRespawnCount[nPlayer] == NULL)
