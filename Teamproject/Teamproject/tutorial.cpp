@@ -119,7 +119,7 @@ void CTutorial::Update(void)
 
 	if (pJoy->GetJoystickTrigger(JS_A, 0))
 	{
-		CManager::GetFade()->SetFade(CManager::MODE_TITLE);
+		CManager::GetFade()->SetFade(CManager::MODE_GAME);
 	}
 }
 

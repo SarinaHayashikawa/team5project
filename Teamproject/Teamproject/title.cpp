@@ -133,26 +133,42 @@ void CTitle::Uninit(void)
 //=============================================================================
 void CTitle::Update(void)
 {
-	//サウンド
-	CSound * pSound = CManager::GetSound();
+	//キーボード入力処理
+	KeyControl();
+	//コントローラー入力処理
+	JoyControl();
+}
+
+//=============================================================================
+// 描画処理
+//=============================================================================
+void CTitle::Draw(void)
+{
+}
+
+//=============================================================================
+// キーボード入力処理
+//=============================================================================
+void CTitle::KeyControl(void)
+{
 	//キーボードの取得
 	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
 
 	if (PlayerNum == PLAYER_NONE)
 	{
-		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_UP))
+		if (pInputKeyboard->GetKeyTrigger(DIK_UP))
 		{
 			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
 			CGame::SetGameType(CGame::MODETYPE::MODETYPE_1);
 		}
-		else if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_DOWN))
+		else if (pInputKeyboard->GetKeyTrigger(DIK_DOWN))
 		{
 			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
 			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			CGame::SetGameType(CGame::MODETYPE::MODETYPE_2);
 		}
-		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_Z))
+		if (pInputKeyboard->GetKeyTrigger(DIK_Z))
 		{
 			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
 			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
@@ -166,7 +182,7 @@ void CTitle::Update(void)
 	}
 	else
 	{
-		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_UP))
+		if (pInputKeyboard->GetKeyTrigger(DIK_UP))
 		{
 			if (nPlayer == 3 || nPlayer == 4)
 			{
@@ -177,7 +193,7 @@ void CTitle::Update(void)
 
 			}
 		}
-		else if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_DOWN))
+		else if (pInputKeyboard->GetKeyTrigger(DIK_DOWN))
 		{
 			if (nPlayer == 1 || nPlayer == 2)
 			{
@@ -188,7 +204,7 @@ void CTitle::Update(void)
 
 			}
 		}
-		else if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_LEFT))
+		else if (pInputKeyboard->GetKeyTrigger(DIK_LEFT))
 		{
 			if (nPlayer == 2 || nPlayer == 4)
 			{
@@ -199,7 +215,7 @@ void CTitle::Update(void)
 
 			}
 		}
-		else if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_RIGHT))
+		else if (pInputKeyboard->GetKeyTrigger(DIK_RIGHT))
 		{
 			if (nPlayer == 1 || nPlayer == 3)
 			{
@@ -246,7 +262,7 @@ void CTitle::Update(void)
 		{
 
 		}
-		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_Z))
+		if (pInputKeyboard->GetKeyTrigger(DIK_Z))
 		{
 			CManager::SetPlayerNumber(nPlayer);
 			CManager::GetFade()->SetFade(CManager::MODE_TUTORIAL);
@@ -255,8 +271,124 @@ void CTitle::Update(void)
 }
 
 //=============================================================================
-// 描画処理
+// コントローラー入力処理
 //=============================================================================
-void CTitle::Draw(void)
+void CTitle::JoyControl(void)
 {
+	CJoystick* pJoy = CManager::GetInputJoystick();
+	if (PlayerNum == PLAYER_NONE)
+	{
+		if (pJoy->GetJoyStick(0).lY<-100)
+		{
+			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			CGame::SetGameType(CGame::MODETYPE::MODETYPE_1);
+		}
+		else if (pJoy->GetJoyStick(0).lY>100)
+		{
+			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			CGame::SetGameType(CGame::MODETYPE::MODETYPE_2);
+		}
+		if (pJoy->GetJoystickTrigger(JS_A,0))
+		{
+			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
+			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
+
+			PlayerNum = PLAYER_1;
+			m_pTitle[TEX_1PLAYER]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pTitle[TEX_2PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_3PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_4PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+		}
+	}
+	else
+	{
+		if (pJoy->GetJoyStick(0).lY<-100)
+		{
+			if (nPlayer == 3 || nPlayer == 4)
+			{
+				nPlayer += -2;
+			}
+			else
+			{
+
+			}
+		}
+		else if (pJoy->GetJoyStick(0).lY>100)
+		{
+			if (nPlayer == 1 || nPlayer == 2)
+			{
+				nPlayer += 2;
+			}
+			else
+			{
+
+			}
+		}
+		else if (pJoy->GetJoyStick(0).lX<-100)
+		{
+			if (nPlayer == 2 || nPlayer == 4)
+			{
+				nPlayer += -1;
+			}
+			else
+			{
+
+			}
+		}
+		else if (pJoy->GetJoyStick(0).lX>100)
+		{
+			if (nPlayer == 1 || nPlayer == 3)
+			{
+				nPlayer += 1;
+			}
+			else
+			{
+
+			}
+		}
+		else
+		{
+
+		}
+		if (nPlayer == 1)
+		{
+			m_pTitle[TEX_1PLAYER]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pTitle[TEX_2PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_3PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_4PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+		}
+		else if (nPlayer == 2)
+		{
+			m_pTitle[TEX_1PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_2PLAYER]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pTitle[TEX_3PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_4PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+		}
+		else if (nPlayer == 3)
+		{
+			m_pTitle[TEX_1PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_2PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_3PLAYER]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_pTitle[TEX_4PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+		}
+		else if (nPlayer == 4)
+		{
+			m_pTitle[TEX_1PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_2PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_3PLAYER]->SetColor(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_pTitle[TEX_4PLAYER]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		else
+		{
+
+		}
+		if (pJoy->GetJoystickTrigger(JS_A, 0))
+		{
+			CManager::SetPlayerNumber(nPlayer);
+			CManager::GetFade()->SetFade(CManager::MODE_TUTORIAL);
+		}
+	}
+
 }

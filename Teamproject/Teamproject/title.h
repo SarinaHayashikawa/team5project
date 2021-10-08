@@ -48,6 +48,9 @@ public:
 	void Draw(void);
 	void Uninit(void);
 private:
+	void KeyControl(void);				//キーボード入力
+	void JoyControl(void);				//コントローラー入力
+
 	CScene2d* m_pTitle[MAX_TITLE_TEX];	//TEXポインタ
 	static CCamera*	m_pCamera;			//カメラポインタ
 	PLAYER_SELECT PlayerNum;
