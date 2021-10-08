@@ -17,6 +17,9 @@
 #include "player number.h"
 #include "result effect.h"
 #include "sound.h"
+#include "fade.h"
+#include "keyboard.h"
+#include "joystick.h"
 //=============================================================================
 // Ã“Iƒƒ“ƒo•Ï”‰Šú‰»
 //=============================================================================
@@ -136,6 +139,18 @@ void CResult::Uninit(void)
 //=============================================================================
 void CResult::Update(void)
 {
+	CKeyboard* pKey = CManager::GetInputKeyboard();
+	CJoystick* pJoy = CManager::GetInputJoystick();
+	if (pKey->GetKeyTrigger(DIK_Z))
+	{
+		CManager::GetFade()->SetFade(CManager::MODE_TITLE);
+	}
+
+	if (pJoy->GetJoystickTrigger (JS_A, 0))
+	{
+		CManager::GetFade()->SetFade(CManager::MODE_TITLE);
+	}
+
 }
 
 //=============================================================================

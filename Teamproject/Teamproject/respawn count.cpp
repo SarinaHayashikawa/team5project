@@ -14,7 +14,7 @@
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CRespawnCount::CRespawnCount(int nPriority)
+CRespawnCount::CRespawnCount(int nPriority):CScene(nPriority)
 {
 	SetObjType(CScene::OBJTYPE_NONE);
 	m_nControl = 0;

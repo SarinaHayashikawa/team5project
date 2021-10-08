@@ -17,6 +17,7 @@
 #include "fade.h"
 #include "resource manager.h"
 #include "game.h"
+#include "joystick.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -87,8 +88,6 @@ HRESULT CTutorial::Init(void)
 	CManager::CreateCamera();
 	CManager::CreateLight();
 
-	CSound *pSound = CManager::GetSound();
-	pSound->PlaySound(CSound::LABEL_BGM_TITLE);
 	return S_OK;
 }
 
@@ -111,10 +110,16 @@ void CTutorial::Update(void)
 	CSound * pSound = CManager::GetSound();
 	//キーボードの取得
 	CKeyboard * pInputKeyboard = CManager::GetInputKeyboard();
+	CJoystick * pJoy = CManager::GetInputJoystick();
 
-	if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_RETURN))
+	if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_Z))
 	{
 		CManager::GetFade()->SetFade(CManager::MODE_GAME);
+	}
+
+	if (pJoy->GetJoystickTrigger(JS_A, 0))
+	{
+		CManager::GetFade()->SetFade(CManager::MODE_TITLE);
 	}
 }
 

@@ -126,9 +126,6 @@ HRESULT CTitle::Init(void)
 //=============================================================================
 void CTitle::Uninit(void)
 {
-
-	CSound *pSound = CManager::GetSound();
-	pSound->StopSound(CSound::LABEL_BGM_TITLE);
 }
 
 //=============================================================================
@@ -155,7 +152,7 @@ void CTitle::Update(void)
 			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			CGame::SetGameType(CGame::MODETYPE::MODETYPE_2);
 		}
-		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_RETURN))
+		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_Z))
 		{
 			m_pTitle[TEX_MODE1]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
 			m_pTitle[TEX_MODE2]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f));
@@ -249,7 +246,7 @@ void CTitle::Update(void)
 		{
 
 		}
-		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_RETURN))
+		if (CManager::GetInputKeyboard()->GetKeyTrigger(DIK_Z))
 		{
 			CManager::SetPlayerNumber(nPlayer);
 			CManager::GetFade()->SetFade(CManager::MODE_TUTORIAL);
