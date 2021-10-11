@@ -328,7 +328,7 @@ void CPlayer::Repel(CScene3d* Player)
 //=============================================================================
 void CPlayer::AddParts(CFoodBase::FOOD_TYPE FoodType)
 {
-	if (m_PlayerStats != PLAYER_STATS_DEATH)
+	if (m_PlayerStats != PLAYER_STATS_DEATH|| m_PlayerStats != PLAYER_STATS_RESPAWN)
 	{
 		//ÉpÅ[ÉcÇ™Ç»Ç¢éû
 		if (m_nParts == 0)
